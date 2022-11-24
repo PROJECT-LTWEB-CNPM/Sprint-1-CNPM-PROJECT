@@ -41,6 +41,11 @@
     cursor: pointer;
 }
 
+.topic_registration-filter a {
+	text-decoration: none;
+	color: var(--text-blue-color);
+}
+
 .topic_registration-filter-active {
     background-color: var(--white-color);
 }
