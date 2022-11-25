@@ -78,10 +78,12 @@ public class LoginService extends SuperService {
 				
 				// define url base on role
 				if (role.equals("student")) {
-					url = "/home";
+					url = "/home/student";
 				}else if (role.equals("teacher")) {
 					// boilerplate code
-					url = "pages/teacher/home";
+					url = "/home/teacher";
+				}else if (role.equals("admin")) {
+					url = "/home/admin";
 				}
 					
 			}else {
@@ -107,5 +109,8 @@ public class LoginService extends SuperService {
 		}else {
 			super.forwardToPage(url);
 		}	
+		
+		
+		// test
 	}
 }
