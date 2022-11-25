@@ -10,27 +10,28 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="board")
 @NamedQuery(name="Board.findAll", query="SELECT b FROM Board b")
 public class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="board_id", unique=true, nullable=false, length=12)
+	@Column(name="board_id")
 	private String boardId;
 
-	@Column(name="board_name", length=255)
+	@Column(name="board_name")
 	private String boardName;
 
-	@Column(length=255)
 	private String description;
+
+	@Column(name="is_deleted")
+	private byte isDeleted;
 
 	@Column(name="no_member")
 	private int noMember;
 
-	//bi-directional many-to-many association to Teacher
-	@ManyToMany(mappedBy="boards")
-	private List<Teacher> teachers;
+	//bi-directional many-to-one association to TeacherBoard
+	@OneToMany(mappedBy="board")
+	private List<TeacherBoard> teacherboards;
 
 	public Board() {
 	}
@@ -59,6 +60,14 @@ public class Board implements Serializable {
 		this.description = description;
 	}
 
+	public byte getIsDeleted() {
+		return this.isDeleted;
+	}
+
+	public void setIsDeleted(byte isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
 	public int getNoMember() {
 		return this.noMember;
 	}
@@ -67,12 +76,26 @@ public class Board implements Serializable {
 		this.noMember = noMember;
 	}
 
-	public List<Teacher> getTeachers() {
-		return this.teachers;
+	public List<TeacherBoard> getTeacherboards() {
+		return this.teacherboards;
 	}
 
-	public void setTeachers(List<Teacher> teachers) {
-		this.teachers = teachers;
+	public void setTeacherboards(List<TeacherBoard> teacherboards) {
+		this.teacherboards = teacherboards;
+	}
+
+	public TeacherBoard addTeacherboard(TeacherBoard teacherboard) {
+		getTeacherboards().add(teacherboard);
+		teacherboard.setBoard(this);
+
+		return teacherboard;
+	}
+
+	public TeacherBoard removeTeacherboard(TeacherBoard teacherboard) {
+		getTeacherboards().remove(teacherboard);
+		teacherboard.setBoard(null);
+
+		return teacherboard;
 	}
 
 }
