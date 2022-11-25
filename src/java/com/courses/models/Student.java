@@ -9,16 +9,15 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="student")
 @NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
 public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="student_id", unique=true, nullable=false, length=12)
+	@Column(name="student_id")
 	private String studentId;
 
-	@Column(name="school_year", length=10)
+	@Column(name="school_year")
 	private String schoolYear;
 
 	//bi-directional many-to-one association to GroupStudent
