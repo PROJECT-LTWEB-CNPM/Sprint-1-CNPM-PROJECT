@@ -10,33 +10,30 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="person")
 @NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="person_id", unique=true, nullable=false, length=12)
+	@Column(name="person_id")
 	private String personId;
 
-	@Column(length=255)
 	private String address;
 
-	@Column(length=255)
 	private String description;
 
-	@Column(length=255)
 	private String email;
 
-	@Column(name="full_name", length=255)
+	@Column(name="full_name")
 	private String fullName;
 
 	private byte gender;
 
-	@Column(length=10)
+	@Column(name="is_deleted")
+	private byte isDeleted;
+
 	private String phonenumber;
 
-	@Column(nullable=false, length=50)
 	private String role;
 
 	//bi-directional many-to-one association to Account
@@ -104,6 +101,14 @@ public class Person implements Serializable {
 
 	public void setGender(byte gender) {
 		this.gender = gender;
+	}
+
+	public byte getIsDeleted() {
+		return this.isDeleted;
+	}
+
+	public void setIsDeleted(byte isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public String getPhonenumber() {

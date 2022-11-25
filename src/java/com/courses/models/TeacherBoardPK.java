@@ -12,10 +12,10 @@ public class TeacherBoardPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="teacher_id", insertable=false, updatable=false, unique=true, nullable=false, length=12)
+	@Column(name="teacher_id", insertable=false, updatable=false)
 	private String teacherId;
 
-	@Column(name="board_id", insertable=false, updatable=false, unique=true, nullable=false, length=12)
+	@Column(name="board_id", insertable=false, updatable=false)
 	private String boardId;
 
 	public TeacherBoardPK() {
