@@ -24,8 +24,15 @@ public class HomeService extends SuperService{
 		super.forwardToPage(url);
 	}
 	
-	public void handlPostHome() throws ServletException, IOException {
+	public void handlePostHome() throws ServletException, IOException {
 		
+	}
+	
+	public void handleGetTeacherHomeService() throws ServletException, IOException{
+		// define url for teacher home page
+		String url = "/pages/client/teacher/home.jsp";
+		//forward information to jsp file
+		super.forwardToPage(url);
 	}
 
 

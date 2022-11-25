@@ -9,13 +9,12 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="admin")
 @NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
 public class Admin implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="admin_id", unique=true, nullable=false, length=12)
+	@Column(name="admin_id")
 	private String adminId;
 
 	//bi-directional many-to-one association to Person

@@ -10,22 +10,20 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="major")
 @NamedQuery(name="Major.findAll", query="SELECT m FROM Major m")
 public class Major implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="major_id", unique=true, nullable=false, length=12)
+	@Column(name="major_id")
 	private String majorId;
 
-	@Column(length=255)
 	private String description;
 
 	@Column(name="is_active")
 	private byte isActive;
 
-	@Column(name="major_name", length=255)
+	@Column(name="major_name")
 	private String majorName;
 
 	//bi-directional many-to-one association to Student

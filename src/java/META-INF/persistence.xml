@@ -10,9 +10,9 @@
 		<class>com.courses.models.RegistrationPeriod</class>
 		<class>com.courses.models.Student</class>
 		<class>com.courses.models.Teacher</class>
-		<class>com.courses.models.Topic</class>
 		<class>com.courses.models.TeacherBoard</class>
 		<class>com.courses.models.TeacherBoardPK</class>
+		<class>com.courses.models.Topic</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/TopicRegistration" />
@@ -22,7 +22,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.jdbc.batch_size" value="10" />
 			<property name="hibernate.order_inserts" value="true" />
-			<property name="javax.persistence.jdbc.password" value="pnnt19062002"/>
+			<property name="javax.persistence.jdbc.password" value="201102"/>
 		</properties>
 	</persistence-unit>
 </persistence>

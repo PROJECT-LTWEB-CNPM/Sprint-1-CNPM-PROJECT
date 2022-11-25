@@ -10,25 +10,26 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="groupstudent")
 @NamedQuery(name="GroupStudent.findAll", query="SELECT g FROM GroupStudent g")
 public class GroupStudent implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="group_id", unique=true, nullable=false, length=12)
+	@Column(name="group_id")
 	private String groupId;
 
 	@Column(name="current_number")
 	private int currentNumber;
 
-	@Column(length=255)
 	private String description;
+
+	@Column(name="is_deleted")
+	private byte isDeleted;
 
 	@Column(name="is_full")
 	private byte isFull;
 
-	@Column(name="leader_id", length=12)
+	@Column(name="leader_id")
 	private String leaderId;
 
 	//bi-directional many-to-one association to Topic
@@ -65,6 +66,14 @@ public class GroupStudent implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public byte getIsDeleted() {
+		return this.isDeleted;
+	}
+
+	public void setIsDeleted(byte isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public byte getIsFull() {
