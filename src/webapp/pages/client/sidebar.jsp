@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+String context = request.getContextPath();
+%>
 <ul class="category-list">
 	<li class="category-item"><ion-icon name="home-outline"></ion-icon>
-		<a href="./home" class="category-item__link">Trang của bạn</a></li>
+		<a href="<%=context %>/home" class="category-item__link">Trang của bạn</a></li>
 	<li class="category-item"><ion-icon name="person-outline"></ion-icon>
-		<a href="./user-profile" class="category-item__link">Thông tin
-			giảng viên</a></li>
+		<a href="<%=context %>/user-profile" class="category-item__link">Thông tin
+			sinh viên</a></li>
 	<li class="category-item"><ion-icon name="pencil"></ion-icon> <a
-		href="./topic-registration" class="category-item__link">Đề xuất đề
+		href="<%=context %>/topic-registration" class="category-item__link">Đăng ký đề
 			tài</a></li>
 	<li class="category-item"><ion-icon name="people-outline"></ion-icon>
-		<a href="./group-manage" class="category-item__link">Quản lý nhóm</a></li>
+		<a href="<%=context %>/group-manage" class="category-item__link">Quản lý nhóm</a></li>
 	<li class="category-item"><ion-icon name="log-out-outline"></ion-icon>
-		<a href="./logout" class="category-item__link">Đăng xuất</a></li>
+		<a href="<%=context %>/logout" class="category-item__link">Đăng xuất</a></li>
 </ul>
