@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="teacherboard")
 @NamedQuery(name="TeacherBoard.findAll", query="SELECT t FROM TeacherBoard t")
 public class TeacherBoard implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,12 +22,12 @@ public class TeacherBoard implements Serializable {
 
 	//bi-directional many-to-one association to Board
 	@ManyToOne
-	@JoinColumn(name="board_id")
+	@JoinColumn(name="board_id", nullable=false, insertable=false, updatable=false)
 	private Board board;
 
 	//bi-directional many-to-one association to Teacher
 	@ManyToOne
-	@JoinColumn(name="teacher_id")
+	@JoinColumn(name="teacher_id", nullable=false, insertable=false, updatable=false)
 	private Teacher teacher;
 
 	public TeacherBoard() {
