@@ -21,11 +21,12 @@ public class ActionLoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		LoginService loginService = new LoginService(request, response);
 		loginService.handleGetLogin();
-		//doPost(request, response);
+//		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		LoginService loginService = new LoginService(request, response);
 		loginService.handlePostLogin();
 	}

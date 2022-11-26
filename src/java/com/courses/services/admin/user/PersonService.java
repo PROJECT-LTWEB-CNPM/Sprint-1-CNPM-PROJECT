@@ -1,6 +1,8 @@
 package com.courses.services.admin.user;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,5 +48,22 @@ public class PersonService extends SuperService {
 			return;
 		}
 		this.response.sendRedirect(pageUrl);
+	}
+	
+	public Person getPersonByPersonId(String personId){
+		Person person = new Person();
+		person = this.personDAO.find(personId);
+		return person;
+	}
+	
+	public Person getPersonByEmail(String email){
+		Person person = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		if (this.personDAO.findWithNamedQuery("Person.findPersonByEmail", map).size() >0 )
+		{
+			person = this.personDAO.findWithNamedQuery("Person.findPersonByEmail", map).get(0);
+		}
+		return person;
 	}
 }

@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.courses.services.admin.user.UserService;
+
+
+
 /**
  * Servlet implementation class UserProfile
  */
@@ -19,8 +23,8 @@ public class UserProfile extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/pages/client/userProfile.jsp";
-		request.getRequestDispatcher(url).forward(request, response);
+		UserService userService = new UserService(request, response);
+		userService.handleGetStudentInfo();
 	}
 
 	/**
