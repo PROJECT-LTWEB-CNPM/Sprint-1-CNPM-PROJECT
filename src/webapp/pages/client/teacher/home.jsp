@@ -22,7 +22,7 @@ String context = request.getContextPath();
 				<div class="grid">
 					<div class="grid_row">
 						<div class="grid_column_1">
-							<jsp:include page="../sidebar.jsp" />
+							<jsp:include page="./teacherSidebar.jsp" />
 						</div>
 						<div class="grid_column_3">
 							<div class="topic_registration">
@@ -61,7 +61,9 @@ String context = request.getContextPath();
 			</div>
 		</main>
 		<!-- Footer -->
+		<jsp:include page="../partials/logoutModal.jsp"></jsp:include>
 		<jsp:include page="../partials/footer.jsp" />
+		
 	</div>
 </body>
 </html>
