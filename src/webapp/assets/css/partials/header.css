@@ -67,10 +67,14 @@
     cursor: pointer;
 }
 
-.header_login-container h3 {
+.header_login-container p {
     font-size: 1.5rem;
     font-weight: 400;
     margin-right: 24px;
     color: #FFFF00;
-    ;
+}
+
+.login-name__container {
+	display: flex;
+	justify-content: flex-end;
 }

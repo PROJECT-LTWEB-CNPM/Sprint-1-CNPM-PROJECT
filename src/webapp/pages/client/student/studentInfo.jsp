@@ -17,33 +17,13 @@ String context = request.getContextPath();
 		<!-- Header -->
 		<jsp:include page="../partials/header.jsp" />
 		<!-- Body -->
-		<div class="container">
+		<main>
+			<div class="container">
         <div class="grid">
             <div class="grid_row">
                 <div class="grid_column_1">
-                    <ul class="category-list">
-                        <li class="category-item">
-                            <ion-icon name="home-outline"></ion-icon>
-                            <a href="" class="category-item__link">Trang của bạn</a>
-                        </li>
-                        <li class="category-item">
-                            <ion-icon name="person-outline"></ion-icon>
-                            <a href="" class="category-item__link">Thông tin sinh viên</a>
-                        </li>
-                        <li class="category-item">
-                            <ion-icon name="pencil"></ion-icon>
-                            <a href="" class="category-item__link">Đăng ký đề tài</a>
-                        </li>
-                        <li class="category-item">
-                            <ion-icon name="people-outline"></ion-icon>
-                            <a href="" class="category-item__link">Quản lý nhóm</a>
-                        </li>
-                        <li class="category-item">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                            <a href="" class="category-item__link">Đăng xuất</a>
-                        </li>
-                    </ul>
-                </div>
+							<jsp:include page=".././sidebar.jsp" />
+				</div>
                 <div class="grid_column_3">
                     <div class="topic_registration">
                         <ion-icon name="person-outline"></ion-icon>
@@ -56,19 +36,19 @@ String context = request.getContextPath();
                             <ul class="list__info">
                                 <li class="info__item">
                                     <h3>Mã số sinh viên:</h3>
-                                    <h3>20110756</h3>
+                                    <h3>${person.getPersonId() }</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Họ và tên:</h3>
-                                    <h3>Phạm Nguyễn Nhựt Trường</h3>
+                                    <h3>${person.getFullName() }</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Giới tính:</h3>
-                                    <h3>Nam</h3>
+                                    <h3>${person.getGender() == 1 ? 'Nam' : 'Nữ'}</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Số CMND/CCCD:</h3>
-                                    <h3>20110756</h3>
+                                    <h3></h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Tôn giáo:</h3>
@@ -80,11 +60,11 @@ String context = request.getContextPath();
                                 </li>
                                 <li class="info__item">
                                     <h3>Tỉnh/Thành Phố:</h3>
-                                    <h3>Tiền Giang</h3>
+                                    <h3>${person.getAddress() }</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Quận/Huyện:</h3>
-                                    <h3>Cái Bè</h3>
+                                    <h3></h3>
                                 </li>
                             </ul>
                             <h3 class="title backgroud__info_courses">THÔNG TIN KHÓA HỌC</h3>
@@ -124,7 +104,7 @@ String context = request.getContextPath();
                             <ul class="list__info">
                                 <li class="info__item">
                                     <h3>Điện thoại:</h3>
-                                    <h3>0393012069</h3>
+                                    <h3>${person.getPhonenumber() }</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Di động:</h3>
@@ -132,7 +112,7 @@ String context = request.getContextPath();
                                 </li>
                                 <li class="info__item">
                                     <h3>Email:</h3>
-                                    <h3>20110756@student.hcmute.vn.edu</h3>
+                                    <h3>${person.getEmail() }</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Địa chỉ:</h3>
@@ -164,6 +144,7 @@ String context = request.getContextPath();
             </div>
         </div>
     </div>
+		</main>
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
 	</div>

@@ -6,11 +6,13 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.courses.dao.AdminDAO;
 import com.courses.dao.StudentDAO;
 import com.courses.dao.TeacherDAO;
 import com.courses.models.Admin;
+import com.courses.models.Person;
 import com.courses.models.Student;
 import com.courses.models.Teacher;
 import com.courses.services.SuperService;
@@ -86,5 +88,18 @@ public class UserService extends SuperService {
 		}
 		this.request.setAttribute("type", userType);
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+	}
+	
+	public void handleGetStudentInfo() throws ServletException, IOException {
+		String url = "/pages/client/student/studentInfo.jsp";
+		HttpSession session = this.request.getSession();
+		String username = (String) session.getAttribute("username");
+		System.out.println("===================="+ username +"=========================");
+		PersonService personService = new PersonService(request, response);
+		Person person = new Person();
+//		person = personService.getPersonByPersonId("PE00000002");
+		person = personService.getPersonByEmail(username);
+		this.request.setAttribute("person", person);
+		this.request.getRequestDispatcher(url).forward(request, response);
 	}
 }

@@ -3,18 +3,18 @@ package com.courses.models;
 import java.io.Serializable;
 import javax.persistence.*;
 
+
 /**
  * The persistent class for the account database table.
  * 
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
-		@NamedQuery(name = "Account.findByPerson", query = "SELECT a FROM Account a WHERE a.person = :person") })
+@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "account_id")
+	@Column(name="account_id")
 	private String accountId;
 
 	private String description;
@@ -23,9 +23,9 @@ public class Account implements Serializable {
 
 	private String username;
 
-	// bi-directional many-to-one association to Person
+	//bi-directional many-to-one association to Person
 	@ManyToOne
-	@JoinColumn(name = "person_id")
+	@JoinColumn(name="person_id")
 	private Person person;
 
 	public Account() {
