@@ -110,7 +110,6 @@ public class LoginService extends SuperService {
 			super.forwardToPage(url);
 		}	
 		
-		
 		// test
 	}
 }
