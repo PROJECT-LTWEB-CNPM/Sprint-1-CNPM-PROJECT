@@ -17,7 +17,10 @@
 				 <c:when test = "${user != null}">
 				 	<div class='header_login-container'><p>${user.fullName}</p></div>
             		<div class='header_login-container'>
-						<a href="<%=context%>/logout"><button>Đăng xuất</button></a>
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  							Đăng xuất
+						</button>
+						
 					</div>
          		</c:when>
          		<c:otherwise>
