@@ -64,6 +64,7 @@ public class LoginService extends SuperService {
 			}
 
 			HttpSession session = request.getSession();
+			
 			// check if this account is existing
 			if (foundAccount != null && checkRole(role, person)) {
 				if (password.equals(foundAccount.getPassword())) {
@@ -112,6 +113,5 @@ public class LoginService extends SuperService {
 			String pageError = "/pages/500.jsp";
 			super.forwardToPage(pageError);
 		}
-		
 	}
 }
