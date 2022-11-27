@@ -45,6 +45,7 @@ public class LoginService extends SuperService {
 	}
 
 	public void handlePostLogin() throws IOException, ServletException {
+		HttpSession session = request.getSession();
 		try {
 			// define default url
 			String url = "/pages/client/login.jsp";
@@ -63,7 +64,6 @@ public class LoginService extends SuperService {
 				person = foundAccount.getPerson();
 			}
 
-			HttpSession session = request.getSession();
 			
 			// check if this account is existing
 			if (foundAccount != null && checkRole(role, person)) {

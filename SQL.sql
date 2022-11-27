@@ -11,7 +11,6 @@ USE `TopicRegistration`;
 -- select * from `group`
 
 DROP TABLE IF EXISTS `Major`;
-
 CREATE TABLE `Major` (
     major_id CHAR(12),
     major_name NVARCHAR(255),
@@ -33,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `Person` (
     -- Người dùng còn tồn tại hay không
     -- is_active BIT DEFAULT(1),-- 0: chưa được active, 1: đã được active
     `description` NVARCHAR(255),
+    is_deleted BIT DEFAULT(0), -- 0 là mặc định là chưa xóa, 1 là đã xóa(được đánh dấu là xóa mềm)
     PRIMARY KEY `PK_Person`(`person_id`)
 );
 
@@ -75,6 +75,7 @@ CREATE TABLE `GroupStudent` (
     is_full BIT DEFAULT(0),-- 0: chưa full, 1: đã full.
     current_number INT DEFAULT(1), -- Khi tạo nhóm thành công thì số lượng là 1. Group chứa trưởng nhóm
     topic_id CHAR(10),-- nếu topic_id bằng null thì trưởng nhóm mới có thể đăng kí được đề tài. Nếu khách null tức
+    is_deleted BIT DEFAULT(0), -- 0 là mặc định là chưa xóa, 1 là đã xóa(được đánh dấu là xóa mềm)
     -- tức đã đăng kí đề tài thì trưởng nhóm cần hủy chọn đễ tài cũ để chọn đề tài mới
     PRIMARY KEY `PK_Group`(group_id)
     -- status bit ==> Nhận diện xem nhóm đã được duyệt đề tài hay chưa
@@ -122,6 +123,7 @@ CREATE TABLE `Board` (
     board_name NVARCHAR(255),
     no_member INT,-- sô lượng thành viên trong hội đồng
     `description` NVARCHAR(255),
+    is_deleted BIT DEFAULT(0), -- 0 là mặc định là chưa xóa, 1 là đã xóa(được đánh dấu là xóa mềm)
     -- is_active BIT DEFAULT(0),-- 0: chưa được active, 1: đã được active
     PRIMARY KEY `PK_Board`(board_id)
 );
@@ -131,6 +133,7 @@ DROP TABLE IF EXISTS `TeacherBoard`;
 CREATE TABLE `TeacherBoard` (
     teacher_id CHAR(12),
     board_id CHAR(12),
+    is_deleted BIT DEFAULT(0), -- 0 là mặc định là chưa xóa, 1 là đã xóa(được đánh dấu là xóa mềm)
     PRIMARY KEY `FK_TeacherBoard`(teacher_id, board_id),
     CONSTRAINT `FK_TeacherBoard_Teacher` FOREIGN KEY (teacher_id) REFERENCES Teacher(teacher_id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT `FK_TeacherBoard_Board` FOREIGN KEY (board_id) REFERENCES Board(board_id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -149,6 +152,7 @@ CREATE TABLE `RegistrationPeriod` (
     -- đăng kí của giáo viên. 1 là thời gian đăng kí của sinh viên.
     open_date DATETIME,
     close_date DATETIME,
+    is_deleted BIT DEFAULT(0), -- 0 là mặc định là chưa xóa, 1 là đã xóa(được đánh dấu là xóa mềm)
     PRIMARY KEY `PK_RegistrationPeriod`(registration_period_id)
 );
 
@@ -167,13 +171,14 @@ CREATE TABLE `Topic` (
     major_id CHAR(12),
     teacher_id CHAR(12),
     registration_period_id CHAR(10),
+    is_deleted BIT DEFAULT(0), -- 0 là mặc định là chưa xóa, 1 là đã xóa(được đánh dấu là xóa mềm)
     PRIMARY KEY `PK_Topic`(topic_id),
     CONSTRAINT `FK_Topic_Major` FOREIGN KEY (major_id) REFERENCES Major(major_id) ON UPDATE CASCADE ON DELETE
-    SET
-        NULL,
-        CONSTRAINT `FK_Topic_RegistrationPeriod` FOREIGN KEY (registration_period_id) REFERENCES RegistrationPeriod(registration_period_id) ON UPDATE CASCADE ON DELETE
-    SET
-        NULL,
+	SET
+		NULL,
+        CONSTRAINT `FK_Topic_RegistrationPeriod` FOREIGN KEY (registration_period_id) REFERENCES RegistrationPeriod(registration_period_id)ON UPDATE CASCADE ON DELETE
+	SET
+		NULL,
         CONSTRAINT `FK_Topic_Teacher` FOREIGN KEY (teacher_id) REFERENCES Teacher(teacher_id) ON UPDATE CASCADE ON DELETE
     SET
         NULL
@@ -187,10 +192,10 @@ ADD
     
     
 -- -------------------------------------------------INSERT DATA-----------------------------------------------
-INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000000', N'Trường bộ môn công nghệ phần mềm', 1, '');
-INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000001', N'Trường bộ môn hệ thống thông tin', 1, '');
-INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000002', N'Trường bộ môn an toàn thông tin', 1, '');
-INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000003', N'Sinh Viên', 1, '');
+INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000000', N'Công nghệ phần mềm', 1, '');
+INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000001', N'Hệ thống thông tin', 1, '');
+INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000002', N'An toàn thông tin', 1, '');
+INSERT INTO `Major`(major_id, major_name, is_active, `description`) VALUES ('MA10000003', N'Công nghệ thông tin', 1, '');
 
 
 INSERT INTO `Person`(person_id, full_name, gender, address, phonenumber, email, `role`, `description`)
@@ -282,14 +287,22 @@ VALUES('GS00000004', 'Group 1', 1, 'TO00000003');
 
 
 INSERT INTO `Student`(student_id, school_year, person_id, major_id, group_id) 
-VALUES('ST00000001', '2020-2024', 'PE00000001', 'MA10000003', 'GS00000001');
+VALUES('ST00000001', '2020-2024', 'PE00000001', 'MA10000003', null);
 INSERT INTO `Student`(student_id, school_year, person_id, major_id, group_id) 
 VALUES('ST00000002', '2020-2024', 'PE00000002', 'MA10000003', 'GS00000001');
 INSERT INTO `Student`(student_id, school_year, person_id, major_id, group_id) 
 VALUES('ST00000003', '2020-2024', 'PE00000003', 'MA10000003', 'GS00000001');
 
+SELECT p.person_id, p.full_name, p.gender, p.address, p.phonenumber, p.email, p.role, p.description FROM `Student` as s, `Person` as p, `GroupStudent` as g 
+WHERE g.group_id = 'GS00000005'
+AND g.group_id = s.group_id 
+AND s.person_id = p.person_id
+AND s.group_id IS NOT NULL;
 
-
+SELECT * FROM GroupStudent WHERE leader_id = 'ST00000002';
+UPDATE GroupStudent SET topic_id = null WHERE group_id = 'GS00000005';
+-- SELECT * FROM `Topic` WHERE is_selected = 0
+UPDATE Student SET group_id = null WHERE student_id = 'ST00000002'
 -- Insert Major here
 -- INSERT INTO
 --     `Major`
@@ -334,10 +347,3 @@ VALUES('ST00000003', '2020-2024', 'PE00000003', 'MA10000003', 'GS00000001');
 -- Insert Topic here
 -- Insert Group here
 -- Insert Student here
-
-Use topicregistration
-
-
-
-delete from Account where account_id = '69314272'
-select * from Account
