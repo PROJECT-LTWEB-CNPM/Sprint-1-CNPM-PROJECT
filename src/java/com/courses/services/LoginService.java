@@ -45,6 +45,7 @@ public class LoginService extends SuperService {
 	}
 
 	public void handlePostLogin() throws IOException, ServletException {
+		HttpSession session = request.getSession();
 		try {
 			// define default url
 			String url = "/pages/client/login.jsp";
@@ -63,7 +64,7 @@ public class LoginService extends SuperService {
 				person = foundAccount.getPerson();
 			}
 
-			HttpSession session = request.getSession();
+			
 			// check if this account is existing
 			if (foundAccount != null && checkRole(role, person)) {
 				if (password.equals(foundAccount.getPassword())) {
@@ -78,10 +79,10 @@ public class LoginService extends SuperService {
 
 					// define url base on role
 					if (role.equals("student")) {
-						url = "/home";
+						url = "/home/student";
 					} else if (role.equals("teacher")) {
 						// boilerplate code
-						url = "pages/teacher/home";
+						url = "/home/teacher";
 					}
 
 				} else {
@@ -111,18 +112,5 @@ public class LoginService extends SuperService {
 			System.out.println(e.getMessage());
 		}
 		
-		// save information to reuse
-		session.setAttribute("username", username );
-		session.setAttribute("password", password);		
-		request.setAttribute("error", errorMessage);
-
-		// forward request to jsp file
-		if (!url.equals("/pages/client/login.jsp")) {
-			super.redirectToPage(request.getContextPath() + url);
-		}else {
-			super.forwardToPage(url);
-		}	
-		
-		// test
 	}
 }
