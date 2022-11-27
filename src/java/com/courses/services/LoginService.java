@@ -78,10 +78,10 @@ public class LoginService extends SuperService {
 
 					// define url base on role
 					if (role.equals("student")) {
-						url = "/home";
+						url = "/home/student";
 					} else if (role.equals("teacher")) {
 						// boilerplate code
-						url = "pages/teacher/home";
+						url = "/home/teacher";
 					}
 
 				} else {
@@ -109,20 +109,9 @@ public class LoginService extends SuperService {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			String pageError = "/pages/500.jsp";
+			super.forwardToPage(pageError);
 		}
 		
-		// save information to reuse
-		session.setAttribute("username", username );
-		session.setAttribute("password", password);		
-		request.setAttribute("error", errorMessage);
-
-		// forward request to jsp file
-		if (!url.equals("/pages/client/login.jsp")) {
-			super.redirectToPage(request.getContextPath() + url);
-		}else {
-			super.forwardToPage(url);
-		}	
-		
-		// test
 	}
 }
