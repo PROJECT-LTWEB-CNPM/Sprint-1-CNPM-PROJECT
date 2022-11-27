@@ -20,7 +20,9 @@
 							<p>${user.fullName}</p>
 						</div>
 						<div class='header_login-container'>
-							<a href="<%=context%>/logout"><button>Đăng xuất</button></a>
+							<a href="<%=context%>/logout">
+								<button>Đăng xuất</button>
+							</a>
 						</div>
 					</div>
 				</c:when>
