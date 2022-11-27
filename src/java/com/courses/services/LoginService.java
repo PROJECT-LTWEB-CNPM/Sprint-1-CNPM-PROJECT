@@ -82,7 +82,7 @@ public class LoginService extends SuperService {
 						url = "/home/student";
 					} else if (role.equals("teacher")) {
 						// boilerplate code
-						url = "pages/teacher/home";
+						url = "/home/teacher";
 					}
 
 				} else {
@@ -110,6 +110,8 @@ public class LoginService extends SuperService {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			String pageError = "/pages/500.jsp";
+			super.forwardToPage(pageError);
 		}
 	}
 }
