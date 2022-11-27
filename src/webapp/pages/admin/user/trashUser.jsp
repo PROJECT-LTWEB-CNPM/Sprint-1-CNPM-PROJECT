@@ -25,19 +25,25 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 					<div class="container">
 						<div class="page-title">
 							<h3 class="d-flex justify-content-between">
-								<span><%=title%></span>
-								<div class="d-flex gap-2">
-									<button type="button" data-bs-toggle="modal"
-										data-bs-target="#modalCreateUser"
-										class="btn btn-sm btn-outline-primary float-end">
-										<i class="fas fa-user-plus"></i> Create New
-									</button>
-									<a href="<%=context %>/admin/users/trash/?type=<%=type %>"
-										class="btn btn-sm btn-outline-primary">
-										<i class="fas fa-trash"></i> Trash
-									</a>
-								</div>
-
+								<span>Trash <%=title%></span>
+								<form action="recovery" method="POST">
+									<c:forEach var="item" items="${users}">
+										<c:if test="${item.getPerson().getIsDeleted() == 1}">
+											<input hidden value="${item.getPerson().getPersonId()}"
+												name="personId" />
+										</c:if>
+									</c:forEach>
+									<div class="d-flex gap-2">
+										<button type="button" data-bs-toggle="modal"
+											data-bs-target="#modalCreateUser"
+											class="btn btn-sm btn-outline-primary float-end">
+											<i class="fas fa-trash"></i> Empty trash now
+										</button>
+										<button type="submit" class="btn btn-sm btn-outline-primary">
+											<i class="fas fa-trash-restore"></i> Recovery all
+										</button>
+									</div>
+								</form>
 							</h3>
 						</div>
 						<div class="box box-primary">
@@ -58,7 +64,7 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 											</thead>
 											<tbody>
 												<c:forEach var="item" items="${users}">
-													<c:if test="${item.getPerson().getIsDeleted() == 0}">
+													<c:if test="${item.getPerson().getIsDeleted() == 1}">
 														<tr>
 															<td>${item.getPerson().getPersonId()}</td>
 															<td>${item.getPerson().getFullName()}</td>
@@ -70,19 +76,20 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 																		<a
 																			href="<%=context%>/admin/users/edit/?type=${type}&id=${item.getAdminId()}"
 																			class="btn btn-outline-info btn-rounded"><i
-																			class="fas fa-pen"></i></a>
+																			class="fas fa-trash-restore"></i></a>
 																	</c:when>
 																	<c:when test="${type == RoleConstants.TEACHER}">
 																		<a
 																			href="<%=context%>/admin/users/edit/?type=${type}&id=${item.getTeacherId()}"
 																			class="btn btn-outline-info btn-rounded"><i
-																			class="fas fa-pen"></i></a>
+																			class="fas fa-trash-restore"></i></a>
 																	</c:when>
 																	<c:otherwise>
 																		<a
 																			href="<%=context%>/admin/users/edit/?type=${type}&id=${item.getStudentId()}"
-																			class="btn btn-outline-info btn-rounded"><i
-																			class="fas fa-pen"></i></a>
+																			class="btn btn-outline-info btn-rounded"> <i
+																			class="fas fa-trash-restore"></i>
+																		</a>
 																	</c:otherwise>
 																</c:choose>
 																<button type="button" data-bs-toggle="modal"
