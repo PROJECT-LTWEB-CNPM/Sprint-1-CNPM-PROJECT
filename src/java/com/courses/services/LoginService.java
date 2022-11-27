@@ -113,6 +113,5 @@ public class LoginService extends SuperService {
 			String pageError = "/pages/500.jsp";
 			super.forwardToPage(pageError);
 		}
-		
 	}
 }
