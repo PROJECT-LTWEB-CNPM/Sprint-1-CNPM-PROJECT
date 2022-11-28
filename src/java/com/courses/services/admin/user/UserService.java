@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.courses.dao.AdminDAO;
+import com.courses.dao.PersonDAO;
 import com.courses.dao.StudentDAO;
 import com.courses.dao.TeacherDAO;
 import com.courses.models.Admin;
@@ -23,12 +24,14 @@ public class UserService extends SuperService {
 	StudentDAO studentDAO = null;
 	TeacherDAO teacherDAO = null;
 	AdminDAO adminDAO = null;
+	PersonDAO personDAO = null;
 
 	public UserService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 		this.studentDAO = new StudentDAO();
 		this.teacherDAO = new TeacherDAO();
 		this.adminDAO = new AdminDAO();
+		this.personDAO = new PersonDAO();
 	}
 
 	public void handleGetListUser() throws ServletException, IOException {
@@ -101,5 +104,95 @@ public class UserService extends SuperService {
 		person = personService.getPersonByEmail(username);
 		this.request.setAttribute("person", person);
 		this.request.getRequestDispatcher(url).forward(request, response);
+	}
+
+
+	public void handlePostCreateUser() throws ServletException, IOException {
+		String type = this.request.getParameter("type");
+		String pageUrl = this.request.getContextPath() + "/admin/users/?type=" + type;
+		try {
+			// Get params
+			String personId = this.request.getParameter("personId");
+			String id = this.request.getParameter("id");
+			String fullname = this.request.getParameter("fullname");
+			String email = this.request.getParameter("email");
+			String address = this.request.getParameter("address");
+			byte gender = Byte.parseByte(this.request.getParameter("gender"));
+			String phonenumber = this.request.getParameter("phonenumber");
+			String role = this.request.getParameter("role");
+			String description = this.request.getParameter("description");
+
+			// Create person
+			Person person = new Person();
+			person.setPersonId(personId);
+			person.setFullName(fullname);
+			person.setEmail(email);
+			person.setAddress(address);
+			person.setPhonenumber(phonenumber);
+			person.setGender(gender);
+			person.setDescription(description);
+			person.setRole(role);
+
+			this.personDAO.create(person);
+
+			// Create inherit person
+			switch (role) {
+			case RoleConstants.ADMIN:
+				Admin admin = new Admin();
+				admin.setAdminId(id);
+				admin.setPerson(person);
+				this.adminDAO.create(admin);
+				break;
+
+			case RoleConstants.TEACHER:
+				Teacher teacher = new Teacher();
+				teacher.setTeacherId(id);
+				teacher.setPerson(person);
+				this.teacherDAO.create(teacher);
+				break;
+
+			case RoleConstants.STUDENT:
+				Student student = new Student();
+				student.setStudentId(id);
+				student.setPerson(person);
+				this.studentDAO.create(student);
+				break;
+
+			default:
+				break;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			pageUrl = "/pages/500.jsp";
+			this.request.getRequestDispatcher(pageUrl).forward(request, response);
+			return;
+		}
+		this.response.sendRedirect(pageUrl);
+	}
+	
+	public void handleGetListUserDeleted() throws ServletException, IOException {
+		String pageUrl = "/pages/admin/user/trashUser.jsp";
+		String userType = this.request.getParameter("type");
+		try {
+			switch (userType) {
+			case RoleConstants.ADMIN:
+				List<Admin> admins = this.adminDAO.findAll();
+				this.request.setAttribute("users", admins);
+				break;
+			case RoleConstants.TEACHER:
+				List<Teacher> teachers = this.teacherDAO.findAll();
+				this.request.setAttribute("users", teachers);
+				break;
+			default:
+				List<Student> s2 = this.studentDAO.findAll();
+				this.request.setAttribute("users", s2);
+				break;
+			}
+
+		} catch (Exception e) {
+			pageUrl = "/pages/500.jsp";
+		}
+		this.request.setAttribute("type", userType);
+		this.request.getRequestDispatcher(pageUrl).forward(request, response);
 	}
 }

@@ -17,7 +17,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<a href="#" class="btn btn-primary btn-confirm-delete">Delete</a>
 			</div>
 		</div>
 	</div>
