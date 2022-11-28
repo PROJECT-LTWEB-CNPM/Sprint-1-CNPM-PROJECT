@@ -84,3 +84,34 @@
     font-weight: 400;
     color: var(--orange-color);
 }
+
+
+.modify_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #B5B6B5;
+    padding: 12px;
+    margin-bottom: 24px;
+}
+
+.modify_container div {
+    display: flex;
+    align-items: center;
+}
+
+.modify_container div h3,
+.modify_container div ion-icon {
+    color: var(--header-background-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.modify_container div h3:hover {
+    color: var(--orange-color);
+}
+
+.modify_container div ion-icon {
+    font-size: 1.6rem;
+    margin-right: 6px;
+}

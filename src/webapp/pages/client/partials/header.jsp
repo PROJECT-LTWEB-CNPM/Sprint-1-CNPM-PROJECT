@@ -16,14 +16,11 @@ request.getContextPath(); %>
               <p>${user.fullName}</p>
             </div>
             <div class="header_login-container">
-              <button
-                type="button"
+                <button   type="button"
                 class="btn btn-primary"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                Đăng xuất
-              </button>
+                data-bs-target="#exampleModal">Đăng xuất</button>
+              
             </div>
           </div>
         </c:when>

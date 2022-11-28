@@ -14,6 +14,4 @@ String context = request.getContextPath();
 			tài</a></li>
 	<li class="category-item"><ion-icon name="people-outline"></ion-icon>
 		<a href="<%=context %>/group-manage" class="category-item__link">Quản lý nhóm</a></li>
-	<li class="category-item"><ion-icon name="log-out-outline"></ion-icon>
-		<a href="<%=context %>/logout" class="category-item__link">Đăng xuất</a></li>
 </ul>
