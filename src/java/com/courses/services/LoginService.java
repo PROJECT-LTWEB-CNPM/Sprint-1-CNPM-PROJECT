@@ -70,7 +70,7 @@ public class LoginService extends SuperService {
 				if (password.equals(foundAccount.getPassword())) {
 					// define user id cookie timeout 30'
 					Cookie c = new Cookie("userIdCookie", username);
-					c.setMaxAge(2 * 60);
+					c.setMaxAge(5 * 60);
 					c.setPath("/");
 					this.response.addCookie(c);
 
