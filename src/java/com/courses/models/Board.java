@@ -4,33 +4,33 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the board database table.
  * 
  */
 @Entity
-@NamedQuery(name="Board.findAll", query="SELECT b FROM Board b")
+@NamedQueries({ @NamedQuery(name = "Board.findAll", query = "SELECT b FROM Board b"),
+		@NamedQuery(name = "Board.count", query = "SELECT COUNT(b) FROM Board b") })
 public class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="board_id")
+	@Column(name = "board_id")
 	private String boardId;
 
-	@Column(name="board_name")
+	@Column(name = "board_name")
 	private String boardName;
 
 	private String description;
 
-	@Column(name="is_deleted")
+	@Column(name = "is_deleted")
 	private byte isDeleted;
 
-	@Column(name="no_member")
+	@Column(name = "no_member")
 	private int noMember;
 
-	//bi-directional many-to-one association to TeacherBoard
-	@OneToMany(mappedBy="board")
+	// bi-directional many-to-one association to TeacherBoard
+	@OneToMany(mappedBy = "board")
 	private List<TeacherBoard> teacherboards;
 
 	public Board() {

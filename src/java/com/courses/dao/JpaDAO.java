@@ -82,4 +82,16 @@ public class JpaDAO<T> {
 		entityManager.close();
 		return result;
 	}
+	
+	public int count(String queryName) {
+
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+
+		int maxResults = ((Long) entityManager.createNamedQuery(queryName).getSingleResult()).intValue();
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return maxResults;
+	}
 }
