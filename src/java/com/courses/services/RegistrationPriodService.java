@@ -1,6 +1,7 @@
 package com.courses.services;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,6 +33,16 @@ public class RegistrationPriodService extends SuperService {
 			pageUrl = "/pages/500.jsp";
 		}
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+	}
+	
+	public RegistrationPeriod getRegistrationPeriod (Byte isActive) {
+		RegistrationPeriod period = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("isActive", isActive);
+		if (this.registrationPeriodDAO.findWithNamedQuery("RegistrationPeriod.findByStatus", map).size() > 0) {
+			period = this.registrationPeriodDAO.findWithNamedQuery("RegistrationPeriod.findByStatus", map).get(0);
+		}
+		return period;
 	}
 
 }

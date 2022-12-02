@@ -95,8 +95,9 @@ String context = request.getContextPath();
         </div>
     </div>
 		</main>
-		<!-- Footer -->
+		<!-- Modal -->
 		<jsp:include page="../partials/logoutModal.jsp"></jsp:include>
+		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
 	</div>
 </body>
