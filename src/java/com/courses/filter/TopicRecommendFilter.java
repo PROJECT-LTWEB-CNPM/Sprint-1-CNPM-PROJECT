@@ -8,63 +8,52 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.courses.models.RegistrationPeriod;
+import com.courses.services.RegistrationPriodService;
 
-@WebFilter(urlPatterns = {"/home/*", "/teacher/*", "/student/*"})
-public class AuthFilter extends HttpFilter implements Filter {
+@WebFilter("/teacher/topic-manage/add")
+public class TopicRecommendFilter extends HttpFilter implements Filter {
        
-   
-	private static final long serialVersionUID = 1L;
-
-	public AuthFilter() {
-        super(); 
+    
+	
+	public TopicRecommendFilter() {
+        super();
     }
 
-	
 	public void destroy() {
+	
 	}
 
-	
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// cast object type 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		
-		// get cookie is existing 
-		boolean check = false;
-		Cookie[] cookies = req.getCookies();
-		if (cookies != null) {
-			for (int i=0; i<cookies.length; i++ ) {
-				if (cookies[i].getName().equals("userIdCookie")) {
-					check = true;
-				}
-			}
-		}
+		RegistrationPeriod period = null;
+		RegistrationPriodService rps = new RegistrationPriodService(req, res);
+		period = rps.getRegistrationPeriod(Byte.parseByte("1"));
 		
-		// check to forward
-		if(check) {
+		if (period != null) {
+			HttpSession session = req.getSession();
+			session.setAttribute("period", period);
 			chain.doFilter(request, response);
 		}else {
-			// destroy session
-			HttpSession session = req.getSession(false);
-			if (session != null) {
-				session.invalidate();
-			}
-			
 			// forward to login page
-			String url = "/login";
-			res.sendRedirect(req.getContextPath() + url);
+			
+			String url = "/teacher/topic-manage";
+			req.setAttribute("notExistPeriod", "1");
+			req.getRequestDispatcher(url).forward(req, res);
 		}
-		
-	}
-	
-	public void init(FilterConfig fConfig) throws ServletException {
-		
+				
 	}
 
+	public void init(FilterConfig fConfig) throws ServletException {
+	}
+	
 }

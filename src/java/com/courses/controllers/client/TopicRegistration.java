@@ -20,7 +20,7 @@ public class TopicRegistration extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/pages/client/topicRegistration.jsp";
+		String url = "/pages/client/student/topicRegistration.jsp";
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 

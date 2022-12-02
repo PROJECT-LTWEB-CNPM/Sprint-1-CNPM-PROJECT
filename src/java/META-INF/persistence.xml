@@ -23,9 +23,9 @@
 			<!-- Hibernate properties -->
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.show_sql" value="true" />
+			<!-- <property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-
+ -->
 			<!-- batching size -->
 			<property name="hibernate.jdbc.batch_size" value="30" />
 			<property name="hibernate.order_inserts" value="true" />

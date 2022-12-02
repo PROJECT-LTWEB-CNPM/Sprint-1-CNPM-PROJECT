@@ -22,7 +22,7 @@ String context = request.getContextPath();
 				<div class="grid">
 					<div class="grid_row">
 						<div class="grid_column_1">
-							<jsp:include page="../sidebar.jsp" />
+							<jsp:include page="./sidebar.jsp" />
 						</div>
 						<div class="grid_column_3">
 							<div class="topic_registration">

@@ -9,13 +9,13 @@ String context = request.getContextPath();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="./partials/head.jsp" />
+<jsp:include page="../partials/head.jsp" />
 <title>Trang chủ - Đăng ký đề tài</title>
 </head>
 <body>
 	<div id="root">
 		<!-- Header -->
-		<jsp:include page="./partials/header.jsp" />
+		<jsp:include page="../partials/header.jsp" />
 		<!-- Body -->
 		<main>
 
@@ -98,8 +98,10 @@ String context = request.getContextPath();
 				</div>
 			</div>
 		</main>
+		<!-- Modal -->
+		<jsp:include page="../partials/logoutModal.jsp"/>
 		<!-- Footer -->
-		<jsp:include page="./partials/footer.jsp" />
+		<jsp:include page="../partials/footer.jsp" />
 	</div>
 </body>
 </html>
