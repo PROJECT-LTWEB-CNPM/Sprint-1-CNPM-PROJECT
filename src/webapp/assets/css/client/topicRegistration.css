@@ -44,9 +44,10 @@
     background-color: var(--white-color);
 }
 
-.topic_registration-filter h3:first-child {
+.topic_registration-filter h3:first-child{
     margin-right: 24px;
 }
+
 
 /* avai */
 .group_topic_registration-to-manage {
