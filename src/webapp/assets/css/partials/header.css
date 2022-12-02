@@ -67,7 +67,7 @@
     cursor: pointer;
 }
 
-.header_login-container p {
+.header_login-container div {
     font-size: 1.5rem;
     font-weight: 400;
     margin-right: 24px;
