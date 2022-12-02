@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.ClientTopicService;
+import com.courses.services.TopicService;
 
 
 @WebServlet("/home/student/register-topic")
@@ -21,8 +21,8 @@ public class StudentTopicServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ClientTopicService ts = new ClientTopicService (request, response);
-		ts.handleGetListTopic();
+		TopicService ts = new TopicService (request, response);
+		ts.handleGetStudentListTopic();
 	}
 
 	
