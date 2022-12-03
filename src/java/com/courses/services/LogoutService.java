@@ -13,6 +13,8 @@ public class LogoutService extends SuperService{
 	public LogoutService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 	}
+
+	public LogoutService() {}
 	
 	public void handleGetLogout() throws ServletException, IOException {
 		// define url

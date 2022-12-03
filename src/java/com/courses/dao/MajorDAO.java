@@ -40,4 +40,9 @@ public class MajorDAO extends JpaDAO<Major> implements GenericDAO<Major>{
 	public List<Major> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("MA");
+	}
 }

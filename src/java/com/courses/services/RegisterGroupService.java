@@ -22,6 +22,8 @@ public class RegisterGroupService extends SuperService {
 		super(request, response);
 		this.groupStudentDAO = new GroupStudentDAO();
 	}
+
+	public RegisterGroupService() {}
 	
 	//public RegisterGroupService() {}
 	
@@ -52,8 +54,7 @@ public class RegisterGroupService extends SuperService {
 			if(students.size() > 0) {
 //			Tạo Group mới với thông tin đã check
 //				Cần viết hàm tạo tự động
-				// Nhớ sửa chỗ này nha => "" thành groupService.randomIdNotDuplicate()
-				groupStudent.setGroupId("");
+				groupStudent.setGroupId(groupService.randomIdNotDuplicate());
 //				"ST00000002": thông tin được fix cứng để test --> Lấy thông tin từ login trả về để đưa vào
 				groupStudent.setLeaderId(studentId);
 				groupStudent.setDescription("Đây là sinh viên vừa mới tạo nhóm");

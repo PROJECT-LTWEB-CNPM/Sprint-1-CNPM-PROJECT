@@ -36,4 +36,8 @@ public class AdminDAO extends JpaDAO<Admin> implements GenericDAO<Admin> {
 		return super.findAll(queryName, Admin.class);
 	}
 
+	@Override
+	public String randomId() {
+		return super.randomId("AD");
+	}
 }

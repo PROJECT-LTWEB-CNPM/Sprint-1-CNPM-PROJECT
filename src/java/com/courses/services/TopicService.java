@@ -24,6 +24,8 @@ public class TopicService extends SuperService{
 	public TopicService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 	}
+
+	public TopicService() {}
 	
 	public void handleGetListTopic() throws ServletException, IOException {
 		try {

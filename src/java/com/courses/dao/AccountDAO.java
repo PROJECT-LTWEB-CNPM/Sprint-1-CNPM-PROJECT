@@ -40,4 +40,9 @@ public class AccountDAO extends JpaDAO<Account> implements GenericDAO<Account>{
 	public List<Account> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("AC");
+	}
 }

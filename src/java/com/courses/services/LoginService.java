@@ -19,6 +19,8 @@ public class LoginService extends SuperService {
 		super(request, response);
 	}
 
+	public LoginService() {}
+
 	public void handleGetLogin() throws ServletException, IOException {
 		String url = "/pages/client/login.jsp";
 

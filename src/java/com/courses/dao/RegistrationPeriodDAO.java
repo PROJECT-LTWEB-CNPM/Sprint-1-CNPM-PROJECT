@@ -50,4 +50,9 @@ public class RegistrationPeriodDAO extends JpaDAO<RegistrationPeriod> implements
 
 		return super.findWithNamedQuery(queryName, param);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("RP");
+	}
 }

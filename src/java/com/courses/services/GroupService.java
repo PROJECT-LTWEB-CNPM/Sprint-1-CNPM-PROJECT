@@ -19,6 +19,8 @@ public class GroupService extends SuperService {
 		this.groupDAO = new GroupStudentDAO();
 	}
 
+	public GroupService() {}
+
 	public void handleGetListGroup() throws ServletException, IOException {
 		try {
 			String pageUrl = "/pages/admin/group/group.jsp";
