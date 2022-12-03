@@ -42,4 +42,9 @@ public class BoardDAO extends JpaDAO<Board> implements GenericDAO<Board> {
 	public List<Board> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
 	}
+	
+	public int count() {
+		String queryName = "Board.count";
+		return super.count(queryName);
+	}
 }
