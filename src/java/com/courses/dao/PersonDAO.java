@@ -40,4 +40,9 @@ public class PersonDAO extends JpaDAO<Person> implements GenericDAO<Person>{
 	public List<Person> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("PE");
+	}
 }

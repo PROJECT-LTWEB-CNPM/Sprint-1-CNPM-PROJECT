@@ -15,6 +15,8 @@ public class HomeService extends SuperService{
 	public HomeService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 	}
+
+	public HomeService() {}
 	
 	public void handleGetHome() throws ServletException, IOException {
 		// define url

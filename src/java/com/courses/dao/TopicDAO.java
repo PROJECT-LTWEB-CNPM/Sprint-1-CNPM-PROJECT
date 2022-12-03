@@ -40,4 +40,9 @@ public class TopicDAO extends JpaDAO<Topic> implements GenericDAO<Topic> {
 	public List<Topic> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("TO");
+	}
 }
