@@ -13,7 +13,7 @@ request.getContextPath(); %>
         <c:when test="${user != null}">
           <div class="login-name__container">
             <div class="header_login-container">
-              <p>${user.fullName}</p>
+              <div>${user.fullName}</div>
             </div>
             <div class="header_login-container">
                 <button   type="button"

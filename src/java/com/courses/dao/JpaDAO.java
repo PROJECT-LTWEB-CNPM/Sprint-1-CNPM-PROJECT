@@ -11,20 +11,28 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class JpaDAO<T> {
-	private EntityManagerFactory entityManagerFactory;
-
-	public JpaDAO() {
-		String connectionString = "CoursesRegistrationApp"; // Paste here your connection String;
-		this.entityManagerFactory = Persistence.createEntityManagerFactory(connectionString);
+//	private EntityManagerFactory entityManagerFactory;
+//
+//	public JpaDAO() {
+//		String connectionString = "CoursesRegistrationApp"; // Paste here your connection String;
+//		this.entityManagerFactory = Persistence.createEntityManagerFactory(connectionString);
+//	}
+//
+//	public EntityManager getEntityManager() {
+//		return entityManagerFactory.createEntityManager();
+//	}
+	
+	private static final EntityManagerFactory entityManagerFactory;
+	static {
+		String connectionString = "CoursesRegistrationApp";
+		entityManagerFactory = Persistence.createEntityManagerFactory(connectionString);
 	}
-
-	public EntityManager getEntityManager() {
-		return entityManagerFactory.createEntityManager();
-	}
+	
+	public JpaDAO() {}
 
 	// create instance
 	public T create(T entity) {
-		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(entity);
 		entityManager.getTransaction().commit();
@@ -34,7 +42,7 @@ public class JpaDAO<T> {
 
 	// Update
 	public T update(T entity) {
-		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entity = entityManager.merge(entity);
 		entityManager.getTransaction().commit();
@@ -44,7 +52,7 @@ public class JpaDAO<T> {
 
 	// Delete
 	public void delete(Class<T> type, Object id) {
-		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		Object reference = entityManager.getReference(type, id);
 		entityManager.remove(reference);
@@ -54,7 +62,7 @@ public class JpaDAO<T> {
 
 	// Find
 	public T find(Class<T> type, Object primaryKey) {
-		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		T result = entityManager.find(type, primaryKey);
 		entityManager.close();
 		return result;
@@ -63,7 +71,7 @@ public class JpaDAO<T> {
 	// Find all
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(String queryString, Class<T> type) {
-		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		Query query = entityManager.createNamedQuery(queryString, type);
 		List<T> result = query.getResultList();
 		entityManager.close();
@@ -81,5 +89,17 @@ public class JpaDAO<T> {
 		List<T> result = query.getResultList();
 		entityManager.close();
 		return result;
+	}
+	
+	public int count(String queryName) {
+
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+
+		int maxResults = ((Long) entityManager.createNamedQuery(queryName).getSingleResult()).intValue();
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return maxResults;
 	}
 }

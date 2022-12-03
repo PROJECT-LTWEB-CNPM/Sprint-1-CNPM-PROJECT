@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
 /* grid_column_3 */
+.message {
+	font-size: 2rem;
+	color: var(--orange-color);
+	text-align: center;
+}
+
 .topic_registration {
     display: flex;
     align-items: center;
@@ -48,10 +54,23 @@
 
 .topic_registration-filter-active {
     background-color: var(--white-color);
+    position: relative;
 }
+
 
 .topic_registration-filter h3:first-child {
     margin-right: 24px;
+}
+
+.topic_registration-join-group {
+	position: absolute;
+	font-size: 1.3rem;
+	padding: 1px 5px;
+	background-color: var(--header-background-color);
+	color: var(--login-background-color); 
+	border-radius: 50%;
+	top: -4px;
+	right: -10px;
 }
 
 .topic_registration-notification {
@@ -133,4 +152,10 @@ table tr th a {
 
 .hide_element {
     visibility: hidden;
+}
+
+.seperate_boder {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	opacity: 0.4;
 }

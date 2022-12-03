@@ -83,6 +83,8 @@ public class LoginService extends SuperService {
 					} else if (role.equals("teacher")) {
 						// boilerplate code
 						url = "/home/teacher";
+					} else if (role.equals("admin")) {
+						url = "/admin/dashboard";
 					}
 
 				} else {
