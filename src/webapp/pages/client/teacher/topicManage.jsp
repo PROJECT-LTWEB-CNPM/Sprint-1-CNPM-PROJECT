@@ -60,7 +60,9 @@ String check = (String)request.getAttribute("notExistPeriod");
 							</div>
 						</div>
 					</div>
-					
+				</div>
+			</div>
+		</main>			
 		<!-- Modal -->
 		<jsp:include page="./periodModal.jsp" />
 		<jsp:include page="../partials/logoutModal.jsp" />
