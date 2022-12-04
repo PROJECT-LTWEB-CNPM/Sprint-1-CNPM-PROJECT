@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.courses.dao.TopicDAO" %>
 
 <%
 String context = request.getContextPath();
 String check = (String) request.getAttribute("notExistPeriod");
+TopicDAO td = new TopicDAO();
 %>
 
 <!DOCTYPE html>
@@ -12,6 +14,11 @@ String check = (String) request.getAttribute("notExistPeriod");
 <head>
 <jsp:include page="../partials/head.jsp" />
 <title>Trang chủ - Đăng ký đề tài</title>
+<style>
+.form-label {
+	color: var(--text-blue-color);
+}
+</style>
 </head>
 <body>
 	<div id="root">
@@ -30,22 +37,24 @@ String check = (String) request.getAttribute("notExistPeriod");
 								<ion-icon name="pencil"></ion-icon>
 								<h3>Thêm đề tài</h3>
 							</div>
-							<div class="mt-4 d-flex justify-content-center">
+							<div class="form-content mt-4 d-flex justify-content-center">
 								<div class="col col-lg-6">
-								<form class="">
+									<form class="<%=context%>/teacher/topic-manage/add" method="post">
 										<input type="text" name="topicId" class="form-control"
-											value="" hidden />
+											value="<%=td.randomId() %>" hidden  />
+										<input type="text" name="teacherId" class="form-control"
+											value="${teacher.teacherId}" hidden />
 										<div class="mb-3">
-											<label for="site-title" class="form-label">Đợt đăng
-												ký </label> <input type="text" name="registrationPeriodName"
-												class="form-control form-control-lg" value="RP0000001"
-												disabled />
+											<label for="site-title" class="form-label form_label">Đợt
+												đăng ký </label> <input type="text" name="registrationPeriodId"
+												class="form-control form-control-lg"
+												value="${period.registrationPeriodId}" disabled />
 										</div>
 										<div class="mb-3">
 											<label for="site-title" class="form-label">Chuyên
 												ngành </label> <input type="text" name="registrationPeriodName"
-												class="form-control form-control-lg" value="CN0000001"
-												disabled />
+												class="form-control form-control-lg"
+												value="${teacher.major.majorId}" disabled />
 										</div>
 
 										<div class="mb-3">
@@ -60,8 +69,8 @@ String check = (String) request.getAttribute("notExistPeriod");
 												name="numberOfMember" class="form-control form-control-lg" />
 										</div>
 										<div class="mb-3">
-											<label for="site-title" class="form-label">Descripton</label>
-											<textarea class="form-control" name="google_analytics_code"
+											<label for="site-title" class="form-label">Mô tả</label>
+											<textarea class="form-control" name="topicDescription"
 												rows="4"></textarea>
 										</div>
 										<div class="mb-3 d-flex flex-row-reverse">
@@ -69,34 +78,21 @@ String check = (String) request.getAttribute("notExistPeriod");
 												<i class="fas fa-check"></i> Thêm
 											</button>
 										</div>
-								</form>
-								
+									</form>
+
+								</div>
+
 							</div>
-								
-							</div>
-							
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 		<!-- Modal -->
-		<jsp:include page="./periodModal.jsp" />
 		<jsp:include page="../partials/logoutModal.jsp" />
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
-
-		<%
-		if (check != null) {
-		%>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#periodModal").modal('show');
-			});
-		</script>
-		<%
-		}
-		%>
 	</div>
 </body>
 </html>
