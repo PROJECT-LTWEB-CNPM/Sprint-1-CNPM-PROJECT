@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.courses.models.GroupStudent;
 import com.courses.models.Student;
@@ -29,8 +30,26 @@ public class GroupManage extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String url = "/pages/client/student/groupManage.jsp";
-		request.getRequestDispatcher(url).forward(request, response);
+		Student student = new Student();
+		
+		RegisterGroupService registerGroupService = new RegisterGroupService(request, response);
+		StudentService studentService = new StudentService(request, response);
+		GroupService groupService = new GroupService(request, response);
+//		JoinGroupService joinGroupService = new JoinGroupService(request, response);
+//		String studentId: Biến dùng để truyền thông tin của account đăng nhập(Lấy mã sinh viên hay mã định danh thay thế cho "ST00000002": thông tin được fix cứng)
+		String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("studentId", studentId);
+		
+		List<Student> students = new ArrayList<Student>();
+		List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
+//		List<JoinGroup> joinGroups = new ArrayList<JoinGroup>();
+		
+		students = studentService.checkStudentAndGroup(map);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
