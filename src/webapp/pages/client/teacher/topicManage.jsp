@@ -32,20 +32,20 @@
 							</div>
 							<div class="topic_registration-filter d-flex">
 
-								<div>
+								<div class="mx-2 mb-4" >
 									<h3 class="topic_registration-filter-active">
 										<a href="<%=context%>/teacher/topic-manage?select=0">Đề
 											tài chưa được đăng ký</a>
 									</h3>
 								</div>
-								<div class="mx-2">
+								<div class="mx-2 mb-4">
 									<h3>
 										<a href="<%=context%>/teacher/topic-manage?select=1">Đề
 											tài đã được đăng ký</a>
 									</h3>
 								</div>
 
-								<div class="mx-2">
+								<div class="mx-2 mb-4">
 									<h3>
 										<a href="<%=context%>/teacher/topic-manage/add">Thêm đề
 											tài</a>

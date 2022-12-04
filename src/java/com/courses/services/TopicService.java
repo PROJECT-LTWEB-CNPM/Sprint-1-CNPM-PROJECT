@@ -71,7 +71,6 @@ public class TopicService extends SuperService {
 
 	public void handlePostTeacherAddTopic() throws ServletException, IOException {
 		this.request.setCharacterEncoding("UTF-8");
-		String url = "/teacher/topic-manage";
 		try {
 			// get saved information in session
 			HttpSession session = this.request.getSession();
@@ -100,8 +99,6 @@ public class TopicService extends SuperService {
 			td.create(newTopic);
 
 			this.request.setAttribute("isAdded", "1");
-			super.redirectToPage(this.request.getContextPath() + url);
-
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}

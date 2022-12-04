@@ -1,12 +1,15 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.courses.dao.TopicDAO" %>
+<%@ page import="com.courses.dao.TopicDAO"%>
+
 
 <%
 String context = request.getContextPath();
-String check = (String) request.getAttribute("notExistPeriod");
 TopicDAO td = new TopicDAO();
+String check = (String)request.getAttribute("isAdded");
+
 %>
 
 <!DOCTYPE html>
@@ -39,10 +42,11 @@ TopicDAO td = new TopicDAO();
 							</div>
 							<div class="form-content mt-4 d-flex justify-content-center">
 								<div class="col col-lg-6">
-									<form class="<%=context%>/teacher/topic-manage/add" method="post">
+									<form class="<%=context%>/teacher/topic-manage/add"
+										method="post">
 										<input type="text" name="topicId" class="form-control"
-											value="<%=td.randomId() %>" hidden  />
-										<input type="text" name="teacherId" class="form-control"
+											value="<%=td.randomId()%>" hidden /> <input type="text"
+											name="teacherId" class="form-control"
 											value="${teacher.teacherId}" hidden />
 										<div class="mb-3">
 											<label for="site-title" class="form-label form_label">Đợt
@@ -91,8 +95,20 @@ TopicDAO td = new TopicDAO();
 		</main>
 		<!-- Modal -->
 		<jsp:include page="../partials/logoutModal.jsp" />
+		<jsp:include page="./modalAddTopicSuccess.jsp" />
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
 	</div>
+	<%
+	if (check != null) {
+	%>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#addTopicSuccess").modal('show');
+		});
+	</script>
+	<%
+	}
+	%>
 </body>
 </html>
