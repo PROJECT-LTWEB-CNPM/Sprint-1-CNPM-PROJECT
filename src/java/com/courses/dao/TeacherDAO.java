@@ -40,4 +40,9 @@ public class TeacherDAO extends JpaDAO<Teacher> implements GenericDAO<Teacher>{
 	public List<Teacher> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("TE");
+	}
 }

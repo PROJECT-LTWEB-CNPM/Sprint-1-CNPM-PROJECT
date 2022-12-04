@@ -10,6 +10,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 public class JpaDAO<T> {
 //	private EntityManagerFactory entityManagerFactory;
 //
@@ -101,5 +103,10 @@ public class JpaDAO<T> {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		return maxResults;
+	}
+
+	public String randomId (String type) {
+		String id = type + RandomStringUtils.randomNumeric(8);
+		return id;
 	}
 }

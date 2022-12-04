@@ -40,4 +40,9 @@ public class StudentDAO extends JpaDAO<Student> implements GenericDAO<Student>{
 	public List<Student> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("ST");
+	}
 }

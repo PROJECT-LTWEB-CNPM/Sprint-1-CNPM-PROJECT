@@ -47,4 +47,9 @@ public class BoardDAO extends JpaDAO<Board> implements GenericDAO<Board> {
 		String queryName = "Board.count";
 		return super.count(queryName);
 	}
+
+	@Override
+	public String randomId() {
+		return super.randomId("BO");
+	}
 }

@@ -17,6 +17,8 @@ public class SuperService {
 		this.response = response;
 	}
 
+	public SuperService() {}
+
 	protected void setEncoding() throws UnsupportedEncodingException {
 		this.request.setCharacterEncoding("UTF-8");
 		this.response.setCharacterEncoding("UTF-8");

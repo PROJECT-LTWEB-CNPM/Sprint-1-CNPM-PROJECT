@@ -27,6 +27,7 @@ public class TeacherService extends SuperService {
 		super(request, response);
 	}
 
+	public TeacherService() {}
 	
 	public void handleGetTeacher() throws ServletException, IOException{
 		// define default url

@@ -20,6 +20,8 @@ public class RegistrationPriodService extends SuperService {
 		this.registrationPeriodDAO = new RegistrationPeriodDAO();
 	}
 
+	public RegistrationPriodService() {}
+
 	public void handleGetList() throws ServletException, IOException {
 		String pageUrl = "/pages/admin/registrationPriod/registrationPriod.jsp";
 		try {

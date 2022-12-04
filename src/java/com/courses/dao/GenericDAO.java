@@ -10,4 +10,5 @@ public interface GenericDAO<T> {
 	public T find(Object primaryKry);
 	public List<T> findAll();
 	public List<T> findWithNamedQuery(String queryName, Map<String, Object> parameters);
+	public String randomId();
 }

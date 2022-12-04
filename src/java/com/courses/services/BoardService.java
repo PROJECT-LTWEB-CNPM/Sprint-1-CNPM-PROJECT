@@ -18,6 +18,8 @@ public class BoardService extends SuperService {
 		this.boardDAO = new BoardDAO();
 	}
 
+	public BoardService() {}
+
 	public void handleGetListBoard() throws ServletException, IOException {
 		String pageUrl = "/pages/admin/board/board.jsp";
 		try {
