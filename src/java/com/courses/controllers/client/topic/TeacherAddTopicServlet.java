@@ -1,4 +1,4 @@
-package com.courses.controllers.client;
+package com.courses.controllers.client.topic;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,24 +7,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.TeacherService;
+import com.courses.services.TopicService;
 
-@WebServlet("/home/teacher/teacher-profile")
-public class TeacherServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L; 
-	
-       public TeacherServlet() {
+
+@WebServlet("/teacher/topic-manage/add")
+public class TeacherAddTopicServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public TeacherAddTopicServlet() {
         super();
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TeacherService teacherService = new TeacherService(request, response);
-		teacherService.handleGetTeacher();
+		TopicService ts = new TopicService(request, response);
+		ts.handleGetTeacherAddTopic();
+		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		TopicService ts = new TopicService(request, response);
+		ts.handlePostTeacherAddTopic();
 	}
 
 }

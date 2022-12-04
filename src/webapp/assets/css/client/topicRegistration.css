@@ -48,7 +48,6 @@
     margin-right: 24px;
 }
 
-
 /* avai */
 .group_topic_registration-to-manage {
     border: 1px solid var(--nav-background-color);
@@ -95,4 +94,3 @@ table tr th a {
 .hide_element {
     visibility: hidden;
 }
-
