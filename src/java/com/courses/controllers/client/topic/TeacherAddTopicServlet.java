@@ -27,6 +27,7 @@ public class TeacherAddTopicServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		TopicService ts = new TopicService(request, response);
 		ts.handlePostTeacherAddTopic();
 	}
