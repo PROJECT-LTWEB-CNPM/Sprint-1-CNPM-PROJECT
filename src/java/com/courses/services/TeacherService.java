@@ -32,15 +32,6 @@ public class TeacherService extends SuperService {
 	public void handleGetTeacher() throws ServletException, IOException{
 		// define default url
 		String url = "/pages/client/teacher/teacherInfor.jsp";
-		
-		// get person
-		HttpSession session = this.request.getSession();
-		Person person = (Person) session.getAttribute("user");
-		
-		// get teacher by person
-		Teacher teacher = getTeacherByPerson(person);
-		session.setAttribute("teacher", teacher);
-		
 		// forward to specified url
 		super.forwardToPage(url);
 	}
