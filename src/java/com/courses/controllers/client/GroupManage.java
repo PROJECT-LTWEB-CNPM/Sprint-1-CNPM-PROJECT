@@ -64,7 +64,7 @@ public class GroupManage extends HttpServlet {
 //			Nếu students.size() == 0 --> sinh viên đó đã có nhóm
 			if(students.size() == 0) {
 //			Khi có dữ liệu trả về từ login thì thay cho "ST00000002"
-				//students = studentService.getListStudentTheSameGroup(studentId);
+				students = studentService.getListStudentTheSameGroup(studentId);
 				student = studentService.getStudentByStudentId(studentId);
 				request.setAttribute("uiGroupManage", "NOT NULL");
 				request.setAttribute("students", students);

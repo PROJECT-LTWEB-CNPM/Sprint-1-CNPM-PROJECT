@@ -54,7 +54,8 @@ public class RegisterGroupService extends SuperService {
 			if(students.size() > 0) {
 //			Tạo Group mới với thông tin đã check
 //				Cần viết hàm tạo tự động
-			//	groupStudent.setGroupId(groupService.randomIdNotDuplicate());
+				System.out.println("====================" + groupService.randomIdNotDuplicate() + "===============");
+				groupStudent.setGroupId(groupService.randomIdNotDuplicate());
 //				"ST00000002": thông tin được fix cứng để test --> Lấy thông tin từ login trả về để đưa vào
 				groupStudent.setLeaderId(studentId);
 				groupStudent.setDescription("Đây là sinh viên vừa mới tạo nhóm");
