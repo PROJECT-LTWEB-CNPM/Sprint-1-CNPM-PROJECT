@@ -1,5 +1,6 @@
 package com.courses.services.admin.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,28 @@ public class StudentService extends SuperService {
 		//		Sex thay thế "ST00000002" bằng studentId sau khi đã có dữ liệu từ login trả về.
 		student = this.studentDAO.find(studentId);
 		return student;
+	}
+	
+//	Lấy danh sách các sinh viên trong cùng 1 group
+	public List<Student> getStudentTheSameGroupByGroupId(Map<String,Object> map){
+		List<Student> students = this.studentDAO.findWithNamedQuery("Student.getStudentTheSameGroupByGroupId", map);
+		return students;
+	}
+	
+//	Đầu tiên dùng id của người đăng nhập ST00000002 để lấy ra group_id = GS00000005(Student)
+//	Sau đó dùng group_id = GS00000005 lấy ra DANH SÁCH các person_id(Student) có group_id(Student) = GS00000005  vừa tìm được
+//	Duyệt qua DANH SÁCH các person_id(Student) để lấy ra danh sách các person(Person)
+	public List<Student> getListStudentTheSameGroup(String studentId) {
+		Student student = new Student();
+		StudentService studentService = new StudentService(request, response);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Student> students = new ArrayList<Student>();
+		
+		student = studentService.getStudentByStudentId(studentId);
+		String groupId = student.getGroupstudent().getGroupId();
+		map.put("groupId", groupId);
+		students = studentService.getStudentTheSameGroupByGroupId(map);
+		return students;
 	}
 
 }
