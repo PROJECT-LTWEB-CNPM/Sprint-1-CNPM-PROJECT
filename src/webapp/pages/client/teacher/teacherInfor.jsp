@@ -40,7 +40,7 @@ String context = request.getContextPath();
                                 </li>
                                 <li class="info__item">
                                     <h3>Họ và tên:</h3>
-                                    <h3>${user.getFullName() }</h3>
+                                    <h3>${person.getFullName() }</h3>
                                 </li>
                                  <li class="info__item">
                                     <h3>Chuyên ngành:</h3>
@@ -52,7 +52,7 @@ String context = request.getContextPath();
                                 </li>
                                 <li class="info__item">
                                     <h3>Giới tính:</h3>
-                                    <h3>${user.getGender() == 1 ? 'Nam' : 'Nữ'}</h3>
+                                    <h3>${person.getGender() == 1 ? 'Nam' : 'Nữ'}</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Số CMND/CCCD:</h3>
@@ -60,7 +60,7 @@ String context = request.getContextPath();
                                 </li>
                                 <li class="info__item">
                                     <h3>Địa Chỉ</h3>
-                                    <h3>${user.getAddress()}</h3>
+                                    <h3>${person.getAddress()}</h3>
                                 </li>
                             </ul>
                         </div>
@@ -73,19 +73,19 @@ String context = request.getContextPath();
                             <ul class="list__info">
                                 <li class="info__item">
                                     <h3>Điện thoại:</h3>
-                                    <h3>${user.getPhonenumber() }</h3>
+                                    <h3>${person.getPhonenumber() }</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Email:</h3>
-                                    <h3>${user.getEmail() }</h3>
+                                    <h3>${person.getEmail() }</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Địa chỉ:</h3>
-                                    <h3>${user.getAddress()}</h3>
+                                    <h3>${person.getAddress()}</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Ghi chú:</h3>
-                                    <h3>${user.description}</h3>
+                                    <h3>${person.description}</h3>
                                 </li>
                             </ul>
                         </div>

@@ -19,13 +19,11 @@ public class TeacherHomeServlet extends HttpServlet {
         
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HomeService hs = new HomeService(request, response);
 		hs.handleGetTeacherHomeService();
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

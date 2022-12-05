@@ -21,6 +21,7 @@ public class StudentService extends SuperService {
 		super(request, response);
 		this.studentDAO = new StudentDAO();
 	}
+	
 	public Student getStudentByPersonToLoginData() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		

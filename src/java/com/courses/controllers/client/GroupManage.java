@@ -20,7 +20,7 @@ import com.courses.services.RegisterGroupService;
 import com.courses.services.admin.user.StudentService;
 
 
-@WebServlet("/group-manage")
+@WebServlet("/student/group-manage")
 public class GroupManage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

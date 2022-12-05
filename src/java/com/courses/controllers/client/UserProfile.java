@@ -14,7 +14,7 @@ import com.courses.services.admin.user.UserService;
 /**
  * Servlet implementation class UserProfile
  */
-@WebServlet("/user-profile")
+@WebServlet("/student/user-profile")
 public class UserProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

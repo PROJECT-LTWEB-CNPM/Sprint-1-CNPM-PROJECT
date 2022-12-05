@@ -10,10 +10,10 @@ request.getContextPath(); %>
   <div class="header_login">
     <div class="grid">
       <c:choose>
-        <c:when test="${user != null}">
+        <c:when test="${person != null}">
           <div class="login-name__container">
             <div class="header_login-container">
-              <div>${user.fullName}</div>
+              <div>${person.fullName}</div>
             </div>
             <div class="header_login-container">
                 <button   type="button"

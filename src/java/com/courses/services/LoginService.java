@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.courses.models.Account;
 import com.courses.models.Person;
+import com.courses.models.Student;
 import com.courses.models.Teacher;
 import com.courses.dao.AccountDAO;
 
@@ -49,20 +50,17 @@ public class LoginService extends SuperService {
 			if (foundAccount != null) {
 				person = foundAccount.getPerson();
 			}
-
 			// check if this account is existing
 			if (foundAccount != null && checkRole(role, person)) {
 				if (password.equals(foundAccount.getPassword())) {
+					
 					// define user id cookie timeout 30'
-					Cookie c = new Cookie("userIdCookie", username);
+					Cookie c = new Cookie("userIdCookie", person.getPersonId());
+					
 					c.setMaxAge(30 * 60);
 					c.setPath("/");
 					this.response.addCookie(c);
-
-					// set user information
-					session.setAttribute("user", person);
-					Teacher teacher = null;
-
+					
 					// define url base on role
 					if (role.equals("student")) {
 						// forward to student home page
@@ -70,13 +68,11 @@ public class LoginService extends SuperService {
 					} else if (role.equals("teacher")) {
 						// forward to teacher home page
 						url = "/home/teacher";
-						// get teacher by person
-						teacher = TeacherService.getTeacherByPerson(person);
-						session.setAttribute("teacher", teacher);
 					} else if (role.equals("admin")) {
 						// forward to admin home page
 						url = "/admin/dashboard";
 					}
+					
 
 				} else {
 					// exist account but incorrect password was found
