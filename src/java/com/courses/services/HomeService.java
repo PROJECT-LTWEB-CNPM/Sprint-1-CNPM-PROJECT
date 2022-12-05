@@ -20,8 +20,7 @@ public class HomeService extends SuperService{
 	
 	public void handleGetHome() throws ServletException, IOException {
 		// define url
-		String url = "/pages/client/student/home.jsp";	
-		
+		String url = "/pages/client/student/home.jsp";		
 		// forward information to jsp file
 		super.forwardToPage(url);
 	}

@@ -52,7 +52,6 @@ public class TopicService extends SuperService {
 		String isSelected = this.request.getParameter("select");
 
 		List<Topic> topics = null;
-
 		// get topics
 		if (isSelected == null) {
 			topics = topicDAO.findAll();
@@ -119,9 +118,8 @@ public class TopicService extends SuperService {
 			// get session
 			HttpSession session = request.getSession();
 			// get infor in session
-			Person person = (Person) session.getAttribute("user");
+			Person person = (Person) session.getAttribute("person");
 			String isSelected = request.getParameter("select");
-
 			// get teacher
 			Teacher teacher = TeacherService.getTeacherByPerson(person);
 			// get list teacher's topic

@@ -36,19 +36,19 @@ String context = request.getContextPath();
                             <ul class="list__info">
                                 <li class="info__item">
                                     <h3>Mã số sinh viên:</h3>
-                                    <h3>${person.getPersonId() }</h3>
+                                    <h3>${student.studentId}</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Họ và tên:</h3>
-                                    <h3>${person.getFullName() }</h3>
+                                    <h3>${person.fullName}</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Giới tính:</h3>
                                     <h3>${person.getGender() == 1 ? 'Nam' : 'Nữ'}</h3>
                                 </li>
                                 <li class="info__item">
-                                    <h3>Số CMND/CCCD:</h3>
-                                    <h3></h3>
+                                    <h3>Chuyên ngành:</h3>
+                                    <h3>${student.major.majorName}</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Tôn giáo:</h3>
@@ -59,12 +59,8 @@ String context = request.getContextPath();
                                     <h3>Khu vực 2 nông thôn</h3>
                                 </li>
                                 <li class="info__item">
-                                    <h3>Tỉnh/Thành Phố:</h3>
+                                    <h3>Địa chỉ:</h3>
                                     <h3>${person.getAddress() }</h3>
-                                </li>
-                                <li class="info__item">
-                                    <h3>Quận/Huyện:</h3>
-                                    <h3></h3>
                                 </li>
                             </ul>
                             <h3 class="title backgroud__info_courses">THÔNG TIN KHÓA HỌC</h3>
@@ -75,7 +71,7 @@ String context = request.getContextPath();
                                 </li>
                                 <li class="info__item">
                                     <h3>Niên khóa:</h3>
-                                    <h3>2020 - 2024</h3>
+                                    <h3>${student.schoolYear}</h3>
                                 </li>
                                 <li class="info__item">
                                     <h3>Năm nhập học:</h3>
@@ -107,20 +103,12 @@ String context = request.getContextPath();
                                     <h3>${person.getPhonenumber() }</h3>
                                 </li>
                                 <li class="info__item">
-                                    <h3>Di động:</h3>
-                                    <h3>0393012069</h3>
-                                </li>
-                                <li class="info__item">
                                     <h3>Email:</h3>
                                     <h3>${person.getEmail() }</h3>
                                 </li>
                                 <li class="info__item">
-                                    <h3>Địa chỉ:</h3>
-                                    <h3></h3>
-                                </li>
-                                <li class="info__item">
                                     <h3>Ghi chú:</h3>
-                                    <h3></h3>
+                                    <h3>${person.description}</h3>
                                 </li>
                             </ul>
                             <h3 class="description">* Thông tin liên lạc người thân của sinh viên (khi không liên lạc được với sinh viên):</h3>
