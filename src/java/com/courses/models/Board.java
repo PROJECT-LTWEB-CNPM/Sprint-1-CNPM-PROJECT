@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = "Board.findAll", query = "SELECT b FROM Board b"),
-		@NamedQuery(name = "Board.count", query = "SELECT COUNT(b) FROM Board b") })
+	@NamedQuery(name = "Board.count", query = "SELECT COUNT(b) FROM Board b") })
 public class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
 

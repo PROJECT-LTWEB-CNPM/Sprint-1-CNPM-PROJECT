@@ -10,10 +10,16 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p"),
+@NamedQueries({ @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
+	@NamedQuery(name = "Person.getInfoStudentByLeaderId", query = "SELECT p.personId, p.fullName, p.gender, p.address, p.phonenumber, "
+			+ "p.email, p.role, p.description "
+//	'GS00000005': thay thế khi có dữ liệu được gởi về từ login để tìm ra được group_id thông qua thông tin đăng nhập.		
+			+ "FROM Person p, Student s, GroupStudent g WHERE g.groupId = 'GS00000005'"
+			+ "AND g.groupId = s.groupstudent.groupId " + "AND s.person.personId = p.personId "
+			+ "AND s.groupstudent.groupId IS NOT NULL"),
 	@NamedQuery(name="Person.findPersonByEmail", query="SELECT p FROM Person p WHERE p.email = :email"),
-})
+	@NamedQuery(name = "Person.findByIsDelete", query = "SELECT p FROM Person p WHERE p.isDeleted = :isDeleted")
+	})
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 

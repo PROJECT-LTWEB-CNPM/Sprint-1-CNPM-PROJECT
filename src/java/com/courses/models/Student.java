@@ -13,6 +13,9 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="Student.findAll", query="SELECT s FROM Student s"),
 	@NamedQuery(name="Student.findStudentByPerson", query="SELECT s FROM Student s WHERE s.person = :person"),
+	@NamedQuery(name="Student.checkStudentAndGroup", query="SELECT s FROM Student s WHERE s.studentId = :studentId AND s.groupstudent.groupId IS NULL"),
+	@NamedQuery(name="Student.getStudentTheSameGroupByGroupId",query="SELECT s FROM Student s WHERE s.groupstudent.groupId = :groupId"),
+	@NamedQuery(name="Student.getStudentByPersonId", query="SELECT s FROM Student s WHERE s.person.personId = :personId")
 })
 public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
