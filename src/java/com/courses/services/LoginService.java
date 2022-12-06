@@ -11,8 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.courses.models.Account;
 import com.courses.models.Person;
-import com.courses.models.Student;
-import com.courses.models.Teacher;
 import com.courses.dao.AccountDAO;
 
 public class LoginService extends SuperService {

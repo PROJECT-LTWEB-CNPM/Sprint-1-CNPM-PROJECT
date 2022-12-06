@@ -63,14 +63,14 @@
 										</tr>
 									</table>
 								</div>
-								<c:forEach var="topic" items="${topics }">
+								<c:forEach var="topic" items="${topics}">
 									<div class="group_topic_registration-to-manage">
 										<table>
 											<tr>
 												<th width="40%" class="highlight_content">${topic.topicName}</th>
 												<th width="25%">${topic.registrationperiod.registrationPeriodName}</th>
 												<th width="25%">${topic.registrationperiod.schoolYear}</th>
-												<th><a href="#" class="highlight_content">Chi tiết</a></th>
+												<th><a href="<%=context%>/teacher/topic-manage/detail?topic=${topic.topicId}" class="highlight_content">Chi tiết</a></th>
 											</tr>
 										</table>
 									</div>

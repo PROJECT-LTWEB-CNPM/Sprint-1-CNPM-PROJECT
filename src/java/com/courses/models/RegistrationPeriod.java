@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = "RegistrationPeriod.findAll", query = "SELECT r FROM RegistrationPeriod r"),
-	@NamedQuery(name = "RegistrationPeriod.findByStatus", query = "SELECT r FROM RegistrationPeriod r WHERE r.isActive = :isActive"),
+		@NamedQuery(name = "RegistrationPeriod.findByStatus", query = "SELECT r FROM RegistrationPeriod r WHERE r.isActive = :isActive"),
 		@NamedQuery(name = "RegistrationPeriod.findByIsTeacher", query = "SELECT r FROM RegistrationPeriod r WHERE r.isRegistrationTeacher = :isRegistrationTeacher") })
 public class RegistrationPeriod implements Serializable {
 	private static final long serialVersionUID = 1L;
