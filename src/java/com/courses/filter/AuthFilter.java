@@ -55,8 +55,6 @@ public class AuthFilter extends HttpFilter implements Filter {
 			}
 		}
 		
-		
-		
 		Person person = null;
 		// check to forward
 		if(check) {
