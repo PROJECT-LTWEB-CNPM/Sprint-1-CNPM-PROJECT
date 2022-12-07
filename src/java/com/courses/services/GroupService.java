@@ -21,7 +21,7 @@ import com.courses.services.admin.user.PersonService;
 
 public class GroupService extends SuperService {
 
-	GroupStudentDAO groupDAO = null;
+	private GroupStudentDAO groupDAO = new GroupStudentDAO();
 
 	public GroupService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
@@ -201,5 +201,36 @@ public class GroupService extends SuperService {
 			}
 		}
 		this.request.getRequestDispatcher(url).forward(request, response);
+	}
+	
+	// get group of student by topic
+	public List<GroupStudent> getGroupStudentByTopic(Topic topic){
+		List<GroupStudent> groups = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("topic", topic);
+		if (this.groupDAO.findWithNamedQuery("GroupStudent.getGroupStudentByTopic", map).size() > 0) {
+			groups = this.groupDAO.findWithNamedQuery("GroupStudent.getGroupStudentByTopic", map);
+		}
+		return groups;
+	}
+	
+	// get students of a specified group
+	public Map<String, List<Student>> getGroupStudentInfomation(Topic foundTopic){
+		// define a map that will contain formation about student of each group
+		Map<String, List<Student>> map = new HashMap<String, List<Student>>();
+		// find groups
+		List<GroupStudent> groups = getGroupStudentByTopic(foundTopic);
+		// check if there is any existing group
+		if (!groups.isEmpty() && groups != null) {
+			for(GroupStudent group: groups){
+				// find list student of the group
+				List<Student> students = null;
+				students = StudentService.findStudentByGroup(group);
+				//save 
+				map.put(group.getGroupId(), students);
+			}
+		}
+		// return value
+		return map;
 	}
 }

@@ -11,7 +11,7 @@ String check = (String) request.getAttribute("notExistPeriod");
 <html lang="en">
 <head>
 <jsp:include page="../partials/head.jsp" />
-<title>Trang chủ - Đăng ký đề tài</title>
+<title>Giảng viên | Chi tiết đề tài</title>
 </head>
 <body>
 	<div id="root">
@@ -20,46 +20,21 @@ String check = (String) request.getAttribute("notExistPeriod");
 		<!-- Body -->
 		<main>
 			<div class="container">
+
 				<div class="grid">
 					<div class="grid_row">
 						<div class="grid_column_1">
 							<jsp:include page="./teacherSidebar.jsp" />
 						</div>
 						<div class="grid_column_3">
-							<h1>TÊN ĐỀ TÀI</h1>
+							<h1>${topicName}</h1>
 							<div class="topic-group">
 								<ion-icon name="receipt-outline"></ion-icon>
 								<h3>NHÓM SINH VIÊN ĐĂNG KÝ</h3>
 							</div>
 							<div class="student-table">
-								<table id="students">
-									<tr>
-										<th>Mã nhóm</th>
-										<th>Tên thành viên</th>
-										<th>Mã số sinh viên</th>
-										<th>Vai trò</th>
-									</tr>
-									<tr>
-										<td>GR000001</td>
-										<td>Đỗ Dương Thái Tuấn</td>
-										<td>2011xxxx</td>
-										<td>Nhóm trưởng</td>
-									</tr>
-									<tr>
-										<td></td>
-										<td>Phạm Nguyễn Nhựt Trường</td>
-										<td>2011yyyy</td>
-										<td>Thành viên</td>
-									</tr>
-									<tr>
-										<td></td>
-										<td>Bùi Thanh Duy</td>
-										<td>20110623</td>
-										<td>Thành viên</td>
-									</tr>
-								</table>
+								<c:forEach var="id" items="${groupStudentMap.keySet()}">
 
-								<div class="student-table">
 									<table id="students">
 										<tr>
 											<th>Mã nhóm</th>
@@ -67,60 +42,36 @@ String check = (String) request.getAttribute("notExistPeriod");
 											<th>Mã số sinh viên</th>
 											<th>Vai trò</th>
 										</tr>
-										<tr>
-											<td>GR000002</td>
-											<td>Đỗ Dương Thái Tuấn</td>
-											<td>2011xxxx</td>
-											<td>Nhóm trưởng</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td>Phạm Nguyễn Nhựt Trường</td>
-											<td>2011yyyy</td>
-											<td>Thành viên</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td>Bùi Thanh Duy</td>
-											<td>20110623</td>
-											<td>Thành viên</td>
-										</tr>
+										<c:forEach var="student" items="${groupStudentMap.get(id)}"
+											varStatus="state">
+											<c:choose>
+												<c:when test="${state.first}">
+													<tr>
+														<td>${id}</td>
+														<td>${student.person.fullName}</td>
+														<td>${student.studentId}</td>
+														<td></td>
+													</tr>
+												</c:when>
+												<c:otherwise>
+													<tr>
+														<td></td>
+														<td>${student.person.fullName}</td>
+														<td>${student.studentId}</td>
+														<td></td>
+													</tr>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
 									</table>
-
-									<div class="student-table">
-										<table id="students">
-											<tr>
-												<th>Mã nhóm</th>
-												<th>Tên thành viên</th>
-												<th>Mã số sinh viên</th>
-												<th>Vai trò</th>
-											</tr>
-											<tr>
-												<td>GR000003</td>
-												<td>Đỗ Dương Thái Tuấn</td>
-												<td>2011xxxx</td>
-												<td>Nhóm trưởng</td>
-											</tr>
-											<tr>
-												<td></td>
-												<td>Phạm Nguyễn Nhựt Trường</td>
-												<td>2011yyyy</td>
-												<td>Thành viên</td>
-											</tr>
-											<tr>
-												<td></td>
-												<td>Bùi Thanh Duy</td>
-												<td>20110623</td>
-												<td>Thành viên</td>
-											</tr>
-										</table>
-
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
 		</main>
+
 		<!-- Modal -->
 		<jsp:include page="./periodModal.jsp" />
 		<jsp:include page="../partials/logoutModal.jsp" />

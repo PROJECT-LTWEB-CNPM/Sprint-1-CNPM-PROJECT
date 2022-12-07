@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.courses.dao.GroupStudentDAO;
 import com.courses.dao.TeacherDAO;
 import com.courses.dao.TopicDAO;
+import com.courses.models.GroupStudent;
 import com.courses.models.Person;
 import com.courses.models.RegistrationPeriod;
+import com.courses.models.Student;
 import com.courses.models.Teacher;
 import com.courses.models.Topic;
 import com.courses.services.TeacherService;
@@ -23,6 +26,7 @@ import net.bytebuddy.description.type.TypeDefinition.SuperClassIterator;
 public class TopicService extends SuperService {
 
 	private static TopicDAO topicDAO = new TopicDAO();
+	private static GroupStudentDAO groupDAO = new GroupStudentDAO();
 	TeacherDAO teacherDAO = new TeacherDAO();
 
 	public TopicService(HttpServletRequest request, HttpServletResponse response) {
@@ -102,6 +106,41 @@ public class TopicService extends SuperService {
 			System.out.println(ex);
 		}
 	}
+	
+	public void getGroupRegisteredTopic() throws ServletException, IOException {
+		String url = "/pages/client/teacher/detailTopic.jsp";
+		try {
+			// get topic id from url parameter
+			String topicId = this.request.getParameter("topic");
+			// find the topic by id
+			Topic foundTopic  = null;
+			foundTopic = topicDAO.find(Topic.class, topicId);
+			// get List of group registered the topic
+			if (foundTopic != null) {
+				// define a map
+				Map<String, List<Student>> groupStudentMap = new HashMap<String, List<Student>>();
+				// find student information of group
+				GroupService groupService = new GroupService();
+				groupStudentMap = groupService.getGroupStudentInfomation(foundTopic);
+				// test
+				for(String key: groupStudentMap.keySet()) {
+					System.out.println(key);
+					for (Student student: groupStudentMap.get(key)) {
+						System.out.println(student.getPerson().getFullName());
+					}
+				}
+				
+				this.request.setAttribute("groupStudentMap", groupStudentMap);
+				this.request.setAttribute("topicName", foundTopic.getTopicName());
+			}
+			super.forwardToPage(url);
+			
+		}catch (Exception ex) {
+			System.out.println(ex);
+			url = "/pages/500.jsp";
+			super.redirectToPage(this.request.getContextPath() + url);
+		}
+	}
 
 	private List<Topic> findSelectedTopic(Byte isSelected) {
 		List<Topic> foundTopics = null;
@@ -134,7 +173,6 @@ public class TopicService extends SuperService {
 			}
 			super.forwardToPage(url);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

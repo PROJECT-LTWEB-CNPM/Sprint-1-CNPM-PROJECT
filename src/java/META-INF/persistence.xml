@@ -36,11 +36,7 @@
 				value="true" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/topicregistration"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-<<<<<<< HEAD
-			<property name="javax.persistence.jdbc.password" value="201102"/>
-=======
-			<property name="javax.persistence.jdbc.password" value="pnnt19062002"/>
->>>>>>> e3bcbe2c9c1135d48e1454a9f886a75d4ac43407
+			<property name="javax.persistence.jdbc.password" value="12345"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>
