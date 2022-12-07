@@ -17,7 +17,7 @@ public class BoardService extends SuperService {
 		super(request, response);
 		this.boardDAO = new BoardDAO();
 	}
-
+	
 	public BoardService() {}
 
 	public void handleGetListBoard() throws ServletException, IOException {

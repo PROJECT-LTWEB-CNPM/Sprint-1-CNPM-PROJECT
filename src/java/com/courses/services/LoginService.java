@@ -19,13 +19,31 @@ public class LoginService extends SuperService {
 		super(request, response);
 	}
 
-	public LoginService() {
-	}
-
+	public LoginService() {}
+	
 	public void handleGetLogin() throws ServletException, IOException {
 		String url = "/pages/client/login.jsp";
 
 		super.forwardToPage(url);
+	}
+
+	// get an exist account
+	private Account getAccount(String username) {
+		AccountDAO ad = new AccountDAO();
+		List<Account> listAccounts = ad.findAll();
+		for (Account acc : listAccounts) {
+			if (username.equals(acc.getUsername())) {
+				return acc;
+			}
+		}
+		return null;
+	}
+
+	private boolean checkRole(String roleName, Person user) {
+		if (user.getRole().equals(roleName)) {
+			return true;
+		}
+		return false;
 	}
 
 	public void handlePostLogin() throws IOException, ServletException {
@@ -62,10 +80,10 @@ public class LoginService extends SuperService {
 					// define url base on role
 					if (role.equals("student")) {
 						// forward to student home page
-						url = "/home/student";
+						url = "/student/home";
 					} else if (role.equals("teacher")) {
 						// forward to teacher home page
-						url = "/home/teacher";
+						url = "/teacher/home";
 					} else if (role.equals("admin")) {
 						// forward to admin home page
 						url = "/admin/dashboard";
@@ -100,25 +118,6 @@ public class LoginService extends SuperService {
 			String pageError = "/pages/500.jsp";
 			super.forwardToPage(pageError);
 		}
-	}
-
-	// get an exist account
-	private Account getAccount(String username) {
-		AccountDAO ad = new AccountDAO();
-		List<Account> listAccounts = ad.findAll();
-		for (Account acc : listAccounts) {
-			if (username.equals(acc.getUsername())) {
-				return acc;
-			}
-		}
-		return null;
-	}
-
-	private boolean checkRole(String roleName, Person user) {
-		if (user.getRole().equals(roleName)) {
-			return true;
-		}
-		return false;
 	}
 
 }

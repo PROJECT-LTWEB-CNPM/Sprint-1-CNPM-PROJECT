@@ -10,14 +10,13 @@ import java.util.List;
  * 
  */
 @Entity
-
 @NamedQueries({
 	@NamedQuery(name="Topic.findAll", query="SELECT t FROM Topic t"),
+	@NamedQuery(name="Topic.getTopicByConditionSelect", query="SELECT t FROM Topic t WHERE t.isSelected = :is_selected"),
 	@NamedQuery(name="Topic.findSelectedTopic", query="SELECT t FROM Topic t where t.isSelected = :isSelected"),
 	@NamedQuery(name="Topic.findTopicByTeacher", query="SELECT t FROM Topic t where t.teacher = :teacher"),
 	@NamedQuery(name="Topic.findSpecifiedTopic", query="SELECT t FROM Topic t where t.teacher = :teacher and t.isSelected = :isSelected")
 })
-
 public class Topic implements Serializable {
 	private static final long serialVersionUID = 1L;
 

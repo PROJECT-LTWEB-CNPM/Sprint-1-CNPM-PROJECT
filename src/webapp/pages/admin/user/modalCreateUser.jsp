@@ -36,13 +36,20 @@ if (type.equals(RoleConstants.ADMIN)) {
 				<div class="modal-body">
 					<div class="col-md-12">
 						<input type="text" name="personId" class="form-control"
-							value="<%=RandomUtils.randomId()%>" hidden /> <input type="text"
-							name="id" class="form-control"
-							value="<%=prefix%><%=RandomUtils.randomId()%>" hidden />
+							value="PE<%=RandomUtils.randomId()%>" hidden /> <input
+							type="text" name="id" class="form-control"
+							value="<%=prefix%><%=RandomUtils.randomId()%>" hidden /> <input
+							type="text" name="type" class="form-control" value="${type}"
+							hidden />
 						<div class="mb-3">
 							<label for="site-title" class="form-label">Full name</label> <input
 								type="text" name="fullname" class="form-control" />
 						</div>
+						<div class="mb-3">
+							<label for="site-title" class="form-label">Email</label> <input
+								type="email" name="email" class="form-control" />
+						</div>
+
 						<div class="mb-3">
 							<label for="site-title" class="form-label">Address</label> <input
 								type="text" name="address" class="form-control" />
@@ -65,8 +72,8 @@ if (type.equals(RoleConstants.ADMIN)) {
 							</select>
 						</div>
 						<div class="mb-3">
-							<label for="site-title" class="form-label">Descripton</label>
-							<textarea class="form-control" name="desc" rows="4"></textarea>
+							<label for="site-title" class="form-label">Description</label>
+							<textarea class="form-control" name="description" rows="4"></textarea>
 						</div>
 					</div>
 				</div>

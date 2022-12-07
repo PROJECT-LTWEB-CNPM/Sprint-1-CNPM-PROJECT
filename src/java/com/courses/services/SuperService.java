@@ -16,7 +16,7 @@ public class SuperService {
 		this.request = request;
 		this.response = response;
 	}
-
+	
 	public SuperService() {}
 
 	protected void setEncoding() throws UnsupportedEncodingException {

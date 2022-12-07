@@ -9,15 +9,18 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.courses.dao.GroupStudentDAO;
 import com.courses.dao.StudentDAO;
 import com.courses.dao.TopicDAO;
 import com.courses.models.GroupStudent;
+import com.courses.models.JoinGroup;
 import com.courses.models.Person;
 import com.courses.models.Student;
 import com.courses.models.Topic;
 import com.courses.services.admin.user.PersonService;
+import com.courses.services.admin.user.StudentService;
 
 public class GroupService extends SuperService {
 
@@ -27,9 +30,39 @@ public class GroupService extends SuperService {
 		super(request, response);
 		this.groupDAO = new GroupStudentDAO();
 	}
-	
-	public GroupService() {}
-	
+
+	public GroupService() {
+	}
+
+	public void handleGetGroupManage() throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String url = "/pages/client/student/groupManage.jsp";
+		StudentService studentService = new StudentService(request, response);
+		JoinGroupService joinGroupService = new JoinGroupService(request, response);
+		GroupService groupService = new GroupService(request, response);
+		Student student = new Student();
+		List<Student> students = new ArrayList<Student>();
+		List<JoinGroup> joinGroups = new ArrayList<JoinGroup>();
+		List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
+		map.put("studentId", studentId);
+		students = studentService.checkStudentAndGroup(map);
+		if (students.size() == 0) {
+//			Khi có dữ liệu trả về từ login thì thay cho "ST00000002"
+			students = studentService.getListStudentTheSameGroup(studentId);
+			student = studentService.getStudentByStudentId(studentId);
+			request.setAttribute("uiGroupManage", "NOT NULL");
+			request.setAttribute("students", students);
+			request.setAttribute("student", student);
+		}
+		joinGroups = joinGroupService.getRequestJoinGroup(studentId);
+		groupStudents = groupService.getGroupStudent();
+		this.request.setAttribute("groupStudents", groupStudents);
+		session.setAttribute("joinGroups", joinGroups);
+		this.request.getRequestDispatcher(url).forward(request, response);
+	}
+
 	public void handleGetListGroup() throws ServletException, IOException {
 		try {
 			String pageUrl = "/pages/admin/group/group.jsp";
@@ -76,8 +109,8 @@ public class GroupService extends SuperService {
 
 		groupStudents = groupService.checkLeader(map);
 // 		Kiểm tra xe người đăng nhập vào có phải là trưởng nhóm hay ko và có phải sinh viên hay không
-		if (groupStudents.size() > 0 ) {
-			topic.setIsSelected((byte)1);
+		if (groupStudents.size() > 0) {
+			topic.setIsSelected((byte) 1);
 			groupStudent = groupStudents.get(0);
 //			Kiểm tra xem số lượng thành viên của nhóm sinh viên đó có lớn hơn số lượng ho phép hay không
 			if (groupStudent.getCurrentNumber() <= topic.getMaxMoMember()) {
@@ -91,38 +124,36 @@ public class GroupService extends SuperService {
 			this.request.setAttribute("message", "Bạn chưa có nhóm. Hoặc đã đăng kí đề tài");
 		}
 	}
-	
-	
+
 	public String randomIdNotDuplicate() {
 		GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
 		String id = "";
 		do {
 			id = groupStudentDAO.randomId();
-		} while(groupStudentDAO.find(id) != null);
+		} while (groupStudentDAO.find(id) != null);
 		return id;
 	}
-	
+
 	public List<GroupStudent> getGroupStudent() {
 		GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
 		List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isDeleted", (byte)0);
-		
+		map.put("isDeleted", (byte) 0);
+
 		groupStudents = groupStudentDAO.findWithNamedQuery("GroupStudent.getGroupStudent", map);
 		return groupStudents;
 	}
-	
-	
+
 	public List<GroupStudent> checkRole(String studentId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("leaderId", studentId);
 		GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
 		List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
-		
+
 		groupStudents = groupStudentDAO.findWithNamedQuery("GroupStudent.checkRole", map);
 		return groupStudents;
 	}
-	
+
 	public String grantPermissionDelete(String username) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Person person = new Person();
@@ -141,7 +172,6 @@ public class GroupService extends SuperService {
 		}
 	}
 
-
 	public void addMemberToGroup() throws ServletException, IOException {
 //		Kiểm tra xem người yêu cầu thêm thành viên có phải là nhóm trưởng hay không
 //		Kiểm tra mã sinh viên vừa nhập vào đã có nhóm hay chưa. Nếu chưa mới cho thêm vào nhóm
@@ -150,32 +180,32 @@ public class GroupService extends SuperService {
 		GroupService groupService = new GroupService(request, response);
 		StudentService studentService = new StudentService(request, response);
 		JoinGroupService joinGroupService = new JoinGroupService(request, response);
-		
-		StudentDAO studentDAO = new StudentDAO(); 
+		NotificationService notificationService = new NotificationService(request, response);
+
+		StudentDAO studentDAO = new StudentDAO();
 		GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
-		
+
 		Student student = new Student();
 		GroupStudent groupStudent = new GroupStudent();
 
-		
 		List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
 		List<Student> students = new ArrayList<Student>();
 // Lấy dữ đối tượng đăng nhập vào thôgn qua login	
 		String leaderId = studentService.getStudentByPersonToLoginData().getStudentId();
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 //		Kiểm tra xe người đăng nhập vào có phải là trưởng nhóm hay ko
 //		"ST00000002": sẽ được lấy từ login trả về
 		map.put("leaderId", leaderId);
 		groupStudents = groupService.checkLeader(map);
-		
+
 		String student_id = request.getParameter("studentId");
-		System.out.println("==============="+ student_id +"===============");
+		System.out.println("===============" + student_id + "===============");
 		map.clear();
 		map.put("studentId", student_id);
 		students = studentService.checkStudentAndGroup(map);
 //		Kiểm tra xe người đăng nhập vào có phải là trưởng nhóm hay ko và có phải sinh viên hay không
-		if(groupStudents.size() > 0 && students.size() > 0) {
+		if (groupStudents.size() > 0 && students.size() > 0) {
 			this.request.setAttribute("message", "Cần chọn đề tài trước khi thêm thành viên vào nhóm");
 		} else {
 //			Nếu sinh viên đăng nhập là nhóm trưởng thì mới có quyền thêm sinh viên mới vào nhóm.
@@ -187,14 +217,19 @@ public class GroupService extends SuperService {
 					groupStudent.setCurrentNumber(groupStudent.getCurrentNumber() + 1);
 					student.setGroupstudent(groupStudents.get(0));
 					groupStudentDAO.update(groupStudent);
-					studentDAO.update(student);	
+					studentDAO.update(student);
+//			Thêm thông báo về việc được ai đó thêm vào nhóm
+					notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
+							"Chúc mừng sinh viên " + student.getPerson().getFullName() + " đã được tham gia vào nhóm "
+									+ groupStudent.getGroupId());
 //			Xóa 1 sinh viên ra khỏi hàng chò xin vào nhóm khi xin viên đó được thêm vào nhóm nào đó
 //					joinGroupService.deleteRequestJoinGroup(student.getStudentId(), groupStudent.getGroupId());
 					joinGroupService.deleteAllRequestJoinGroupsRelatedToStudentId(student_id);
 					this.request.setAttribute("message", "Thêm thành viên thành công");
-					
+
 				} else {
-					this.request.setAttribute("message", "Số lượng thành viên của nhóm vượt quá số lượng thành viên cho phép của đề tài");
+					this.request.setAttribute("message",
+							"Số lượng thành viên của nhóm vượt quá số lượng thành viên cho phép của đề tài");
 				}
 			} else {
 				this.request.setAttribute("message", "Chỉ có trưởng nhóm mới được thêm thành viên");
@@ -216,6 +251,7 @@ public class GroupService extends SuperService {
 	
 	// get students of a specified group
 	public Map<String, List<Student>> getGroupStudentInfomation(Topic foundTopic){
+		StudentService studentService = new StudentService(request, response);
 		// define a map that will contain formation about student of each group
 		Map<String, List<Student>> map = new HashMap<String, List<Student>>();
 		// find groups
@@ -225,7 +261,7 @@ public class GroupService extends SuperService {
 			for(GroupStudent group: groups){
 				// find list student of the group
 				List<Student> students = null;
-				students = StudentService.findStudentByGroup(group);
+				students = studentService.findStudentByGroup(group);
 				//save 
 				map.put(group.getGroupId(), students);
 			}

@@ -25,8 +25,9 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 					<div class="container">
 						<div class="page-title">
 							<h3 class="d-flex justify-content-between">
-								<span>Trash <%=title%></span>
+								<span>Trash</span>
 								<form action="recovery" method="POST">
+									<input name="type" value="<%=type%>" hidden />
 									<c:forEach var="item" items="${users}">
 										<c:if test="${item.getPerson().getIsDeleted() == 1}">
 											<input hidden value="${item.getPerson().getPersonId()}"
@@ -110,6 +111,12 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 									</c:otherwise>
 								</c:choose>
 							</div>
+						</div>
+						<div class="mb-3 d-flex justify-content-between">
+							<a href="<%=context%>/admin/users/?type=${type}"
+								class="btn btn-primary" type="submit"> <i
+								class="fas fa-chevron-left"></i> Back
+							</a>
 						</div>
 					</div>
 				</div>

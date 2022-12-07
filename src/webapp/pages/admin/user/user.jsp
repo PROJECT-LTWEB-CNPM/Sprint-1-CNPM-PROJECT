@@ -25,16 +25,16 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 					<div class="container">
 						<div class="page-title">
 							<h3 class="d-flex justify-content-between">
-								<span><%=title%></span>
+								<span><%=title%> Manage</span>
 								<div class="d-flex gap-2">
 									<button type="button" data-bs-toggle="modal"
 										data-bs-target="#modalCreateUser"
 										class="btn btn-sm btn-outline-primary float-end">
 										<i class="fas fa-user-plus"></i> Create New
 									</button>
-									<a href="<%=context %>/admin/users/trash/?type=<%=type %>"
-										class="btn btn-sm btn-outline-primary">
-										<i class="fas fa-trash"></i> Trash
+									<a href="<%=context%>/admin/users/trash/?type=<%=type%>"
+										class="btn btn-sm btn-outline-primary"> <i
+										class="fas fa-trash"></i> Trash
 									</a>
 								</div>
 
@@ -97,6 +97,34 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 												</c:forEach>
 											</tbody>
 										</table>
+										<div class="row">
+											<div class="col-sm-12 col-md-5">
+												<div class="dataTables_info" id="dataTables-example_info"
+													role="status" aria-live="polite">Showing 1 to 7 of 7
+													entries</div>
+											</div>
+											<div class="col-sm-12 col-md-7">
+												<div class="dataTables_paginate paging_simple_numbers"
+													id="dataTables-example_paginate">
+													<ul class="pagination justify-content-end mx-2">
+														<li class="paginate_button page-item previous disabled"
+															id="dataTables-example_previous"><a href="#"
+															aria-controls="dataTables-example" data-dt-idx="0"
+															tabindex="0" class="page-link">Previous</a></li>
+														<li class="paginate_button page-item active"><a
+															href="#" aria-controls="dataTables-example"
+															data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+														<li class="paginate_button page-item"><a href="#"
+															aria-controls="dataTables-example" data-dt-idx="1"
+															tabindex="0" class="page-link">2</a></li>
+														<li class="paginate_button page-item next disabled"
+															id="dataTables-example_next"><a href="#"
+															aria-controls="dataTables-example" data-dt-idx="2"
+															tabindex="0" class="page-link">Next</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
 									</c:when>
 									<c:otherwise>
 										<h1>No Data</h1>

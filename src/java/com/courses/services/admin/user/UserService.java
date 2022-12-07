@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.courses.dao.AccountDAO;
 import com.courses.dao.AdminDAO;
 import com.courses.dao.PersonDAO;
 import com.courses.dao.StudentDAO;
 import com.courses.dao.TeacherDAO;
+import com.courses.models.Account;
 import com.courses.models.Admin;
 import com.courses.models.Person;
 import com.courses.models.Student;
@@ -21,18 +23,22 @@ import com.courses.utils.constants.RoleConstants;
 
 public class UserService extends SuperService {
 
+	PersonDAO personDAO = null;
 	StudentDAO studentDAO = null;
 	TeacherDAO teacherDAO = null;
 	AdminDAO adminDAO = null;
-	PersonDAO personDAO = null;
+	AccountDAO accountDAO = null;
 
 	public UserService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
+		this.personDAO = new PersonDAO();
 		this.studentDAO = new StudentDAO();
 		this.teacherDAO = new TeacherDAO();
 		this.adminDAO = new AdminDAO();
-		this.personDAO = new PersonDAO();
+		this.accountDAO = new AccountDAO();
 	}
+	
+	public UserService() {}
 
 	public void handleGetListUser() throws ServletException, IOException {
 		String pageUrl = "/pages/admin/user/user.jsp";
@@ -62,25 +68,29 @@ public class UserService extends SuperService {
 
 	public void handleGetEditUserForm() throws ServletException, IOException {
 		String pageUrl = "";
+		Person person = null;
+		Account account = null;
 		// Get Params
 		String userType = this.request.getParameter("type");
 		String id = this.request.getParameter("id");
 		try {
-
 			pageUrl = "/pages/admin/user/" + userType + "/editUser.jsp";
 			switch (userType) {
 			case RoleConstants.ADMIN:
 				Admin admin = this.adminDAO.find(id);
+				person = admin.getPerson();
 				this.request.setAttribute("user", admin);
 				break;
 
 			case RoleConstants.TEACHER:
 				Teacher teacher = this.teacherDAO.find(id);
+				person = teacher.getPerson();
 				this.request.setAttribute("user", teacher);
 				break;
 
 			case RoleConstants.STUDENT:
 				Student student = this.studentDAO.find(id);
+				person = student.getPerson();
 				this.request.setAttribute("user", student);
 				break;
 			default:
@@ -89,23 +99,13 @@ public class UserService extends SuperService {
 		} catch (Exception e) {
 			pageUrl = "/pages/500.jsp";
 		}
+		if (person != null) {
+			account = this.accountDAO.findByPerson(person);
+		}
+		this.request.setAttribute("account", account);
 		this.request.setAttribute("type", userType);
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
 	}
-	
-	public void handleGetStudentInfo() throws ServletException, IOException {
-		String url = "/pages/client/student/studentInfo.jsp";
-		HttpSession session = this.request.getSession();
-		String username = (String) session.getAttribute("username");
-		System.out.println("===================="+ username +"=========================");
-		PersonService personService = new PersonService(request, response);
-		Person person = new Person();
-//		person = personService.getPersonByPersonId("PE00000002");
-		person = personService.getPersonByEmail(username);
-		this.request.setAttribute("person", person);
-		this.request.getRequestDispatcher(url).forward(request, response);
-	}
-
 
 	public void handlePostCreateUser() throws ServletException, IOException {
 		String type = this.request.getParameter("type");
@@ -169,7 +169,7 @@ public class UserService extends SuperService {
 		}
 		this.response.sendRedirect(pageUrl);
 	}
-	
+
 	public void handleGetListUserDeleted() throws ServletException, IOException {
 		String pageUrl = "/pages/admin/user/trashUser.jsp";
 		String userType = this.request.getParameter("type");
@@ -194,5 +194,19 @@ public class UserService extends SuperService {
 		}
 		this.request.setAttribute("type", userType);
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+	}
+	
+	
+	public void handleGetStudentInfo() throws ServletException, IOException {
+		String url = "/pages/client/student/studentInfo.jsp";
+		HttpSession session = this.request.getSession();
+		String username = (String) session.getAttribute("username");
+		System.out.println("===================="+ username +"=========================");
+		PersonService personService = new PersonService(request, response);
+		Person person = new Person();
+//		person = personService.getPersonByPersonId("PE00000002");
+		person = personService.getPersonByEmail(username);
+		this.request.setAttribute("person", person);
+		this.request.getRequestDispatcher(url).forward(request, response);
 	}
 }

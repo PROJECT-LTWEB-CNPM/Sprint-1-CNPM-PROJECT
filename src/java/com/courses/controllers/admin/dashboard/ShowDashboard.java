@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.courses.dao.BoardDAO;
 import com.courses.models.Board;
 
-@WebServlet("/admin/dashboard")
+@WebServlet(urlPatterns = {"/admin", "/admin/"})
 public class ShowDashboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -19,7 +19,7 @@ public class ShowDashboard extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/pages/admin/home.jsp";
+		String url = "/pages/admin/dashboard/dashboard.jsp";
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 

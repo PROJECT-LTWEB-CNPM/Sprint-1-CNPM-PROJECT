@@ -43,6 +43,10 @@ public class GroupStudent implements Serializable {
 	@JoinColumn(name="topic_id")
 	private Topic topic;
 
+	//bi-directional many-to-one association to JoinGroup
+	@OneToMany(mappedBy="groupstudent")
+	private List<JoinGroup> joingroups;
+
 	//bi-directional many-to-one association to Student
 	@OneToMany(mappedBy="groupstudent")
 	private List<Student> students;
@@ -104,6 +108,28 @@ public class GroupStudent implements Serializable {
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
+	}
+
+	public List<JoinGroup> getJoingroups() {
+		return this.joingroups;
+	}
+
+	public void setJoingroups(List<JoinGroup> joingroups) {
+		this.joingroups = joingroups;
+	}
+
+	public JoinGroup addJoingroup(JoinGroup joingroup) {
+		getJoingroups().add(joingroup);
+		joingroup.setGroupstudent(this);
+
+		return joingroup;
+	}
+
+	public JoinGroup removeJoingroup(JoinGroup joingroup) {
+		getJoingroups().remove(joingroup);
+		joingroup.setGroupstudent(null);
+
+		return joingroup;
 	}
 
 	public List<Student> getStudents() {

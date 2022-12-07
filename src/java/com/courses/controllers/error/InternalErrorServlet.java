@@ -1,4 +1,4 @@
-package com.courses.controllers.client;
+package com.courses.controllers.error;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,25 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class TopicRegistration
- */
-@WebServlet("/topic-registration")
-public class TopicRegistration extends HttpServlet {
+@WebServlet(urlPatterns = {"/500", "/admin/500"})
+public class InternalErrorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public TopicRegistration() {
+    public InternalErrorServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/pages/client/student/topicRegistration.jsp";
-		request.getRequestDispatcher(url).forward(request, response);
+		String pageError = "/pages/500.jsp";
+		request.getRequestDispatcher(pageError).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

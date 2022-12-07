@@ -42,6 +42,18 @@ public class StudentDAO extends JpaDAO<Student> implements GenericDAO<Student>{
 	}
 
 	@Override
+	public List<Student> pagination(int currentPage, int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
 	public String randomId() {
 		return super.randomId("ST");
 	}

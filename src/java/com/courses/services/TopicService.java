@@ -1,6 +1,7 @@
 package com.courses.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +20,9 @@ import com.courses.models.RegistrationPeriod;
 import com.courses.models.Student;
 import com.courses.models.Teacher;
 import com.courses.models.Topic;
-import com.courses.services.TeacherService;
+import com.courses.services.admin.user.StudentService;
 
-import net.bytebuddy.description.type.TypeDefinition.SuperClassIterator;
-
-public class TopicService extends SuperService {
+public class TopicService extends SuperService{
 
 	private static TopicDAO topicDAO = new TopicDAO();
 	private static GroupStudentDAO groupDAO = new GroupStudentDAO();
@@ -31,11 +30,44 @@ public class TopicService extends SuperService {
 
 	public TopicService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
+		
+	}
+	
+	public TopicService() {}
+	
+	public void getTopic(byte option) throws ServletException, IOException {
+		String activeButtonUnselected = "";
+		String activeButtonSelected = "topic_registration-filter-active";
+		String url = "/pages/client/student/topicRegistration.jsp";
+		List<Topic> topics = new ArrayList<Topic>();
+		TopicService topicService = new TopicService(request, response);
+		
+		if ( option ==  0) {
+			activeButtonUnselected = "topic_registration-filter-active";
+			 activeButtonSelected  = "";
+		} else if (option ==  1) {
+			 activeButtonUnselected = "";
+			 activeButtonSelected  = "topic_registration-filter-active";
+		} 
+		topics = topicService.getTopicByOptionSelect(option);
+		this.request.setAttribute("activeButtonUnselected", activeButtonUnselected);
+		this.request.setAttribute("activeButtonSelected", activeButtonSelected);
+		this.request.setAttribute("topics", topics);
+		this.request.getRequestDispatcher(url).forward(request, response);
 	}
 
-	public TopicService() {
+	
+	public void registerTopic() throws ServletException, IOException {
+		Topic topic = new Topic();
+		GroupService groupService = new GroupService(request, response);
+		StudentService studentService = new StudentService(request, response);
+		String topicdId = request.getParameter("topic-id");
+		String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
+		topic = topicDAO.find(Topic.class, topicdId);
+		groupService.choiceTopic(studentId, topic);
+		this.getTopic((byte)0);
 	}
-
+	
 	public void handleGetListTopic() throws ServletException, IOException {
 		try {
 			String pageUrl = "/pages/admin/topic/topic.jsp";
@@ -47,26 +79,15 @@ public class TopicService extends SuperService {
 			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		}
 	}
-
-	public void handleGetStudentListTopic() throws ServletException, IOException {
-		// define default url
-		String pageUrl = "/pages/client/student/topicRegistration.jsp";
-
-		// getParameter
-		String isSelected = this.request.getParameter("select");
-
-		List<Topic> topics = null;
-		// get topics
-		if (isSelected == null) {
-			topics = topicDAO.findAll();
-		} else {
-			topics = findSelectedTopic(Byte.parseByte(isSelected));
-		}
-
-		this.request.setAttribute("topics", topics);
-		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+	
+	public List<Topic> getTopicByOptionSelect(byte option) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("is_selected", option);
+		List<Topic> topics = new ArrayList<Topic>();
+		topics = this.topicDAO.findWithNamedQuery("Topic.getTopicByConditionSelect", map);
+		return topics;
 	}
-
+	
 	public void handleGetTeacherAddTopic() throws ServletException, IOException {
 		String url = "/pages/client/teacher/addTopic.jsp";
 		super.forwardToPage(url);

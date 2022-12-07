@@ -19,10 +19,10 @@ public class PersonService extends SuperService {
 		super(request, response);
 		this.personDAO = new PersonDAO();
 	}
+	
+	public PersonService() {}
 
 	public void handlePostUpdatePerson() throws IOException, ServletException {
-		this.request.setCharacterEncoding("UTF-8");
-		this.response.setCharacterEncoding("UTF-8");
 		String type = this.request.getParameter("type");
 		String pageUrl = this.request.getContextPath() + "/admin/users/?type=" + type;
 		try {

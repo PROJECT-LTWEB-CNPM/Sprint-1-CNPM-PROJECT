@@ -30,38 +30,37 @@ String context = request.getContextPath();
 								<h3>TRANG CỦA BẠN</h3>
 							</div>
 							<!-- avai -->
-							<div class="topic_registration-detail">
-								<div class="group_topic_registration-to-manage">
-									<table>
-										<tr>
-											<th width="30%">Tiêu đề</th>
-											<th width="30%">Người gửi</th>
-											<th width="30%">Ngày gửi</th>
-										</tr>
-									</table>
-								</div>
-								<c:forEach begin="0" end="10">
+							<c:if test="${notifications.size() != 0}">
+								<div class="topic_registration-detail">
 									<div class="group_topic_registration-to-manage">
 										<table>
 											<tr>
-												<th width="30%" class="highlight_content bold_content">Thông
-													báo đăng ký chuyên ngành khóa 2018</th>
-												<th width="30%" class="bold_content">QLSV_Đặng Hữu
-													Khanh</th>
-												<th width="30%" class="bold_content">26-09-2022
-													15:21:00</th>
+												<th width="30%">Tiêu đề</th>
+												<th width="30%">Người gửi</th>
+												<th width="30%">Ngày gửi</th>
 											</tr>
 										</table>
 									</div>
-								</c:forEach>
-							</div>
+									<c:forEach var="item" items="${notifications}">
+										<div class="group_topic_registration-to-manage">
+											<table>
+												<tr>
+													<th width="30%" class="highlight_content bold_content">${item.getNotificationTitle()}</th>
+													<th width="30%" class="bold_content">${item.getPerson1().getFullName()}</th>
+													<th width="30%" class="bold_content">${item.getTime()}</th>
+												</tr>
+											</table>
+										</div>
+									</c:forEach>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 		<!-- Modal -->
-		<jsp:include page="../partials/logoutModal.jsp"/>
+		<jsp:include page="../partials/logoutModal.jsp"></jsp:include>
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
 	</div>

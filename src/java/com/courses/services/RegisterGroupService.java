@@ -17,15 +17,12 @@ import com.courses.services.admin.user.StudentService;
 
 public class RegisterGroupService extends SuperService {
 	GroupStudentDAO groupStudentDAO = null;
-
 	public RegisterGroupService( HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 		this.groupStudentDAO = new GroupStudentDAO();
 	}
-
-	public RegisterGroupService() {}
 	
-	//public RegisterGroupService() {}
+	public RegisterGroupService() {}
 	
 //	String studentId: Biến dùng để truyền thông tin của account đăng nhập(Lấy mã sinh viên hay mã định danh thay thế cho "ST00000002": thông tin được fix cứng)
 	public void createGroupStudent(String studentId) throws ServletException, IOException {
@@ -54,7 +51,6 @@ public class RegisterGroupService extends SuperService {
 			if(students.size() > 0) {
 //			Tạo Group mới với thông tin đã check
 //				Cần viết hàm tạo tự động
-				System.out.println("====================" + groupService.randomIdNotDuplicate() + "===============");
 				groupStudent.setGroupId(groupService.randomIdNotDuplicate());
 //				"ST00000002": thông tin được fix cứng để test --> Lấy thông tin từ login trả về để đưa vào
 				groupStudent.setLeaderId(studentId);

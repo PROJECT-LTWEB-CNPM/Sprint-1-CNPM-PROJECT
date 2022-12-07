@@ -11,6 +11,8 @@ public class AdminService extends SuperService {
 		super(request, response);
 	}
 	
+	public AdminService() {}
+	
 	public void handleGetAdmin() {
 		
 	}

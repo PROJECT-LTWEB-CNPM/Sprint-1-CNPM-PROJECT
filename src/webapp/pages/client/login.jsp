@@ -38,16 +38,12 @@ request.getContextPath(); request.setCharacterEncoding("utf-8"); %>
                   />
                   <label for="giangvien">Giảng viên</label>
                 </div>
-                 <div class="login_role-item">
-                  <input
-                    type="radio"
-                    id="admin"
-                    value="admin"
-                    name="role-account"
-                  />
-                  <label for="admin">Admin</label>
-                </div>
+                <div class="login_role-item">
+                      <input type="radio" id="admin" value="admin" name="role-account" />
+                      <label for="admin">Admin</label>
+                    </div>
               </div>
+              
               <div class="login_input">
                 <label for="username" class="login_input-label"
                   >Tên đăng nhập:</label
@@ -61,6 +57,7 @@ request.getContextPath(); request.setCharacterEncoding("utf-8"); %>
                   required
                 />
               </div>
+              
               <div class="login_input">
                 <label for="password" class="login_input-label"
                   >Mật khẩu:</label

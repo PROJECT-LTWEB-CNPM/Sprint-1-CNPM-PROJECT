@@ -32,14 +32,7 @@ public class StudentService extends SuperService{
 		}
 		return foundStudent;
 	}
-	
-	public static List<Student> findStudentByGroup(GroupStudent group) {
-		List<Student> students = null;
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("group", group);
-		students = studentDAO.findWithNamedQuery("Student.findStudentByGroup", map);
-		return students;
-	}
+
 	
 	public List<Student> checkStudentAndGroup(Map<String,Object> map) {
 		List<Student> students = studentDAO.findWithNamedQuery("Student.checkStudentAndGroup", map);
