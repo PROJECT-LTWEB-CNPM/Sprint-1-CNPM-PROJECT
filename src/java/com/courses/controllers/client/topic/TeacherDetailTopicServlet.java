@@ -7,18 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.courses.services.TopicService;
+
 @WebServlet("/teacher/topic-manage/detail")
-public class TeacherDetailTopic extends HttpServlet {
+public class TeacherDetailTopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public TeacherDetailTopic() {
+    public TeacherDetailTopicServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "/pages/client/teacher/detailTopic.jsp";
-		response.sendRedirect(request.getContextPath() + url);
+		
+		TopicService topicService = new TopicService(request, response);
+		topicService.getGroupRegisteredTopic();
 	}
 
 	
