@@ -134,5 +134,13 @@ public class StudentService extends SuperService {
 		student = studentDAO.find(student_id);
 		return student.getPerson().getFullName();
 	}
+	
+	public List<Student> findStudentByGroup(GroupStudent group) {
+		List<Student> students = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("group", group);
+		students = this.studentDAO.findWithNamedQuery("Student.findStudentByGroup", map);
+		return students;
+	}
 
 }

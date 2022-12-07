@@ -14,6 +14,7 @@ import java.util.List;
 	@NamedQuery(name="GroupStudent.findAll", query="SELECT g FROM GroupStudent g"),
 	@NamedQuery(name="GroupStudent.checkLeader", query="SELECT g FROM GroupStudent g WHERE g.leaderId = :leaderId AND g.topic IS NULL"),
 	@NamedQuery(name="GroupStudent.checkRole", query="SELECT g FROM GroupStudent g WHERE g.leaderId = :leaderId"),
+	@NamedQuery(name="GroupStudent.getGroupStudentByTopic", query="SELECT g FROM GroupStudent g WHERE g.topic = :topic"),
 	@NamedQuery(name="GroupStudent.getGroupStudent", query="SELECT g FROM GroupStudent g WHERE g.leaderId IS NOT NULL AND g.isDeleted = :isDeleted"),
 	})
 public class GroupStudent implements Serializable {
