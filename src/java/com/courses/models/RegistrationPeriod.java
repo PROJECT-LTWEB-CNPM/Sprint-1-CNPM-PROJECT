@@ -5,50 +5,51 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * The persistent class for the registrationperiod database table.
  * 
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = "RegistrationPeriod.findAll", query = "SELECT r FROM RegistrationPeriod r"),
-		@NamedQuery(name = "RegistrationPeriod.findByStatus", query = "SELECT r FROM RegistrationPeriod r WHERE r.isActive = :isActive"),
-		@NamedQuery(name = "RegistrationPeriod.findByIsTeacher", query = "SELECT r FROM RegistrationPeriod r WHERE r.isRegistrationTeacher = :isRegistrationTeacher") })
+	@NamedQuery(name = "RegistrationPeriod.findByStatus", query = "SELECT r FROM RegistrationPeriod r WHERE r.isActive = :isActive"),
+	@NamedQuery(name = "RegistrationPeriod.findByIsTeacher", query = "SELECT r FROM RegistrationPeriod r WHERE r.isRegistrationTeacher = :isRegistrationTeacher") })
 public class RegistrationPeriod implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "registration_period_id")
+	@Column(name="registration_period_id")
 	private String registrationPeriodId;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "close_date")
+	@Column(name="close_date")
 	private Date closeDate;
 
 	private String description;
 
-	@Column(name = "is_active")
+	@Column(name="is_active")
 	private byte isActive;
 
-	@Column(name = "is_deleted")
+	@Column(name="is_deleted")
 	private byte isDeleted;
 
-	@Column(name = "is_registration_teacher")
+	@Column(name="is_registration_teacher")
 	private byte isRegistrationTeacher;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "open_date")
+	@Column(name="open_date")
 	private Date openDate;
 
-	@Column(name = "registration_period_name")
+	@Column(name="registration_period_name")
 	private String registrationPeriodName;
 
-	@Column(name = "school_year")
+	@Column(name="school_year")
 	private int schoolYear;
 
 	private int semeter;
 
-	// bi-directional many-to-one association to Topic
-	@OneToMany(mappedBy = "registrationperiod")
+	//bi-directional many-to-one association to Topic
+	@OneToMany(mappedBy="registrationperiod")
 	private List<Topic> topics;
 
 	public RegistrationPeriod() {

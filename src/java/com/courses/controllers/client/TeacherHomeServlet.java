@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.courses.services.HomeService;
-@WebServlet("/home/teacher")
+@WebServlet("/teacher/home")
 public class TeacherHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -19,11 +19,13 @@ public class TeacherHomeServlet extends HttpServlet {
         
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HomeService hs = new HomeService(request, response);
 		hs.handleGetTeacherHomeService();
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

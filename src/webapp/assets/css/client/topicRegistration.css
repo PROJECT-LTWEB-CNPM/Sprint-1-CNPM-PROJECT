@@ -42,10 +42,12 @@
 
 .topic_registration-filter-active {
     background-color: var(--white-color);
+ 
 }
 
-.topic_registration-filter h3:first-child{
+.topic_registration-filter h3 {
     margin-right: 24px;
+    margin-top: 0;
 }
 
 /* avai */

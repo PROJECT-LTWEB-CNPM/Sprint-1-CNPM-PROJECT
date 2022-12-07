@@ -31,21 +31,20 @@
 								<h3>QUẢN LÝ ĐỀ TÀI</h3>
 							</div>
 							<div class="topic_registration-filter d-flex">
-
-								<div class="mx-2 mb-4" >
+								<div class="mx-2" >
 									<h3 class="topic_registration-filter-active">
 										<a href="<%=context%>/teacher/topic-manage?select=0">Đề
 											tài chưa được đăng ký</a>
 									</h3>
 								</div>
-								<div class="mx-2 mb-4">
+								<div class="mx-2">
 									<h3>
 										<a href="<%=context%>/teacher/topic-manage?select=1">Đề
 											tài đã được đăng ký</a>
 									</h3>
 								</div>
 
-								<div class="mx-2 mb-4">
+								<div class="mx-2">
 									<h3>
 										<a href="<%=context%>/teacher/topic-manage/add">Thêm đề
 											tài</a>
@@ -63,14 +62,14 @@
 										</tr>
 									</table>
 								</div>
-								<c:forEach var="topic" items="${topics}">
+								<c:forEach var="topic" items="${topics }">
 									<div class="group_topic_registration-to-manage">
 										<table>
 											<tr>
 												<th width="40%" class="highlight_content">${topic.topicName}</th>
 												<th width="25%">${topic.registrationperiod.registrationPeriodName}</th>
 												<th width="25%">${topic.registrationperiod.schoolYear}</th>
-												<th><a href="<%=context%>/teacher/topic-manage/detail?topic=${topic.topicId}" class="highlight_content">Chi tiết</a></th>
+												<th><a href="#" class="highlight_content">Chi tiết</a></th>
 											</tr>
 										</table>
 									</div>

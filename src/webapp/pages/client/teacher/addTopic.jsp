@@ -9,6 +9,7 @@
 String context = request.getContextPath();
 TopicDAO td = new TopicDAO();
 String check = (String)request.getAttribute("isAdded");
+
 %>
 
 <!DOCTYPE html>

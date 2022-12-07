@@ -92,7 +92,19 @@ public class JpaDAO<T> {
 		entityManager.close();
 		return result;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public List<T> pagination(String queryName, int currentPage, int pageSize) {
+
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query query = entityManager.createNamedQuery(queryName);
+		query.setFirstResult(currentPage).setMaxResults(pageSize * currentPage);
+
+		List<T> result = query.getResultList();
+		entityManager.close();
+		return result;
+	}
+
 	public int count(String queryName) {
 
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -104,7 +116,7 @@ public class JpaDAO<T> {
 		entityManager.close();
 		return maxResults;
 	}
-
+	
 	public String randomId (String type) {
 		String id = type + RandomStringUtils.randomNumeric(8);
 		return id;

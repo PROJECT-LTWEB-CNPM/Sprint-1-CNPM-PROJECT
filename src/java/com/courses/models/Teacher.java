@@ -14,7 +14,7 @@ import java.util.List;
 	@NamedQuery(name="Teacher.findAll", query="SELECT t FROM Teacher t"),
 	@NamedQuery(name="Teacher.findTeacherByPerson", query="SELECT t FROM Teacher t WHERE t.person = :person"),
 })
-public class Teacher implements  Serializable {
+public class Teacher implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

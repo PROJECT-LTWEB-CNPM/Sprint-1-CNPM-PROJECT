@@ -1,4 +1,4 @@
-package com.courses.controllers.client;
+package com.courses.controllers.client.topic;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,23 +7,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.HomeService;
+import com.courses.services.TopicService;
 
-@WebServlet("/home/student")
-public class HomeServlet extends HttpServlet {
+
+@WebServlet("/topic-registration/register-topic")
+public class RegisterTopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public HomeServlet() {
+   
+    public RegisterTopicServlet() {
         super();
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HomeService hs = new HomeService(request, response);
-		hs.handleGetHome();
+		TopicService topicService = new TopicService(request, response);
+		topicService.registerTopic();
 	}
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

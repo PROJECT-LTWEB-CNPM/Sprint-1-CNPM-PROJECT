@@ -9,6 +9,8 @@ String context = request.getContextPath();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<jsp:useBean id="studentService" class="com.courses.services.admin.user.StudentService"></jsp:useBean>
+<jsp:useBean id="groupService" class="com.courses.services.GroupService"></jsp:useBean>
 <jsp:include page="../partials/head.jsp" />
 <title>Trang chủ - Đăng ký đề tài</title>
 </head>
@@ -54,7 +56,7 @@ String context = request.getContextPath();
 									<a href="<%=context%>/student/group-manage/add-memeber">Thêm
 										thành viên
 									</a>
-									<div class="topic_registration-join-group">2</div>
+									<div class="topic_registration-join-group ${sessionScope.joinGroups == null ? 'hide_element' : '' }">${sessionScope.joinGroups.size()}</div>
 								</h3>
 							</div>
 							<!-- when: Nếu chưa có nhóm hiển thị giao diện chưa có nhóm -->
@@ -85,7 +87,7 @@ String context = request.getContextPath();
 														<th width="45%">${item.getPerson().getFullName()}</th>
 														<th width="20%">${item.getGroupstudent().getLeaderId() == item.getStudentId() ? 'Trưởng Nhóm' : 'Thành Viên'}</th>
 														<th><a
-															href="<%=context%>/student/group-manage/delete-memeber?student_id=${item.getStudentId()}"></a></th>
+															href="<%=context%>/student/group-manage/delete-memeber?student_id=${item.getStudentId()}">${groupService.grantPermissionDelete(sessionScope.username) == 'leader' ? (item.getGroupstudent().getLeaderId() == item.getStudentId() ? '' : 'Xóa' ) : (sessionScope.username == item.getPerson().getEmail() ? 'Thoát nhóm' : '')}</a></th>
 													</tr>
 												</table>
 											</div>
@@ -120,11 +122,11 @@ String context = request.getContextPath();
 												<table>
 													<tr>
 														<th width="15%" class="highlight_content">${item.getGroupId()}</th>
-														<th width="30%"></th>
+														<th width="30%">${studentService.getFullNameLeader(item.getLeaderId())}</th>
 														<th width="15%">${item.getCurrentNumber()}${item.getTopic() != null ? '/' += item.getTopic().getMaxMoMember() : ''}</th>
 														<th width="30%">${item.getTopic().getTopicName() }</th>
-														<th width="10%">
-															<a href="<%=context%>/student/join-group?groupt_id=${item.getGroupId()}">Tham gia</a>
+														<th width="10%" class="${uiGroupManage == null ? '' : 'hide_element'}">
+															<a href="<%=context%>/student/join-group?groupt_id=${item.getGroupId()}">${item.getCurrentNumber() < item.getTopic().getMaxMoMember() ? 'Tham gia' : ''}</a>														
 														</th>
 													</tr>
 												</table>
@@ -139,7 +141,7 @@ String context = request.getContextPath();
 			</div>
 		</main>
 		<!-- Modal -->
-		<jsp:include page="../partials/logoutModal.jsp"/>
+		<jsp:include page="../partials/logoutModal.jsp"></jsp:include>
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
 	</div>

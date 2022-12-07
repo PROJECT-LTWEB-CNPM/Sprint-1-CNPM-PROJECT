@@ -1,3 +1,4 @@
+<%@page import="com.courses.utils.helper.RandomUtils"%>
 <%@page import="com.courses.utils.constants.GenderConstants"%>
 <%@page import="com.courses.utils.constants.RoleConstants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,6 +8,7 @@
 <%
 String type = (String) request.getAttribute("type");
 String title = "";
+int isTeacher = type.equals(RoleConstants.TEACHER) ? 1 : 0;
 %>
 
 <div class="modal fade" id="modalCreateRP" tabindex="-1"
@@ -23,40 +25,34 @@ String title = "";
 			</div>
 			<div class="modal-body">
 				<div class="col-md-12">
+					<input type="text" name="registrationPeriodId" class="form-control"
+						value="RP<%=RandomUtils.randomId()%>" hidden /> <input
+						type="text" name="isRegistrationTeacher" class="form-control"
+						value="<%=isTeacher%>" hidden />
 					<div class="mb-3">
-						<label for="site-title" class="form-label">Person ID</label> <input
-							type="text" name="site_title" class="form-control" disabled>
+						<label for="site-title" class="form-label">Name</label> <input
+							type="text" name="registrationPeriodName" class="form-control" />
 					</div>
 					<div class="mb-3">
-						<label for="site-title" class="form-label">Full name</label> <input
-							type="text" name="site_title" class="form-control" />
+						<label for="site-title" class="form-label">Year</label> <input
+							type="text" name="datepicker" class="form-control date-own" />
 					</div>
 					<div class="mb-3">
-						<label for="site-title" class="form-label">Address</label> <input
-							type="text" name="site_title" class="form-control" />
-					</div>
-					<div class="mb-3">
-						<label for="site-description" class="form-label">gender</label> <select
-							name="timezone" class="form-select">
-							<option value="<%=GenderConstants.MALE%>">Male</option>
-							<option value="<%=GenderConstants.FEMALE%>">Female</option>
+						<label for="site-description" class="form-label">Semester</label>
+						<select name="timezone" class="form-select">
+							<option value="<%=GenderConstants.MALE%>">HK1</option>
+							<option value="<%=GenderConstants.FEMALE%>">HK2</option>
+							<option value="<%=GenderConstants.FEMALE%>">HK3</option>
 						</select>
 					</div>
 					<div class="mb-3">
-						<label for="site-title" class="form-label">Phonenumber</label> <input
-							type="text" name="site_title" class="form-control" />
+						<label for="site-title" class="form-label">Open date</label> <input
+							type="text" name="datepicker" class="form-control datetime" />
 					</div>
 					<div class="mb-3">
-						<label for="site-description" class="form-label">Role</label> <select
-							name="timezone" class="form-select">
-							<option value="${type}"><%=title %></option>
-
-						</select>
-					</div>
-					<div class="mb-3">
-						<label for="site-title" class="form-label">Descripton</label>
-						<textarea class="form-control" name="google_analytics_code"
-							rows="4"></textarea>
+						<label for="site-description" class="form-label">Close
+							date</label> <input type="text" name="datepicker"
+							class="form-control datetime" />
 					</div>
 				</div>
 			</div>

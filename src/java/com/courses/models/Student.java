@@ -2,6 +2,7 @@ package com.courses.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -9,7 +10,6 @@ import javax.persistence.*;
  * 
  */
 @Entity
-
 @NamedQueries({
 	@NamedQuery(name="Student.findAll", query="SELECT s FROM Student s"),
 	@NamedQuery(name="Student.findStudentByPerson", query="SELECT s FROM Student s WHERE s.person = :person"),
@@ -26,6 +26,10 @@ public class Student implements Serializable {
 
 	@Column(name="school_year")
 	private String schoolYear;
+
+	//bi-directional many-to-one association to JoinGroup
+	@OneToMany(mappedBy="student")
+	private List<JoinGroup> joingroups;
 
 	//bi-directional many-to-one association to GroupStudent
 	@ManyToOne
@@ -59,6 +63,28 @@ public class Student implements Serializable {
 
 	public void setSchoolYear(String schoolYear) {
 		this.schoolYear = schoolYear;
+	}
+
+	public List<JoinGroup> getJoingroups() {
+		return this.joingroups;
+	}
+
+	public void setJoingroups(List<JoinGroup> joingroups) {
+		this.joingroups = joingroups;
+	}
+
+	public JoinGroup addJoingroup(JoinGroup joingroup) {
+		getJoingroups().add(joingroup);
+		joingroup.setStudent(this);
+
+		return joingroup;
+	}
+
+	public JoinGroup removeJoingroup(JoinGroup joingroup) {
+		getJoingroups().remove(joingroup);
+		joingroup.setStudent(null);
+
+		return joingroup;
 	}
 
 	public GroupStudent getGroupstudent() {

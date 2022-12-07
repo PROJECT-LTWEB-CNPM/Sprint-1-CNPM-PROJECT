@@ -37,6 +37,18 @@ public class AdminDAO extends JpaDAO<Admin> implements GenericDAO<Admin> {
 	}
 
 	@Override
+	public List<Admin> pagination(int currentPage, int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
 	public String randomId() {
 		return super.randomId("AD");
 	}

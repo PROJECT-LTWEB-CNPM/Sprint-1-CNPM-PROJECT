@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.dao.RegistrationPeriodDAO;
 import com.courses.models.RegistrationPeriod;
+import com.courses.utils.constants.RoleConstants;
 
 public class RegistrationPriodService extends SuperService {
 
@@ -19,17 +20,37 @@ public class RegistrationPriodService extends SuperService {
 		super(request, response);
 		this.registrationPeriodDAO = new RegistrationPeriodDAO();
 	}
-
+	
 	public RegistrationPriodService() {}
 
 	public void handleGetList() throws ServletException, IOException {
 		String pageUrl = "/pages/admin/registrationPriod/registrationPriod.jsp";
 		try {
-			String type = this.request.getParameter("teacher");
+			String type = this.request.getParameter("type");
 			byte isForTeacher = 1;
+			if (type.equals(RoleConstants.STUDENT)) {
+				isForTeacher = 0;
+			}
 			List<RegistrationPeriod> registrationPeriods = this.registrationPeriodDAO
 					.findByIsRegistrationTeacher(isForTeacher);
+			this.request.setAttribute("type", type);
 			this.request.setAttribute("registrationPeriods", registrationPeriods);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			pageUrl = "/pages/500.jsp";
+		}
+		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+	}
+
+	public void handleGetEditForm() throws ServletException, IOException {
+		String pageUrl = "/pages/admin/registrationPriod/editRegistrationPriod.jsp";
+		String id = this.request.getParameter("id");
+		try {
+			String type = this.request.getParameter("type");
+			this.request.setAttribute("type", type);
+			RegistrationPeriod rp = this.registrationPeriodDAO.find(id);
+			this.request.setAttribute("rp", rp);
+			System.out.println(rp.getCloseDate());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			pageUrl = "/pages/500.jsp";
@@ -46,5 +67,4 @@ public class RegistrationPriodService extends SuperService {
 		}
 		return period;
 	}
-
 }
