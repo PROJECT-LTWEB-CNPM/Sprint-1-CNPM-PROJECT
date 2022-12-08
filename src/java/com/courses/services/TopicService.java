@@ -164,13 +164,13 @@ public class TopicService extends SuperService{
 			// get List of group registered the topic
 			if (foundTopic != null) {
 				// define a map
-				Map<String, List<Student>> groupStudentMap = new HashMap<String, List<Student>>();
+				Map<GroupStudent, List<Student>> groupStudentMap = new HashMap<GroupStudent, List<Student>>();
 				// find student information of group
 				GroupService groupService = new GroupService();
 				groupStudentMap = groupService.getGroupStudentInfomation(foundTopic);
 				// test
-				for(String key: groupStudentMap.keySet()) {
-					System.out.println(key);
+				for(GroupStudent key: groupStudentMap.keySet()) {
+					System.out.println(key.getLeaderId());
 					for (Student student: groupStudentMap.get(key)) {
 						System.out.println(student.getPerson().getFullName());
 					}

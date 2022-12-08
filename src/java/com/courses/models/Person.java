@@ -1,5 +1,5 @@
-package com.courses.models;
 
+package com.courses.models;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
@@ -119,8 +119,7 @@ public class Person implements Serializable {
 	public void setGender(byte gender) {
 		this.gender = gender;
 	}
-
-	public byte getIsDeleted() {
+public byte getIsDeleted() {
 		return this.isDeleted;
 	}
 
@@ -268,8 +267,7 @@ public class Person implements Serializable {
 
 		return teacher;
 	}
-
-	public Teacher removeTeacher(Teacher teacher) {
+public Teacher removeTeacher(Teacher teacher) {
 		getTeachers().remove(teacher);
 		teacher.setPerson(null);
 
