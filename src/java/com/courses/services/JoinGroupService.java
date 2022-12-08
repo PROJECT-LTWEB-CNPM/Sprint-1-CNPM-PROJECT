@@ -28,27 +28,34 @@ public class JoinGroupService extends SuperService {
 	}
 
 	public void handleJoinGroup() throws ServletException, IOException {
-		String url = "/student/group-manage";
-		StudentService studentService = new StudentService(request, response);
+		String isJoinGroup = "";
+		try {
+			String url = "/student/group-manage";
+			StudentService studentService = new StudentService(request, response);
 
-		JoinGroup joinGroup = new JoinGroup();
-		JoinGroupPK joinGroupPK = new JoinGroupPK();
+			JoinGroup joinGroup = new JoinGroup();
+			JoinGroupPK joinGroupPK = new JoinGroupPK();
 
-		JoinGroupDAO joinGroupDAO = new JoinGroupDAO();
-		String group_id = this.request.getParameter("groupt_id");
-		String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
+			JoinGroupDAO joinGroupDAO = new JoinGroupDAO();
+			String group_id = this.request.getParameter("groupt_id");
+			String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
 
-		joinGroupPK.setGroupId(group_id);
-		joinGroupPK.setStudentId(studentId);
+			joinGroupPK.setGroupId(group_id);
+			joinGroupPK.setStudentId(studentId);
 
-		joinGroup.setId(joinGroupPK);
-		joinGroupDAO.create(joinGroup);
-		request.setAttribute("message", "Xin tham gia nhóm " + group_id + " thành công");
-		this.request.getRequestDispatcher(url).forward(request, response);
-
-//		System.out.println("===============JOIN GROUP===================");
-//		System.out.println("===============groud_id: " + group_id + "===================");
-//		System.out.println("===============studentId: " + studentId + "===================");
+			joinGroup.setId(joinGroupPK);
+			joinGroupDAO.create(joinGroup);
+			isJoinGroup = "SUCCESS";
+			this.request.setAttribute("isJoinGroup", isJoinGroup);
+			this.request.getRequestDispatcher(url).forward(request, response);
+		} catch (Exception e) {
+			System.out.print(e.toString());
+//			String pageUrl = "/pages/500.jsp";
+			String url = "/student/group-manage";
+			isJoinGroup = "FAILED";
+			this.request.setAttribute("isJoinGroup", isJoinGroup);
+			this.request.getRequestDispatcher(url).forward(request, response);
+		}
 	}
 
 	public List<JoinGroup> getRequestJoinGroup(String studentId) {
@@ -101,30 +108,41 @@ public class JoinGroupService extends SuperService {
 	}
 
 	public void handleDeleteRequestJoinGroup() throws ServletException, IOException {
-		String url = "/student/group-manage";
-		Student student = new Student();
-		StudentDAO studentDAO = new StudentDAO();
-		StudentService studentService = new StudentService(request, response);
-		GroupService groupService = new GroupService(request, response);
-		NotificationService notificationService = new NotificationService(request, response);
-		List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
-//		Sinh viên cần xóa ra khỏi danh sách hàng chờ xin vào nhóm
-		String student_id = request.getParameter("studentId");
-//		Nhóm trưởng của nhóm sinh viên cần xóa 
-		String leaderId = studentService.getStudentByPersonToLoginData().getStudentId();
-//		Kiểm tra nếu là trưởng nhóm mới có thể được xóa sinh viên ra khỏi dánh sách hàng chờ
-		groupStudents = groupService.checkRole(leaderId);
-		student = studentDAO.find(student_id);
-		if (groupStudents.size() > 0) {
-			String groupId = groupStudents.get(0).getGroupId();
-			this.deleteRequestJoinGroup(student_id, groupId);
-			notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
-					"Xin thông báo đến sinh viên " + student.getPerson().getFullName() + " yêu cầu tham gia vào nhóm"
-							+ groupId + " của bạn đã bị từ chối");
-			this.request.setAttribute("message", "Xóa khỏi danh sách chờ thành công");
-		} else {
-			this.request.setAttribute("message", "Không tồn tại trong danh sách cần xóa");
+		String isCancelRequest = "";
+		try {
+			String url = "/student/group-manage";
+			Student student = new Student();
+			StudentDAO studentDAO = new StudentDAO();
+			StudentService studentService = new StudentService(request, response);
+			GroupService groupService = new GroupService(request, response);
+			NotificationService notificationService = new NotificationService(request, response);
+			List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
+//			Sinh viên cần xóa ra khỏi danh sách hàng chờ xin vào nhóm
+			String student_id = request.getParameter("studentId");
+//			Nhóm trưởng của nhóm sinh viên cần xóa 
+			String leaderId = studentService.getStudentByPersonToLoginData().getStudentId();
+//			Kiểm tra nếu là trưởng nhóm mới có thể được xóa sinh viên ra khỏi dánh sách hàng chờ
+			groupStudents = groupService.checkRole(leaderId);
+			student = studentDAO.find(student_id);
+			if (groupStudents.size() > 0) {
+				String groupId = groupStudents.get(0).getGroupId();
+				this.deleteRequestJoinGroup(student_id, groupId);
+				notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
+						"Xin thông báo đến sinh viên " + student.getPerson().getFullName() + " yêu cầu tham gia vào nhóm"
+								+ groupId + " của bạn đã bị từ chối");
+				isCancelRequest = "SUCCESS";
+			} else {
+				isCancelRequest = "FAILED";
+			}
+			this.request.setAttribute("isCancelRequest", isCancelRequest);
+			this.request.getRequestDispatcher(url).forward(request, response);
+		} catch (Exception e) {
+			System.out.print(e.toString());
+//			String pageUrl = "/pages/500.jsp";
+			String pageUrl = "/student/group-manage";
+			isCancelRequest = "FAILED";
+			this.request.setAttribute("isCancelRequest", isCancelRequest);
+			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		}
-		this.request.getRequestDispatcher(url).forward(request, response);
 	}
 }

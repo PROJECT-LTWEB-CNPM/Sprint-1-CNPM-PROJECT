@@ -97,8 +97,7 @@ String context = request.getContextPath();
 								</div>
 							</c:if>
 							<c:if test="${notifications.size() == 0}">
-								<p class="topic_registration-notification highlight_content">Không
-									có thông báo mới</p>
+								<p class="topic_registration-notification highlight_content">Không có thông báo</p>
 							</c:if>
 						</div>
 					</div>

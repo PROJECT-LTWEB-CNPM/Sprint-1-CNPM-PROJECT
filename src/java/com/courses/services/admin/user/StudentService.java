@@ -113,28 +113,40 @@ public class StudentService extends SuperService {
 	
 //	Xóa 1 sinh viên ra khỏi nhóm
 	public void deleteStudenFromStudentGroup () throws ServletException, IOException {
-		String pageUrl = "/student/group-manage";
-		Student student = new Student();
-		GroupStudent groupStudent = new GroupStudent();
-		NotificationService notificationService = new NotificationService(request, response);
-		StudentService studentService = new StudentService(request, response);
-		
-		String leaderId = studentService.getStudentByPersonToLoginData().getStudentId();
-		
-		StudentDAO studentDAO = new StudentDAO();
-		GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
-		String student_id = this.request.getParameter("student_id");
-		student = studentDAO.find(student_id);
-		groupStudent = student.getGroupstudent();
-		groupStudent.setCurrentNumber(groupStudent.getCurrentNumber() - 1);
-		student.setGroupstudent(null);
-		studentDAO.update(student);
-		groupStudentDAO.update(groupStudent);
-		
-		notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
-				"Xin thông báo đến sinh viên " + student.getPerson().getFullName() + " bạn đã bị mời ra khỏi nhóm "
-						+ groupStudent.getGroupId());
-		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+		String isDeleteMember = "";
+		try {
+			String pageUrl = "/student/group-manage";
+			Student student = new Student();
+			GroupStudent groupStudent = new GroupStudent();
+			NotificationService notificationService = new NotificationService(request, response);
+			StudentService studentService = new StudentService(request, response);
+			
+			String leaderId = studentService.getStudentByPersonToLoginData().getStudentId();
+			
+			StudentDAO studentDAO = new StudentDAO();
+			GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
+			String student_id = this.request.getParameter("student_id");
+			student = studentDAO.find(student_id);
+			groupStudent = student.getGroupstudent();
+			groupStudent.setCurrentNumber(groupStudent.getCurrentNumber() - 1);
+			student.setGroupstudent(null);
+			studentDAO.update(student);
+			groupStudentDAO.update(groupStudent);
+			
+			notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
+					"Xin thông báo đến sinh viên " + student.getPerson().getFullName() + " bạn đã bị mời ra khỏi nhóm "
+							+ groupStudent.getGroupId());
+			isDeleteMember = "SUCCESS";
+			this.request.setAttribute("isDeleteMember", isDeleteMember);
+			this.request.getRequestDispatcher(pageUrl).forward(request, response);
+		} catch (Exception e) {
+			System.out.print(e.toString());
+//			String pageUrl = "/pages/500.jsp";
+			String pageUrl = "/student/group-manage";
+			isDeleteMember = "FAILED";
+			this.request.setAttribute("isDeleteMember", isDeleteMember);
+			this.request.getRequestDispatcher(pageUrl).forward(request, response);
+		}
 	}
 	
 	public String getFullNameLeader(String student_id) {

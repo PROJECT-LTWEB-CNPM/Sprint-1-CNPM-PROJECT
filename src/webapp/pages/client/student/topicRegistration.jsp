@@ -37,7 +37,7 @@ String context = request.getContextPath();
 									<a href="<%=context%>/topic-registration/topic-unselected">Đề tài đã được đăng ký</a>
 								</h3>
 							</div>
-							
+							<!-- 
 							<c:choose>
 								<c:when test="${message == null}">
 									<div class="topic_registration-detail">
@@ -69,6 +69,19 @@ String context = request.getContextPath();
 									<p class="topic_registration-notification highlight_content">${message}</p>
 								</c:otherwise>
 							</c:choose>
+							 -->
+							 <c:forEach var="item" items="${topics}">
+									<div class="group_topic_registration-to-manage">
+										<table>
+											<tr>
+												<th width="40%" class="highlight_content">${item.getTopicName()}</th>
+												<th width="25%">${item.getTeacher().getPerson().getFullName()}</th>
+												<th width="25%">${item.getMaxMoMember()}</th>
+												<th><a href="<%=context%>/topic-registration/register-topic?topic-id=${item.getTopicId()}" class="highlight_content">${item.getIsSelected() == 0 ? 'Đăng ký': ''}</a></th>
+											</tr>
+										</table>
+									</div>
+								</c:forEach>
 						</div>
 					</div>
 					
@@ -80,5 +93,17 @@ String context = request.getContextPath();
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
 	</div>
+	<input type="text" id="isRegistrationTopic" value="${isRegistrationTopic}" hidden />
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<script>
+		const isRegistrationTopic = $('#isRegistrationTopic').val();
+		
+		if (isRegistrationTopic === 'FAILED') {
+			swal("Thông báo!", "Đăng kí đề tài thất bại. Cần đảm bảo các yếu tố sau:\n- Bạn cần phải có nhóm trước khi đăng kí đề tài\n- Bạn chưa đăng kí đề tài nào trước đó", "error");
+		} else if (isRegistrationTopic === 'SUCCESS') {
+			swal("Thông báo!", "Đăng kí đề tài thành công", "success");
+		}
+	</script>
 </body>
 </html>
