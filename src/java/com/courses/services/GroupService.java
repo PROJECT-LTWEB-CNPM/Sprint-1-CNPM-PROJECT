@@ -250,10 +250,10 @@ public class GroupService extends SuperService {
 	}
 	
 	// get students of a specified group
-	public Map<String, List<Student>> getGroupStudentInfomation(Topic foundTopic){
+	public Map<GroupStudent, List<Student>> getGroupStudentInfomation(Topic foundTopic){
 		StudentService studentService = new StudentService(request, response);
 		// define a map that will contain formation about student of each group
-		Map<String, List<Student>> map = new HashMap<String, List<Student>>();
+		Map<GroupStudent, List<Student>> map = new HashMap<GroupStudent, List<Student>>();
 		// find groups
 		List<GroupStudent> groups = getGroupStudentByTopic(foundTopic);
 		// check if there is any existing group
@@ -263,7 +263,7 @@ public class GroupService extends SuperService {
 				List<Student> students = null;
 				students = studentService.findStudentByGroup(group);
 				//save 
-				map.put(group.getGroupId(), students);
+				map.put(group, students);
 			}
 		}
 		// return value

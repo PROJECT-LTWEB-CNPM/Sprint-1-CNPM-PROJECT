@@ -7,6 +7,8 @@
 	String check = (String) request.getAttribute("notExistPeriod");
 %>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +71,7 @@
 												<th width="40%" class="highlight_content">${topic.topicName}</th>
 												<th width="25%">${topic.registrationperiod.registrationPeriodName}</th>
 												<th width="25%">${topic.registrationperiod.schoolYear}</th>
-												<th><a href="#" class="highlight_content">Chi tiết</a></th>
+												<th><a href="<%=context%>/teacher/topic-manage/detail?topic=${topic.getTopicId()}" class="highlight_content">Chi tiết</a></th>
 											</tr>
 										</table>
 									</div>

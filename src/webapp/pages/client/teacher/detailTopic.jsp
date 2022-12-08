@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.courses.services.StudentService"%>
+
 
 <%
 String context = request.getContextPath();
 String check = (String) request.getAttribute("notExistPeriod");
+StudentService studentService = new StudentService();
 %>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,25 +37,34 @@ String check = (String) request.getAttribute("notExistPeriod");
 								<ion-icon name="receipt-outline"></ion-icon>
 								<h3>NHÓM SINH VIÊN ĐĂNG KÝ</h3>
 							</div>
+
 							<div class="student-table">
-								<c:forEach var="id" items="${groupStudentMap.keySet()}">
+								<c:forEach var="group" items="${groupStudentMap.keySet()}">
 
 									<table id="students">
-										<tr>
-											<th>Mã nhóm</th>
-											<th>Tên thành viên</th>
-											<th>Mã số sinh viên</th>
-											<th>Vai trò</th>
+										<tr class="">
+											<th style="width: 20%;">Mã nhóm</th>
+											<th style="width: 40%;">Tên thành viên</th>
+											<th style="width: 20%;">Mã số sinh viên</th>
+											<th style="width: 20%;">Vai trò</th>
 										</tr>
-										<c:forEach var="student" items="${groupStudentMap.get(id)}"
+										<c:forEach var="student" items="${groupStudentMap.get(group)}"
 											varStatus="state">
 											<c:choose>
 												<c:when test="${state.first}">
-													<tr>
-														<td>${id}</td>
+													<tr class="">
+														<td>${group.groupId}</td>
 														<td>${student.person.fullName}</td>
 														<td>${student.studentId}</td>
-														<td></td>
+														<c:choose>
+															<c:when test="${group.leaderId == student.studentId}">
+																<td>Nhóm trưởng</td>
+															</c:when>
+															<c:otherwise>
+																<td>Thành viên</td>
+															</c:otherwise>
+														</c:choose>
+
 													</tr>
 												</c:when>
 												<c:otherwise>
@@ -58,7 +72,14 @@ String check = (String) request.getAttribute("notExistPeriod");
 														<td></td>
 														<td>${student.person.fullName}</td>
 														<td>${student.studentId}</td>
-														<td></td>
+														<c:choose>
+															<c:when test="${group.leaderId == student.studentId}" >
+																<td>Nhóm trưởng</td>
+															</c:when>
+															<c:otherwise>
+																<td>Thành viên</td>
+															</c:otherwise>
+														</c:choose>
 													</tr>
 												</c:otherwise>
 											</c:choose>
