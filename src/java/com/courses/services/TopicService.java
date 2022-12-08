@@ -58,14 +58,39 @@ public class TopicService extends SuperService{
 
 	
 	public void registerTopic() throws ServletException, IOException {
-		Topic topic = new Topic();
-		GroupService groupService = new GroupService(request, response);
-		StudentService studentService = new StudentService(request, response);
-		String topicdId = request.getParameter("topic-id");
-		String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
-		topic = topicDAO.find(Topic.class, topicdId);
-		groupService.choiceTopic(studentId, topic);
-		this.getTopic((byte)0);
+		String isRegistrationTopic = "";
+		try {
+			String context = request.getContextPath();
+			String url = "/student/topic-registration";
+			Topic topic = new Topic();
+			GroupService groupService = new GroupService(request, response);
+			StudentService studentService = new StudentService(request, response);
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();			
+			String topicdId = request.getParameter("topic-id");
+			String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
+			
+			map.put("leaderId", studentId);
+			groupStudents = groupService.checkLeader(map);
+			
+			if (groupStudents.size() > 0) {
+				topic = topicDAO.find(Topic.class, topicdId);
+				groupService.choiceTopic(studentId, topic);
+	//			this.getTopic((byte)0);
+				isRegistrationTopic = "SUCCESS";
+			} else {
+				isRegistrationTopic = "FAILED";
+			}
+			this.request.setAttribute("isRegistrationTopic", isRegistrationTopic);
+			this.request.getRequestDispatcher(url).forward(request, response);
+		} catch (Exception e) {
+			String url = "/pages/client/student/topicRegistration.jsp";
+//			String pageUrl = "/pages/500.jsp";
+			System.out.print(e.toString());
+			isRegistrationTopic = "FAILED";
+			this.request.setAttribute("isRegistrationTopic", isRegistrationTopic);
+			this.request.getRequestDispatcher(url).forward(request, response);
+		}
 	}
 	
 	public void handleGetListTopic() throws ServletException, IOException {

@@ -11,6 +11,8 @@ String context = request.getContextPath();
 <head>
 <jsp:include page="../partials/head.jsp" />
 <title>Trang chủ - Đăng ký đề tài</title>
+<jsp:useBean id="notificationService"
+	class="com.courses.services.NotificationService"></jsp:useBean>
 </head>
 <body>
 	<div id="root">
@@ -43,16 +45,59 @@ String context = request.getContextPath();
 									</div>
 									<c:forEach var="item" items="${notifications}">
 										<div class="group_topic_registration-to-manage">
-											<table>
-												<tr>
-													<th width="30%" class="highlight_content bold_content">${item.getNotificationTitle()}</th>
-													<th width="30%" class="bold_content">${item.getPerson1().getFullName()}</th>
-													<th width="30%" class="bold_content">${item.getTime()}</th>
-												</tr>
-											</table>
+											<c:choose>
+												<c:when test="${item.getStatus() == 0}">
+													<table>
+														<tr>
+															<th width="30%"><a
+																href="#${item.getNotificationId()}"
+																class="bold_content highlight_content">${item.getNotificationTitle()}</a>
+															</th>
+															<th width="30%" class="bold_content">${item.getPerson1().getFullName()}</th>
+															<th width="30%" class="bold_content">${item.getTime()}</th>
+														</tr>
+													</table>
+												</c:when>
+												<c:otherwise>
+													<table>
+														<tr>
+															<th width="30%"><a
+																href="#${item.getNotificationId()}"
+																class="highlight_content">${item.getNotificationTitle()}</a>
+															</th>
+															<th width="30%">${item.getPerson1().getFullName()}</th>
+															<th width="30%">${item.getTime()}</th>
+														</tr>
+													</table>
+												</c:otherwise>
+											</c:choose>
+											<!-- =============== -->
+											<div id="${item.getNotificationId()}" class="overlay">
+												<div class="popup">
+													<h2>${item.getNotificationTitle()}</h2>
+													<a class="close"
+														href="<%=context%>/student/show-detail-notification?notification_id=${item.getNotificationId()}">&times;</a>
+													<div class="content">
+														<b>Time:</b> ${item.getTime()}
+													</div>
+													<div class="content">
+														<b>From:</b> ${item.getPerson1().getEmail()}
+													</div>
+													<div class="content">
+														<b>To:</b> ${item.getPerson2().getEmail()}
+													</div>
+													<div class="content">
+														<b>Content:</b> ${item.getContent()}
+													</div>
+												</div>
+												<!-- =============== -->
+											</div>
 										</div>
 									</c:forEach>
 								</div>
+							</c:if>
+							<c:if test="${notifications.size() == 0}">
+								<p class="topic_registration-notification highlight_content">Không có thông báo</p>
 							</c:if>
 						</div>
 					</div>

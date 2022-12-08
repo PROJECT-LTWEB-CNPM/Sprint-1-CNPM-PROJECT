@@ -39,6 +39,7 @@ public class RegisterGroupService extends SuperService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		String renderUI = "";
+		String isCreateGroup = "";
 		
 		registerGroupService.setEncoding();
 		
@@ -68,16 +69,21 @@ public class RegisterGroupService extends SuperService {
 //				Cập nhật lại bộ thông tin mới 
 				student.setGroupstudent(groupStudent);
 				studentDAO.update(student);
+				isCreateGroup = "SUCCESS";
 				renderUI = "NOT NULL";
 			} else {
-				request.setAttribute("message", "Bạn đã có nhóm. Không thể tạo thêm nhóm");
+				isCreateGroup = "FAILED";
 				renderUI = "NOT NULL";
 			}
-			request.setAttribute("uiGroupManage", students);
+			this.request.setAttribute("isCreateGroup", isCreateGroup);
+			this.request.setAttribute("uiGroupManage", students);
 			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		} catch (Exception e) {
 			System.out.print(e.toString());
-			String pageUrl = "/pages/500.jsp";
+//			String pageUrl = "/pages/500.jsp";
+			String pageUrl = "/student/group-manage";
+			isCreateGroup = "FAILED";
+			this.request.setAttribute("isCreateGroup", isCreateGroup);
 			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		}
 	}

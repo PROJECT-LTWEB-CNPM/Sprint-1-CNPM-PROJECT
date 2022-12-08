@@ -177,6 +177,7 @@ public class GroupService extends SuperService {
 //		Kiểm tra mã sinh viên vừa nhập vào đã có nhóm hay chưa. Nếu chưa mới cho thêm vào nhóm
 //		Kiểm tra tính hợp lệ của id được nhập vào.
 		String url = "/student/group-manage";
+		String isAddMember = "";
 		GroupService groupService = new GroupService(request, response);
 		StudentService studentService = new StudentService(request, response);
 		JoinGroupService joinGroupService = new JoinGroupService(request, response);
@@ -204,38 +205,47 @@ public class GroupService extends SuperService {
 		map.clear();
 		map.put("studentId", student_id);
 		students = studentService.checkStudentAndGroup(map);
-//		Kiểm tra xe người đăng nhập vào có phải là trưởng nhóm hay ko và có phải sinh viên hay không
-		if (groupStudents.size() > 0 && students.size() > 0) {
-			this.request.setAttribute("message", "Cần chọn đề tài trước khi thêm thành viên vào nhóm");
-		} else {
-//			Nếu sinh viên đăng nhập là nhóm trưởng thì mới có quyền thêm sinh viên mới vào nhóm.
-			groupStudents = groupService.checkRole(leaderId);
-			if (groupStudents.size() > 0) {
-				student = students.get(0);
-				groupStudent = groupStudents.get(0);
-				if (groupStudent.getTopic().getMaxMoMember() > groupStudent.getCurrentNumber()) {
-					groupStudent.setCurrentNumber(groupStudent.getCurrentNumber() + 1);
-					student.setGroupstudent(groupStudents.get(0));
-					groupStudentDAO.update(groupStudent);
-					studentDAO.update(student);
-//			Thêm thông báo về việc được ai đó thêm vào nhóm
-					notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
-							"Chúc mừng sinh viên " + student.getPerson().getFullName() + " đã được tham gia vào nhóm "
-									+ groupStudent.getGroupId());
-//			Xóa 1 sinh viên ra khỏi hàng chò xin vào nhóm khi xin viên đó được thêm vào nhóm nào đó
-//					joinGroupService.deleteRequestJoinGroup(student.getStudentId(), groupStudent.getGroupId());
-					joinGroupService.deleteAllRequestJoinGroupsRelatedToStudentId(student_id);
-					this.request.setAttribute("message", "Thêm thành viên thành công");
-
-				} else {
-					this.request.setAttribute("message",
-							"Số lượng thành viên của nhóm vượt quá số lượng thành viên cho phép của đề tài");
-				}
+		try {
+//			Kiểm tra xe người đăng nhập vào có phải là trưởng nhóm hay ko và có phải sinh viên hay không
+			if (groupStudents.size() > 0 && students.size() > 0) {
+				isAddMember = "FAILED";
 			} else {
-				this.request.setAttribute("message", "Chỉ có trưởng nhóm mới được thêm thành viên");
+//				Nếu sinh viên đăng nhập là nhóm trưởng thì mới có quyền thêm sinh viên mới vào nhóm.
+				groupStudents = groupService.checkRole(leaderId);
+				if (groupStudents.size() > 0) {
+					student = students.get(0);
+					groupStudent = groupStudents.get(0);
+					if (groupStudent.getTopic().getMaxMoMember() > groupStudent.getCurrentNumber()) {
+						groupStudent.setCurrentNumber(groupStudent.getCurrentNumber() + 1);
+						student.setGroupstudent(groupStudents.get(0));
+						groupStudentDAO.update(groupStudent);
+						studentDAO.update(student);
+//				Thêm thông báo về việc được ai đó thêm vào nhóm
+						notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
+								"Chúc mừng sinh viên " + student.getPerson().getFullName() + " đã được tham gia vào nhóm "
+										+ groupStudent.getGroupId());
+//				Xóa 1 sinh viên ra khỏi hàng chò xin vào nhóm khi xin viên đó được thêm vào nhóm nào đó
+//						joinGroupService.deleteRequestJoinGroup(student.getStudentId(), groupStudent.getGroupId());
+						joinGroupService.deleteAllRequestJoinGroupsRelatedToStudentId(student_id);
+						isAddMember = "SUCCESS";
+
+					} else {
+						isAddMember = "FAILED";
+					}
+				} else {
+					isAddMember = "FAILED";
+				}
 			}
+			this.request.setAttribute("isAddMember", isAddMember);
+			this.request.getRequestDispatcher(url).forward(request, response);
+		} catch (Exception e) {
+			System.out.print(e.toString());
+//			String pageUrl = "/pages/500.jsp";
+			String pageUrl = "/student/group-manage";
+			isAddMember = "FAILED";
+			this.request.setAttribute("isAddMember", isAddMember);
+			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		}
-		this.request.getRequestDispatcher(url).forward(request, response);
 	}
 	
 	// get group of student by topic
