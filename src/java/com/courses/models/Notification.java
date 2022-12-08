@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Notification.findAll", query="SELECT n FROM Notification n"),
-	@NamedQuery(name="Notification.getNotificationByLoginAccount", query="SELECT n FROM Notification n WHERE n.person2.personId = :personId")
+	@NamedQuery(name="Notification.getNotificationByLoginAccount", query="SELECT n FROM Notification n WHERE n.person2.personId = :personId ORDER BY n.status ASC")
 })
 public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -56,7 +56,6 @@ public class NotificationService extends SuperService{
 			notification.setStatus(0); // chưa đọc
 			notification.setContent(content);
 			notification.setTime(date);
-			System.out.println("================CAN CREATE NOTIFICATION===================");
 			notificationDAO.create(notification);
 		} else {
 			System.out.println("================CAN NOT CREATE NOTIFICATION===================");
@@ -74,7 +73,19 @@ public class NotificationService extends SuperService{
 		
 		notifications = notificationDAO.findWithNamedQuery("Notification.getNotificationByLoginAccount", map);
 		this.request.setAttribute("notifications",notifications);
-		System.out.println("================"+ notifications.size() +"===================");
 		this.request.getRequestDispatcher(url).forward(request, response);
 	}
+	
+	public void showDetailOneNotification() throws ServletException, IOException {
+		String notification_id = this.request.getParameter("notification_id");
+		NotificationDAO notificationDAO = new NotificationDAO();
+		Notification notification = new Notification();
+		
+		notification = this.notificationDAO.find(notification_id);
+		notification.setStatus((byte)1);
+		notificationDAO.update(notification);
+		getNotificationByLoginAccount();
+//		System.out.println("================THIS IS TEST NOTIFICATION===================");
+	}
+	
 }

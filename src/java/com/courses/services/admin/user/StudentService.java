@@ -16,6 +16,7 @@ import com.courses.dao.StudentDAO;
 import com.courses.models.GroupStudent;
 import com.courses.models.Person;
 import com.courses.models.Student;
+import com.courses.services.NotificationService;
 import com.courses.services.SuperService;
 
 public class StudentService extends SuperService {
@@ -115,6 +116,10 @@ public class StudentService extends SuperService {
 		String pageUrl = "/student/group-manage";
 		Student student = new Student();
 		GroupStudent groupStudent = new GroupStudent();
+		NotificationService notificationService = new NotificationService(request, response);
+		StudentService studentService = new StudentService(request, response);
+		
+		String leaderId = studentService.getStudentByPersonToLoginData().getStudentId();
 		
 		StudentDAO studentDAO = new StudentDAO();
 		GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
@@ -125,6 +130,10 @@ public class StudentService extends SuperService {
 		student.setGroupstudent(null);
 		studentDAO.update(student);
 		groupStudentDAO.update(groupStudent);
+		
+		notificationService.addNotification(leaderId, student_id, "Thông báo về quản lí nhóm",
+				"Xin thông báo đến sinh viên " + student.getPerson().getFullName() + " bạn đã bị mời ra khỏi nhóm "
+						+ groupStudent.getGroupId());
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
 	}
 	
