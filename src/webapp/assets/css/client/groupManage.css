@@ -55,10 +55,11 @@
 .topic_registration-filter-active {
     background-color: var(--white-color);
     position: relative;
+    margin: 0;
 }
 
 
-.topic_registration-filter h3:first-child {
+.topic_registration-filter h3 {
     margin-right: 24px;
 }
 
@@ -104,6 +105,7 @@
     min-width: 160px;
     font-size: 1.5rem;
     color: var(--text-blue-color);
+    margin: 0;
 }
 
 /* avai */

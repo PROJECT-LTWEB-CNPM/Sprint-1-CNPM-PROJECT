@@ -22,7 +22,7 @@ String context = request.getContextPath();
 				<div class="content">
 					<div class="container">
 						<div class="page-title">
-							<h3>Groups</h3>
+							<h3>Group Manage</h3>
 						</div>
 						<div class="box box-primary">
 							<div class="box-body">
@@ -74,6 +74,34 @@ String context = request.getContextPath();
 										</c:forEach>
 									</tbody>
 								</table>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-5">
+									<div class="dataTables_info" id="dataTables-example_info"
+										role="status" aria-live="polite">Showing 1 to 7 of 7
+										entries</div>
+								</div>
+								<div class="col-sm-12 col-md-7">
+									<div class="dataTables_paginate paging_simple_numbers"
+										id="dataTables-example_paginate">
+										<ul class="pagination justify-content-end mx-2">
+											<li class="paginate_button page-item previous disabled"
+												id="dataTables-example_previous"><a href="#"
+												aria-controls="dataTables-example" data-dt-idx="0"
+												tabindex="0" class="page-link">Previous</a></li>
+											<li class="paginate_button page-item active"><a href="#"
+												aria-controls="dataTables-example" data-dt-idx="1"
+												tabindex="0" class="page-link">1</a></li>
+											<li class="paginate_button page-item"><a href="#"
+												aria-controls="dataTables-example" data-dt-idx="1"
+												tabindex="0" class="page-link">2</a></li>
+											<li class="paginate_button page-item next disabled"
+												id="dataTables-example_next"><a href="#"
+												aria-controls="dataTables-example" data-dt-idx="2"
+												tabindex="0" class="page-link">Next</a></li>
+										</ul>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

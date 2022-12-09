@@ -26,6 +26,7 @@
     text-align: start;
     background-color: var(--login-background-color);
     border-bottom: 1px solid var(--border-color);
+    margin: 0;
 }
 
 .login_role {

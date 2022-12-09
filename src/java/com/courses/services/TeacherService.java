@@ -24,7 +24,7 @@ public class TeacherService extends SuperService {
 	public TeacherService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 	}
-
+	
 	public TeacherService() {}
 	
 	public void handleGetTeacher() throws ServletException, IOException{
@@ -46,7 +46,4 @@ public class TeacherService extends SuperService {
 		return foundTeacher;
 	}
 	
-	
-	
-
 }

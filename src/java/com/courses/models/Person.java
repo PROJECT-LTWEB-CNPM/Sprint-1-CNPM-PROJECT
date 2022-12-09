@@ -1,5 +1,5 @@
-package com.courses.models;
 
+package com.courses.models;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
@@ -52,6 +52,14 @@ public class Person implements Serializable {
 	//bi-directional many-to-one association to Admin
 	@OneToMany(mappedBy="person")
 	private List<Admin> admins;
+
+	//bi-directional many-to-one association to Notification
+	@OneToMany(mappedBy="person1")
+	private List<Notification> notifications1;
+
+	//bi-directional many-to-one association to Notification
+	@OneToMany(mappedBy="person2")
+	private List<Notification> notifications2;
 
 	//bi-directional many-to-one association to Student
 	@OneToMany(mappedBy="person")
@@ -111,8 +119,7 @@ public class Person implements Serializable {
 	public void setGender(byte gender) {
 		this.gender = gender;
 	}
-
-	public byte getIsDeleted() {
+public byte getIsDeleted() {
 		return this.isDeleted;
 	}
 
@@ -180,6 +187,50 @@ public class Person implements Serializable {
 		return admin;
 	}
 
+	public List<Notification> getNotifications1() {
+		return this.notifications1;
+	}
+
+	public void setNotifications1(List<Notification> notifications1) {
+		this.notifications1 = notifications1;
+	}
+
+	public Notification addNotifications1(Notification notifications1) {
+		getNotifications1().add(notifications1);
+		notifications1.setPerson1(this);
+
+		return notifications1;
+	}
+
+	public Notification removeNotifications1(Notification notifications1) {
+		getNotifications1().remove(notifications1);
+		notifications1.setPerson1(null);
+
+		return notifications1;
+	}
+
+	public List<Notification> getNotifications2() {
+		return this.notifications2;
+	}
+
+	public void setNotifications2(List<Notification> notifications2) {
+		this.notifications2 = notifications2;
+	}
+
+	public Notification addNotifications2(Notification notifications2) {
+		getNotifications2().add(notifications2);
+		notifications2.setPerson2(this);
+
+		return notifications2;
+	}
+
+	public Notification removeNotifications2(Notification notifications2) {
+		getNotifications2().remove(notifications2);
+		notifications2.setPerson2(null);
+
+		return notifications2;
+	}
+
 	public List<Student> getStudents() {
 		return this.students;
 	}
@@ -216,8 +267,7 @@ public class Person implements Serializable {
 
 		return teacher;
 	}
-
-	public Teacher removeTeacher(Teacher teacher) {
+public Teacher removeTeacher(Teacher teacher) {
 		getTeachers().remove(teacher);
 		teacher.setPerson(null);
 

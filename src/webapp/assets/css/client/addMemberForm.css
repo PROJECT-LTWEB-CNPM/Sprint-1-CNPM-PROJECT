@@ -25,6 +25,7 @@ body {
 	text-transform: uppercase;
 	text-align: center;
 	margin-bottom: 24px;
+	font-weight: 700;
 }
 
 .form__contain p {

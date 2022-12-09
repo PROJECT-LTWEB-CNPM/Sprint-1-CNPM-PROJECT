@@ -9,7 +9,7 @@ String context = request.getContextPath();
 <html lang="en">
 <head>
 <jsp:include page="../../partials/head.jsp"></jsp:include>
-<title>Edit Student | Topic Registration Admin</title>
+<title>Edit Admin | Topic Registration Admin</title>
 </head>
 <body>
 	<div class="wrapper">

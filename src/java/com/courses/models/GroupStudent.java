@@ -14,6 +14,7 @@ import java.util.List;
 	@NamedQuery(name="GroupStudent.findAll", query="SELECT g FROM GroupStudent g"),
 	@NamedQuery(name="GroupStudent.checkLeader", query="SELECT g FROM GroupStudent g WHERE g.leaderId = :leaderId AND g.topic IS NULL"),
 	@NamedQuery(name="GroupStudent.checkRole", query="SELECT g FROM GroupStudent g WHERE g.leaderId = :leaderId"),
+	@NamedQuery(name="GroupStudent.getGroupStudentByTopic", query="SELECT g FROM GroupStudent g WHERE g.topic = :topic"),
 	@NamedQuery(name="GroupStudent.getGroupStudent", query="SELECT g FROM GroupStudent g WHERE g.leaderId IS NOT NULL AND g.isDeleted = :isDeleted"),
 	})
 public class GroupStudent implements Serializable {
@@ -41,6 +42,10 @@ public class GroupStudent implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="topic_id")
 	private Topic topic;
+
+	//bi-directional many-to-one association to JoinGroup
+	@OneToMany(mappedBy="groupstudent")
+	private List<JoinGroup> joingroups;
 
 	//bi-directional many-to-one association to Student
 	@OneToMany(mappedBy="groupstudent")
@@ -103,6 +108,28 @@ public class GroupStudent implements Serializable {
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
+	}
+
+	public List<JoinGroup> getJoingroups() {
+		return this.joingroups;
+	}
+
+	public void setJoingroups(List<JoinGroup> joingroups) {
+		this.joingroups = joingroups;
+	}
+
+	public JoinGroup addJoingroup(JoinGroup joingroup) {
+		getJoingroups().add(joingroup);
+		joingroup.setGroupstudent(this);
+
+		return joingroup;
+	}
+
+	public JoinGroup removeJoingroup(JoinGroup joingroup) {
+		getJoingroups().remove(joingroup);
+		joingroup.setGroupstudent(null);
+
+		return joingroup;
 	}
 
 	public List<Student> getStudents() {

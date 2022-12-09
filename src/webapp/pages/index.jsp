@@ -16,7 +16,7 @@ request.setCharacterEncoding("utf-8");
 		<!-- Header -->
 		<jsp:include page="./client/partials/header.jsp" />
 		<main style="margin-top: 200px">
-			<h1 style="height: 100vh">Home</h1>
+			<h1 style="height: 100vh"></h1>
 		</main>
 		<!-- Footer -->
 		<jsp:include page="./client/partials/footer.jsp" />

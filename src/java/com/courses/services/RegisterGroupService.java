@@ -17,15 +17,12 @@ import com.courses.services.admin.user.StudentService;
 
 public class RegisterGroupService extends SuperService {
 	GroupStudentDAO groupStudentDAO = null;
-
 	public RegisterGroupService( HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 		this.groupStudentDAO = new GroupStudentDAO();
 	}
-
-	public RegisterGroupService() {}
 	
-	//public RegisterGroupService() {}
+	public RegisterGroupService() {}
 	
 //	String studentId: Biến dùng để truyền thông tin của account đăng nhập(Lấy mã sinh viên hay mã định danh thay thế cho "ST00000002": thông tin được fix cứng)
 	public void createGroupStudent(String studentId) throws ServletException, IOException {
@@ -42,6 +39,7 @@ public class RegisterGroupService extends SuperService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		String renderUI = "";
+		String isCreateGroup = "";
 		
 		registerGroupService.setEncoding();
 		
@@ -54,7 +52,6 @@ public class RegisterGroupService extends SuperService {
 			if(students.size() > 0) {
 //			Tạo Group mới với thông tin đã check
 //				Cần viết hàm tạo tự động
-				System.out.println("====================" + groupService.randomIdNotDuplicate() + "===============");
 				groupStudent.setGroupId(groupService.randomIdNotDuplicate());
 //				"ST00000002": thông tin được fix cứng để test --> Lấy thông tin từ login trả về để đưa vào
 				groupStudent.setLeaderId(studentId);
@@ -72,16 +69,21 @@ public class RegisterGroupService extends SuperService {
 //				Cập nhật lại bộ thông tin mới 
 				student.setGroupstudent(groupStudent);
 				studentDAO.update(student);
+				isCreateGroup = "SUCCESS";
 				renderUI = "NOT NULL";
 			} else {
-				request.setAttribute("message", "Bạn đã có nhóm. Không thể tạo thêm nhóm");
+				isCreateGroup = "FAILED";
 				renderUI = "NOT NULL";
 			}
-			request.setAttribute("uiGroupManage", students);
+			this.request.setAttribute("isCreateGroup", isCreateGroup);
+			this.request.setAttribute("uiGroupManage", students);
 			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		} catch (Exception e) {
 			System.out.print(e.toString());
-			String pageUrl = "/pages/500.jsp";
+//			String pageUrl = "/pages/500.jsp";
+			String pageUrl = "/student/group-manage";
+			isCreateGroup = "FAILED";
+			this.request.setAttribute("isCreateGroup", isCreateGroup);
 			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		}
 	}

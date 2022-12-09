@@ -40,6 +40,7 @@ public class TopicRecommendFilter extends HttpFilter implements Filter {
 		period = rps.getRegistrationPeriod(Byte.parseByte("1"));
 		
 		if (period != null) {
+			System.out.println("exist registraition period");
 			HttpSession session = req.getSession();
 			session.setAttribute("period", period);
 			chain.doFilter(request, response);

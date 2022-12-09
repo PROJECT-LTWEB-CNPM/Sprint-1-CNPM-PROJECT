@@ -9,7 +9,15 @@ String context = request.getContextPath();
 <html lang="en">
 <head>
 <jsp:include page="../partials/head.jsp"></jsp:include>
-<title>Edit Student | Topic Registration Admin</title>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
+	rel="stylesheet">
+<style>
+.ui-datepicker-calendar {
+	display: none;
+}
+</style>
+<title>Edit Registration Period | Topic Registration Administration</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -21,15 +29,13 @@ String context = request.getContextPath();
 			<div class="content">
 				<div class="container">
 					<div class="page-title">
-						<h3>Students</h3>
+						<h3>Edit Registration Period</h3>
 					</div>
 					<div class="box box-primary">
 						<div class="box-body">
 							<jsp:include page="./navTop.jsp"></jsp:include>
 							<div class="tab-content" id="myTabContent">
 								<jsp:include page="./generalPanel.jsp"></jsp:include>
-								<jsp:include page="./advancePanel.jsp"></jsp:include>
-								<jsp:include page="./accountPanel.jsp"></jsp:include>
 							</div>
 						</div>
 					</div>
@@ -38,5 +44,18 @@ String context = request.getContextPath();
 		</div>
 		<jsp:include page="../partials/tail.jsp"></jsp:include>
 	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+	<script>
+		$('.date-own').datepicker({
+			format : "yyyy",
+			viewMode : "years",
+			minViewMode : "years",
+			autoclose : true
+		});
+		$('.datetime').datepicker();
+	</script>
 </body>
 </html>

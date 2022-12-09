@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.courses.dao.GroupStudentDAO;
 import com.courses.dao.StudentDAO;
 import com.courses.models.Person;
 import com.courses.models.Student;
@@ -16,10 +17,15 @@ import com.courses.services.admin.user.PersonService;
 
 public class StudentService extends SuperService{
 	private static StudentDAO studentDAO = new StudentDAO();
-
+	private static GroupStudentDAO groupDAO = new GroupStudentDAO();
+	
 	public StudentService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 	}
+	
+	public StudentService() {
+		
+	};
 	
 	public static Student getStudentByPerson(Person person) {
 		Student foundStudent = null;
@@ -31,20 +37,18 @@ public class StudentService extends SuperService{
 		}
 		return foundStudent;
 	}
+
 	
 	public List<Student> checkStudentAndGroup(Map<String,Object> map) {
-		List<Student> students = this.studentDAO.findWithNamedQuery("Student.checkStudentAndGroup", map);
+		List<Student> students = studentDAO.findWithNamedQuery("Student.checkStudentAndGroup", map);
 		return students;
 	}
 	
 	public Student getStudentByPersonToLoginData() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
+		Map<String, Object> map = new HashMap<String, Object>();	
 		Student student = new Student();
 		Person person = new Person();
-		
 		PersonService personService = new PersonService(request, response);
-		
 		StudentDAO studentDAO = new StudentDAO();
 		
 		HttpSession session = request.getSession();

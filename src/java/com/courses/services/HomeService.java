@@ -15,12 +15,13 @@ public class HomeService extends SuperService{
 	public HomeService(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 	}
-
+	
 	public HomeService() {}
 	
-	public void handleGetHome() throws ServletException, IOException {
+	public void handleGetStudentHome() throws ServletException, IOException {
 		// define url
-		String url = "/pages/client/student/home.jsp";		
+		String url = "/pages/client/student/home.jsp";	
+		
 		// forward information to jsp file
 		super.forwardToPage(url);
 	}
