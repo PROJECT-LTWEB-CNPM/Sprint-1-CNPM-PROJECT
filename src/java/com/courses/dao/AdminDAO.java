@@ -1,6 +1,7 @@
 package com.courses.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.courses.models.Admin;
 
@@ -51,5 +52,10 @@ public class AdminDAO extends JpaDAO<Admin> implements GenericDAO<Admin> {
 	@Override
 	public String randomId() {
 		return super.randomId("AD");
+	}
+	
+	public Admin findByPerson(Map<String, Object> params) {
+		String queryName = "Admin.findByPerson";
+		return super.findSingleWithNamedQuery(queryName, params);
 	}
 }
