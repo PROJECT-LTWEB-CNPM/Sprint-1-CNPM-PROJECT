@@ -1,4 +1,4 @@
-package com.courses.controllers.client.Notification;
+package com.courses.controllers.client.notification;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,25 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.courses.services.HomeService;
 import com.courses.services.NotificationService;
 
-
-@WebServlet("/student/show-detail-notification")
-public class ShowDetailOneNotificationServlet extends HttpServlet {
+/**
+ * Servlet implementation class GetNotificationServlet
+ */
+@WebServlet("/student/home")
+public class GetNotificationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
-    public ShowDetailOneNotificationServlet() {
-        super();
+    
+    public GetNotificationServlet() {
+        super(); 
     }
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		NotificationService notificationService = new NotificationService(request, response);
-		notificationService.showDetailOneNotification();
+		notificationService.getNotificationByLoginAccount();
 	}
 
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

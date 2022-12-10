@@ -7,6 +7,10 @@
 	color: #fff;
 	transition: all 0.3s;
 	border-right: 1px solid #e6ecf5;
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	z-index: 2;
 }
 
 #sidebar.active {
@@ -17,6 +21,7 @@
 	padding: .4rem 1rem;
 	border-bottom: 1px solid rgba(101, 109, 119, .16);
 	max-height: 55px;
+	display: block;
 }
 
 #sidebar ul.components {

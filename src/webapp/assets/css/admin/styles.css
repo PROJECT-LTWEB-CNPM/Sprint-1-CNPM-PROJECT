@@ -48,7 +48,8 @@ body {
 }
 
 #body {
-    width: 100%;
+    width: calc(100% - 250px);
+   	margin-left: auto;
     padding: 0;
     min-height: 100vh;
     transition: all 0.3s;
@@ -62,6 +63,11 @@ body {
     min-height: 54px;
     box-shadow: none;
     border-bottom: 1px solid rgba(101, 109, 119, .16);
+    position: fixed;
+    right: 0;
+    left: 250px;
+    z-index: 1;
+    transition: all ease 0.3s;
 }
 
 /*------------------------------------------------------------------
@@ -84,6 +90,7 @@ body {
 #body>.content {
     position: relative;
     padding: .5rem;
+    margin-top: 4rem;
 }
 
 #body .content .page-title h3 {

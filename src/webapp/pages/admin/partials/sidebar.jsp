@@ -6,15 +6,15 @@
 String context = request.getContextPath();
 %>
 
-<nav id="sidebar" class="active">
+<nav id="sidebar" class="">
 	<div class="sidebar-header">
 		<img
 			src="https://fit.hcmute.edu.vn/Resources/Images/SubDomain/fit/logo-cntt2021.png"
 			alt="bootraper logo" class="app-logo" style="height: 42px" />
 	</div>
 	<ul class="list-unstyled components text-secondary">
-		<li><a href="<%=context%>/admin/dashboard"><i
-				class="fas fa-home"></i> Dashboard</a></li>
+		<li><a href="<%=context%>/admin"><i class="fas fa-home"></i>
+				Dashboard</a></li>
 		<li><a href="#authmenu" data-bs-toggle="collapse"
 			aria-expanded="false" class="dropdown-toggle no-caret-down"><i
 				class="fas fa-user-friends"></i> Users</a>
@@ -49,4 +49,3 @@ String context = request.getContextPath();
 				class="fas fa-chalkboard-teacher"></i> Boards</a></li>
 	</ul>
 </nav>
-

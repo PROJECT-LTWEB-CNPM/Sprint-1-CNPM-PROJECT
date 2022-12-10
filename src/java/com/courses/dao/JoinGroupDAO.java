@@ -41,7 +41,6 @@ public class JoinGroupDAO extends JpaDAO<JoinGroup> implements GenericDAO<JoinGr
 		return super.findWithNamedQuery(queryName, parameters);
 	}	
 
-
 	@Override
 	public List<JoinGroup> pagination(int currentPage, int pageSize) {
 		String queryName = "JoinGroup.findAll";
