@@ -19,6 +19,23 @@
 		$('#sidebarCollapse').on('click', function() {
 			$('#sidebar').toggleClass('active');
 			$('#body').toggleClass('active');
+			console.log()
+
+			if (!$('#body').hasClass('active')) {
+				$('#body').css({
+					"width" : "100%"
+				});
+				$('#body>.navbar').css({
+					"left" : "0"
+				})
+			} else {
+				$('#body').css({
+					"width" : "calc(100% - 250px)"
+				});
+				$('#body>.navbar').css({
+					"left" : "250px"
+				})
+			}
 		});
 	})();
 </script>

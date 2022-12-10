@@ -1,20 +1,19 @@
-<%@page import="com.courses.utils.constants.RoleConstants"%> <%@page
-import="javax.management.relation.Role"%> <%@ page language="java"
-contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-<% 
-	String context = request.getContextPath(); 
-%> 
-
+<%@page import="com.courses.utils.constants.RoleConstants"%>
+<%@page import="javax.management.relation.Role"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+String context = request.getContextPath();
+%>
 
 <nav id="sidebar" class="">
-	<div class="sidebar-header">
-		<img
-			src="https://fit.hcmute.edu.vn/Resources/Images/SubDomain/fit/logo-cntt2021.png"
-			alt="bootraper logo" class="app-logo" style="height: 42px">
-	</div>
+	<a class="sidebar-header" href="<%=context%>/admin/"> <img
+		src="https://fit.hcmute.edu.vn/Resources/Images/SubDomain/fit/logo-cntt2021.png"
+		alt="bootraper logo" class="app-logo" style="height: 42px">
+	</a>
 	<ul class="list-unstyled components text-secondary">
-		<li><a href="<%=context%>/admin"><i
-				class="fas fa-home"></i> Dashboard</a></li>
+		<li><a href="<%=context%>/admin"><i class="fas fa-home"></i>
+				Dashboard</a></li>
 		<li><a href="#authmenu" data-bs-toggle="collapse"
 			aria-expanded="false" class="dropdown-toggle no-caret-down"><i
 				class="fas fa-user-friends"></i> Users</a>

@@ -33,8 +33,7 @@ public class TeacherService extends SuperService {
 		// forward to specified url
 		super.forwardToPage(url);
 	}
-	
-	
+		
 	public static Teacher getTeacherByPerson(Person person) {
 		Teacher foundTeacher = null;
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -3,6 +3,7 @@ package com.courses.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.courses.models.Admin;
 import com.courses.models.Teacher;
 
 public class TeacherDAO extends JpaDAO<Teacher> implements GenericDAO<Teacher>{
@@ -57,5 +58,10 @@ public class TeacherDAO extends JpaDAO<Teacher> implements GenericDAO<Teacher>{
 	@Override
 	public String randomId() {
 		return super.randomId("TE");
+	}
+	
+	public Teacher findByPerson(Map<String, Object> params) {
+		String queryName = "Teacher.findByPerson";
+		return super.findSingleWithNamedQuery(queryName, params);
 	}
 }

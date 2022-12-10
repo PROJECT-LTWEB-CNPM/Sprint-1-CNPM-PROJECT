@@ -72,7 +72,8 @@ public class LoginService extends SuperService {
 					
 					// define user id cookie timeout 30'
 					Cookie c = new Cookie("userIdCookie", person.getPersonId());
-					
+				
+					// 30 min
 					c.setMaxAge(30 * 60);
 					c.setPath("/");
 					this.response.addCookie(c);

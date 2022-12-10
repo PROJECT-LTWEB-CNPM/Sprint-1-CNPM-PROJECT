@@ -92,6 +92,20 @@ public class JpaDAO<T> {
 		entityManager.close();
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public T findSingleWithNamedQuery(String queryName, Map<String, Object> parameters) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query query = entityManager.createNamedQuery(queryName);
+		Set<Entry<String, Object>> setParameters = parameters.entrySet();
+		for (Entry<String, Object> entry : setParameters) {
+			query.setParameter(entry.getKey(), entry.getValue());
+		}
+		T result = (T) query.getSingleResult();
+		entityManager.close();
+		return result;
+	}
+
 
 	@SuppressWarnings("unchecked")
 	public List<T> pagination(String queryName, int currentPage, int pageSize) {
