@@ -30,11 +30,11 @@ String context = request.getContextPath();
 									id="dataTables-example">
 									<thead>
 										<tr>
-											<th>Group ID</th>
+											<th>Mã nhóm</th>
 											<th>Status</th>
 											<th>Active</th>
-											<th>Topic Name</th>
-											<th>No Member</th>
+											<th>Tên dề tài</th>
+											<th>Số thành viên</th>
 											<th></th>
 										</tr>
 									</thead>

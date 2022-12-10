@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.courses.dao.BoardDAO;
 import com.courses.models.Board;
 
-@WebServlet(urlPatterns = {"/admin", "/admin/"})
+@WebServlet(urlPatterns = {"/admin/dashboard", "/admin/"})
 public class ShowDashboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
