@@ -1,6 +1,7 @@
 package com.courses.services;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.courses.dao.RegistrationPeriodDAO;
 import com.courses.models.RegistrationPeriod;
 import com.courses.utils.constants.RoleConstants;
+import com.courses.utils.helper.RandomUtils;
 
 public class RegistrationPriodService extends SuperService {
 
@@ -50,7 +52,7 @@ public class RegistrationPriodService extends SuperService {
 			this.request.setAttribute("type", type);
 			RegistrationPeriod rp = this.registrationPeriodDAO.find(id);
 			this.request.setAttribute("rp", rp);
-			System.out.println(rp.getCloseDate());
+//			System.out.println(rp.getCloseDate());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			pageUrl = "/pages/500.jsp";
@@ -66,5 +68,59 @@ public class RegistrationPriodService extends SuperService {
 			period = this.registrationPeriodDAO.findWithNamedQuery("RegistrationPeriod.findByStatus", map).get(0);
 		}
 		return period;
+	}
+	
+	public void updateRegistrationPeriod() throws ServletException, IOException {
+		String isRegistrationPeriodUpdate = "";
+		String url = "/admin/registration-priods";
+		Date date = new Date();
+		String registrationPeriodId = this.request.getParameter("registrationPeriodId");
+		String isRegistrationTeacher = this.request.getParameter("isRegistrationTeacher");
+		String registrationPeriodName = this.request.getParameter("registrationPeriodName");
+		String semeter = this.request.getParameter("semeter");
+		String schoolYear = this.request.getParameter("schoolYear");
+		try {	
+			Date openDate = RandomUtils.convertStringToDate(this.request.getParameter("openDate").split(" ")[0]);
+			Date closeDate = RandomUtils.convertStringToDate(this.request.getParameter("closeDate").split(" ")[0]);
+			String description = this.request.getParameter("description");
+			Date currentDate = RandomUtils.convertStringToDate(RandomUtils.formatDate(date));
+
+//			System.out.println("openDate: " + openDate);
+//			System.out.println("closeDate: " + closeDate);
+//			System.out.println("currentDate: " + currentDate);
+			
+//			Ngày kết thúc đăng kí phải lớn hơn ngày bắt đầu đăng kí và lơn hơn ngày chỉnh sửa hiện tại			
+			if (openDate.compareTo(currentDate) < 0 || openDate.compareTo(currentDate) == 0) {
+				if(openDate.compareTo(closeDate) < 0 || openDate.compareTo(closeDate) == 0) {
+					RegistrationPeriodDAO registrationPeriodDAO = new RegistrationPeriodDAO();
+					RegistrationPeriod registrationPeriod = new RegistrationPeriod();
+					
+					registrationPeriod = registrationPeriodDAO.find(registrationPeriodId);
+					
+					registrationPeriod.setCloseDate(closeDate);
+					registrationPeriod.setDescription(description);
+					registrationPeriod.setOpenDate(openDate);
+					registrationPeriod.setRegistrationPeriodName(registrationPeriodName);
+					registrationPeriod.setSchoolYear(Integer.parseInt(schoolYear));
+					registrationPeriod.setSemeter(Integer.parseInt(semeter));
+					registrationPeriodDAO.update(registrationPeriod);
+					isRegistrationPeriodUpdate = "SUCCESS";	
+				} else {
+					isRegistrationPeriodUpdate = "FAILED";
+				}
+			} else {
+				isRegistrationPeriodUpdate = "FAILED";
+			}
+		
+//					url = url + isRegistrationTeacher;
+			this.request.setAttribute("isRegistrationPeriodUpdate", isRegistrationPeriodUpdate);
+			this.request.getRequestDispatcher(url).forward(request, response);
+			
+		} catch (Exception e) {
+			isRegistrationPeriodUpdate = "FAILED";
+			System.out.println(e.getMessage());
+			this.request.setAttribute("isRegistrationPeriodUpdate", isRegistrationPeriodUpdate);
+			this.request.getRequestDispatcher(url).forward(request, response);
+		}
 	}
 }

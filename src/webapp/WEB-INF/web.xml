@@ -7,6 +7,7 @@
 	<welcome-file-list>
 		<welcome-file>/pages/index.jsp</welcome-file>
 	</welcome-file-list>
+	<!-- 
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/pages/500.jsp</location>
@@ -19,4 +20,5 @@
 		<error-code>404</error-code>
 		<location>/pages/404.jsp</location>
 	</error-page>
+	 -->
 </web-app>

@@ -24,11 +24,15 @@ public class UpdateRegistrationPriodServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Hello world");
-		String openDate = request.getParameter("openDate");
-		String schoolYear = request.getParameter("schoolYear");
-		System.out.println(openDate);
-		System.out.println(schoolYear);
+//		System.out.println("Hello world");
+//		String openDate = request.getParameter("openDate");
+//		String schoolYear = request.getParameter("schoolYear");
+//		System.out.println(openDate);
+//		System.out.println(schoolYear);
+		System.out.println("================================ 1");
+		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
+		registrationPriodService.updateRegistrationPeriod();
+		System.out.println("================================ 2");
 	}
 
 }

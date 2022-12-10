@@ -1,4 +1,4 @@
-package com.courses.controllers.client.joinGroup;
+package com.courses.controllers.client.JoinGroup;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

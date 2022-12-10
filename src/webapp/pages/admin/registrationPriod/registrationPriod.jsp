@@ -113,7 +113,8 @@ String context = request.getContextPath();
 			</div>
 		</div>
 	</div>
-
+	<input type="text" id="isRegistrationPeriodUpdate" value="${isRegistrationPeriodUpdate}" hidden />
+	
 	<jsp:include page="./modalCreateRP.jsp"></jsp:include>
 	<jsp:include page="./modalConfirmDeleteRP.jsp"></jsp:include>
 	<jsp:include page="../partials/tail.jsp"></jsp:include>
@@ -121,6 +122,7 @@ String context = request.getContextPath();
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 		$('.date-own').datepicker({
 			format : "yyyy",
@@ -129,6 +131,15 @@ String context = request.getContextPath();
 			autoclose : true
 		});
 		$('.datetime').datepicker();
+		
+		
+		const isRegistrationPeriodUpdate = $('#isRegistrationPeriodUpdate').val();
+
+		if (isRegistrationPeriodUpdate === 'FAILED') {
+			swal("Thông báo!", "Cập nhật thời gian đăng kí thất bại", "error");
+		} else if (isRegistrationPeriodUpdate === 'SUCCESS') {
+			swal("Thông báo!", "Cập nhật thời gian đăng kí thành công", "success");
+		}
 	</script>
 </body>
 </html>
