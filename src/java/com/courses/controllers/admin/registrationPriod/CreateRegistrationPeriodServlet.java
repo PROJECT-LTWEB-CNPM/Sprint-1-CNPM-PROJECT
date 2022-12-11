@@ -1,4 +1,4 @@
-package com.courses.controllers.client.Notification;
+package com.courses.controllers.admin.registrationPriod;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,24 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.NotificationService;
+import com.courses.services.RegistrationPriodService;
 
 
-@WebServlet("/student/show-detail-notification")
-public class ShowDetailOneNotificationServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/admin/registration-priods/create", "/admin/registration-priods/create/"})
+public class CreateRegistrationPeriodServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-  
-    public ShowDetailOneNotificationServlet() {
+    
+    public CreateRegistrationPeriodServlet() {
         super();
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		NotificationService notificationService = new NotificationService(request, response);
-		notificationService.showDetailOneNotification();
+//		System.out.println("=====================/admin/registration-priods/create=============");
+		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
+		registrationPriodService.createRegistrationPeriod();
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

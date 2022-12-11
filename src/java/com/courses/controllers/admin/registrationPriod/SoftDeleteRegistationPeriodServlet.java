@@ -1,4 +1,4 @@
-package com.courses.controllers.client.Notification;
+package com.courses.controllers.admin.registrationPriod;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,26 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.NotificationService;
+import com.courses.services.RegistrationPriodService;
 
 
-@WebServlet("/student/show-detail-notification")
-public class ShowDetailOneNotificationServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/admin/registration-priods/delete", "/admin/registration-priods/delete/"})
+public class SoftDeleteRegistationPeriodServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
-    public ShowDetailOneNotificationServlet() {
+    
+    public SoftDeleteRegistationPeriodServlet() {
         super();
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		NotificationService notificationService = new NotificationService(request, response);
-		notificationService.showDetailOneNotification();
+		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
+		registrationPriodService.softDeleteRegistrationPeriod();
 	}
 
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

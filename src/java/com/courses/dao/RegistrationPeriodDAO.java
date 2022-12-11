@@ -50,6 +50,16 @@ public class RegistrationPeriodDAO extends JpaDAO<RegistrationPeriod> implements
 
 		return super.findWithNamedQuery(queryName, param);
 	}
+	
+	public List<RegistrationPeriod> findByIsRegistrationTeacherIsDeleted(byte isRegistrationTeacher) {
+		String queryName = "RegistrationPeriod.findByIsTeacherIsDeleteed";
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("isRegistrationTeacher", isRegistrationTeacher);
+
+		return super.findWithNamedQuery(queryName, param);
+	}
+	
 
 	@Override
 	public List<RegistrationPeriod> pagination(int currentPage, int pageSize) {

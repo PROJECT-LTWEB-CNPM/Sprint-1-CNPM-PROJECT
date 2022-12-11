@@ -29,10 +29,8 @@ public class UpdateRegistrationPriodServlet extends HttpServlet {
 //		String schoolYear = request.getParameter("schoolYear");
 //		System.out.println(openDate);
 //		System.out.println(schoolYear);
-		System.out.println("================================ 1");
 		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
 		registrationPriodService.updateRegistrationPeriod();
-		System.out.println("================================ 2");
 	}
 
 }

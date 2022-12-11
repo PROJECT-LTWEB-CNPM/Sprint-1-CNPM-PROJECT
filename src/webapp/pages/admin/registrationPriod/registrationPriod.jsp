@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.courses.utils.constants.RoleConstants"%>
 <%
 String context = request.getContextPath();
 %>
@@ -32,16 +33,65 @@ String context = request.getContextPath();
 						<div class="page-title">
 							<h3>
 								Registration Priods For ${type.substring(0, 1).toUpperCase()}${type.substring(1)}
-								Manage
+								Manage 
+								<a type="button" href="<%=context %>/admin/registration-priods/is-deleted/?type=${type}"
+									class="btn btn-sm btn-outline-success float-end"> <i
+									class="fas fa-clock"></i> Restore
+								</a>
 								<button type="button" data-bs-toggle="modal"
 									data-bs-target="#modalCreateRP"
-									class="btn btn-sm btn-outline-primary float-end">
+									class="btn btn-sm btn-outline-primary float-end me-3">
 									<i class="fas fa-clock"></i> Create New
 								</button>
 							</h3>
 						</div>
 						<div class="box box-primary">
-							<div class="box-body">
+							<c:if test="${registrationPeriods.size() > 0}">
+								<div class="box-body">
+									<table width="100%" class="table table-hover"
+										id="dataTables-example">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Name</th>
+												<th>Semester</th>
+												<th>School Year</th>
+												<th>Open Date</th>
+												<th>Close Date</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="item" items="${registrationPeriods}">
+												<tr>
+													<td>${item.getRegistrationPeriodId()}</td>
+													<td>${item.getRegistrationPeriodName()}</td>
+													<td>${item.getSemeter()}</td>
+													<td>${item.getSchoolYear()}</td>
+													<td>${item.getOpenDate()}</td>
+													<td>${item.getCloseDate()}</td>
+													<td class="text-end"><a
+														href="<%=context%>/admin/registration-priods/edit/?type=${type}&id=${item.getRegistrationPeriodId()}"
+														class="btn btn-outline-info btn-rounded"> <i
+															class="fas fa-pen"></i>
+													</a>
+
+														<button type="button" data-bs-toggle="modal"
+															data-bs-target="#modalConfirmDeleteRP"
+															class="btn btn-outline-danger btn-rounded">
+															<i class="fas fa-trash"></i>
+														</button> <jsp:include page="modalConfirmDeleteRP.jsp">
+															<jsp:param value="${item.getRegistrationPeriodId()}"
+																name="registrationPeriodId" />
+														</jsp:include>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</c:if>
+
+							<c:if test="${registrationPeriodsIsDeleted.size() > 0}">
 								<table width="100%" class="table table-hover"
 									id="dataTables-example">
 									<thead>
@@ -56,7 +106,7 @@ String context = request.getContextPath();
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="item" items="${registrationPeriods}">
+										<c:forEach var="item" items="${registrationPeriodsIsDeleted}">
 											<tr>
 												<td>${item.getRegistrationPeriodId()}</td>
 												<td>${item.getRegistrationPeriodName()}</td>
@@ -65,20 +115,15 @@ String context = request.getContextPath();
 												<td>${item.getOpenDate()}</td>
 												<td>${item.getCloseDate()}</td>
 												<td class="text-end"><a
-													href="<%=context%>/admin/registration-priods/edit/?type=${type}&id=${item.getRegistrationPeriodId()}"
-													class="btn btn-outline-info btn-rounded"><i
-														class="fas fa-pen"></i></a>
-
-													<button type="button" data-bs-toggle="modal"
-														data-bs-target="#modalConfirmDeleteRP"
-														class="btn btn-outline-danger btn-rounded">
-														<i class="fas fa-trash"></i>
-													</button>
+													href="<%=context%>/admin/registration-priods/is-deleted/restore/?type=${type}&id=${item.getRegistrationPeriodId()}"
+													class="btn btn-outline-success btn-rounded"> 
+													<i class="fas fa-undo"></i>
+												</a>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-							</div>
+							</c:if>
 							<div class="row">
 								<div class="col-sm-12 col-md-5">
 									<div class="dataTables_info" id="dataTables-example_info"
@@ -112,9 +157,10 @@ String context = request.getContextPath();
 				</div>
 			</div>
 		</div>
+		<input type="text" id="isRegistrationPeriodUpdate"
+			value="${isRegistrationPeriodUpdate}" hidden />
 	</div>
-	<input type="text" id="isRegistrationPeriodUpdate" value="${isRegistrationPeriodUpdate}" hidden />
-	
+
 	<jsp:include page="./modalCreateRP.jsp"></jsp:include>
 	<jsp:include page="./modalConfirmDeleteRP.jsp"></jsp:include>
 	<jsp:include page="../partials/tail.jsp"></jsp:include>
@@ -131,14 +177,15 @@ String context = request.getContextPath();
 			autoclose : true
 		});
 		$('.datetime').datepicker();
-		
-		
-		const isRegistrationPeriodUpdate = $('#isRegistrationPeriodUpdate').val();
+
+		const isRegistrationPeriodUpdate = $('#isRegistrationPeriodUpdate')
+				.val();
 
 		if (isRegistrationPeriodUpdate === 'FAILED') {
 			swal("Thông báo!", "Cập nhật thời gian đăng kí thất bại", "error");
 		} else if (isRegistrationPeriodUpdate === 'SUCCESS') {
-			swal("Thông báo!", "Cập nhật thời gian đăng kí thành công", "success");
+			swal("Thông báo!", "Cập nhật thời gian đăng kí thành công",
+					"success");
 		}
 	</script>
 </body>
