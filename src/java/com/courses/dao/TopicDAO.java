@@ -57,4 +57,11 @@ public class TopicDAO extends JpaDAO<Topic> implements GenericDAO<Topic> {
 	public String randomId() {
 		return super.randomId("TO");
 	}
+	
+	public List<Topic> findByStatusAndIsDeleted(Map<String, Object> params) {
+		String queryName = "Topic.findByStatusAndIsDeleted";
+		return super.findWithNamedQuery(queryName, params);	
+	}
+	
+	
 }
