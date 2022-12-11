@@ -31,8 +31,8 @@ String context = request.getContextPath();
 									<thead>
 										<tr>
 											<th>Mã nhóm</th>
-											<th>Status</th>
-											<th>Active</th>
+											<!-- <th>Status</th>
+											<th>Active</th> -->
 											<th>Tên dề tài</th>
 											<th>Số thành viên</th>
 											<th></th>
@@ -42,25 +42,25 @@ String context = request.getContextPath();
 										<c:forEach var="item" items="${groups}">
 											<tr>
 												<td>${item.getGroupId()}</td>
-												<c:choose>
+												<%-- <c:choose>
 													<c:when test="${item.getIsFull() == 0}">
 														<td>Approved</td>
 													</c:when>
 													<c:otherwise>
 														<td>Pending</td>
 													</c:otherwise>
-												</c:choose>
+												</c:choose> --%>
 
-												<c:choose>
+												<%-- <c:choose>
 													<c:when test="${item.getIsFull() == 1}">
 														<td>Activated</td>
 													</c:when>
 													<c:otherwise>
 														<td>Pending</td>
 													</c:otherwise>
-												</c:choose>
+												</c:choose> --%>
 												<td>${item.getTopic().getTopicName()}</td>
-												<td>0/${item.getTopic().getMaxMoMember()}</td>
+												<td>${item.currentNumber}/${item.getTopic().getMaxMoMember()}</td>
 												<td class="text-end"><a
 													href="<%=context%>/admin/group/edit"
 													class="btn btn-outline-info btn-rounded"><i

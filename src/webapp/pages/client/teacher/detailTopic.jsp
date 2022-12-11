@@ -37,10 +37,8 @@ StudentService studentService = new StudentService();
 								<ion-icon name="receipt-outline"></ion-icon>
 								<h3>NHÓM SINH VIÊN ĐĂNG KÝ</h3>
 							</div>
-
 							<div class="student-table">
 								<c:forEach var="group" items="${groupStudentMap.keySet()}">
-
 									<table id="students">
 										<tr class="">
 											<th style="width: 20%;">Mã nhóm</th>

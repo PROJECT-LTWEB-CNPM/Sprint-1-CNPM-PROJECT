@@ -267,7 +267,7 @@ public class GroupService extends SuperService {
 		// find groups
 		List<GroupStudent> groups = getGroupStudentByTopic(foundTopic);
 		// check if there is any existing group
-		if (!groups.isEmpty() && groups != null) {
+		if (groups != null) {
 			for(GroupStudent group: groups){
 				// find list student of the group
 				List<Student> students = null;
