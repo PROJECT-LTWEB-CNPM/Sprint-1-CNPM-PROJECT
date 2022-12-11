@@ -1,4 +1,4 @@
-package com.courses.controllers.client.head;
+package com.courses.controllers.client.head.approvalTopic;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

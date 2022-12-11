@@ -119,7 +119,7 @@ public class Person implements Serializable {
 	public void setGender(byte gender) {
 		this.gender = gender;
 	}
-public byte getIsDeleted() {
+	public byte getIsDeleted() {
 		return this.isDeleted;
 	}
 
