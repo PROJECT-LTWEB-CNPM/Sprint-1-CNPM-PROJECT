@@ -21,12 +21,14 @@ String context = request.getContextPath();
 			<div class="content">
 				<div class="container">
 					<div class="page-title">
-						<h3>Students</h3>
+						<h3>Edit Board</h3>
 					</div>
 					<div class="box box-primary">
 						<div class="box-body">
 							<jsp:include page="./navTop.jsp"></jsp:include>
-							<div class="tab-content" id="myTabContent"></div>
+							<div class="tab-content" id="myTabContent">
+								<jsp:include page="./generalPanel.jsp"></jsp:include>
+							</div>
 						</div>
 					</div>
 				</div>

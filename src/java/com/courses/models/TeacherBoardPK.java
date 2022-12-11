@@ -3,10 +3,6 @@ package com.courses.models;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/**
- * The primary key class for the teacherboard database table.
- * 
- */
 @Embeddable
 public class TeacherBoardPK implements Serializable {
 	//default serial version id, required for serializable classes.

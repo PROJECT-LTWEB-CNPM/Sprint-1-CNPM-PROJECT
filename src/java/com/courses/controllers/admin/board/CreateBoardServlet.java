@@ -7,25 +7,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.models.Board;
 import com.courses.services.BoardService;
 
-@WebServlet(urlPatterns = { "/admin/boards", "/admin/boards/" })
-public class ListBoardServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/boards/create", "/admin/boards/create/" })
+public class CreateBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public ListBoardServlet() {
+	public CreateBoardServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BoardService boardService = new BoardService(request, response);
-		boardService.handleGetListBoard();
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		BoardService boardService = new BoardService(request, response);
+		boardService.submitBoardForm();
 	}
 
 }

@@ -1,3 +1,4 @@
+<%@page import="com.courses.utils.helper.RandomUtils"%>
 <%@page import="com.courses.utils.constants.GenderConstants"%>
 <%@page import="com.courses.utils.constants.RoleConstants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,55 +17,44 @@ String title = "";
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modalCreateRP">
-					<i class="fas fa-clock"></i> Create Schedule
+					<i class="fas fa-clock"></i> Create Board
 				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
-			<div class="modal-body">
-				<div class="col-md-12">
-					<div class="mb-3">
-						<label for="site-title" class="form-label">Person ID</label> <input
-							type="text" name="site_title" class="form-control" disabled>
-					</div>
-					<div class="mb-3">
-						<label for="site-title" class="form-label">Full name</label> <input
-							type="text" name="site_title" class="form-control" />
-					</div>
-					<div class="mb-3">
-						<label for="site-title" class="form-label">Address</label> <input
-							type="text" name="site_title" class="form-control" />
-					</div>
-					<div class="mb-3">
-						<label for="site-description" class="form-label">gender</label> <select
-							name="timezone" class="form-select">
-							<option value="<%=GenderConstants.MALE%>">Male</option>
-							<option value="<%=GenderConstants.FEMALE%>">Female</option>
-						</select>
-					</div>
-					<div class="mb-3">
-						<label for="site-title" class="form-label">Phonenumber</label> <input
-							type="text" name="site_title" class="form-control" />
-					</div>
-					<div class="mb-3">
-						<label for="site-description" class="form-label">Role</label> <select
-							name="timezone" class="form-select">
-							<option value="${type}"><%=title %></option>
+			<form action="boards/create" method="POST">
+				<div class="modal-body">
+					<div class="col-md-12">
+						<div class="mb-3">
+							<label for="site-title" class="form-label">Board ID</label> <input
+								type="text" name="boardId" class="form-control"
+								value="BO<%=RandomUtils.randomId()%>" readonly="readonly"
+								required="required" />
+						</div>
+						<div class="mb-3">
+							<label for="site-title" class="form-label">Board name</label> <input
+								type="text" name="boardName" class="form-control"
+								required="required" />
+						</div>
+						<div class="mb-3">
+							<label for="site-title" class="form-label">No of member</label> <input
+								type="number" name="noOfMember" class="form-control" min="0"
+								max="10" />
+						</div>
 
-						</select>
-					</div>
-					<div class="mb-3">
-						<label for="site-title" class="form-label">Descripton</label>
-						<textarea class="form-control" name="google_analytics_code"
-							rows="4"></textarea>
+						<div class="mb-3">
+							<label for="site-title" class="form-label">Description</label>
+							<textarea class="form-control" name="description" rows="4"
+								required="required"></textarea>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary"
-					data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

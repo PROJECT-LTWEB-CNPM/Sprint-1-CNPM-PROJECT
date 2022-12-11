@@ -67,7 +67,8 @@ String context = request.getContextPath();
 												<td>${item.getBoardName()}</td>
 												<td>${item.getNoMember()}</td>
 												<td>${item.getDescription()}</td>
-												<td class="text-end"><a href=""
+												<td class="text-end"><a
+													href="<%=context %>/admin/boards/edit/?board_id=${item.getBoardId()}"
 													class="btn btn-outline-info btn-rounded"><i
 														class="fas fa-pen"></i></a>
 													<button type="button" data-bs-toggle="modal"
@@ -121,8 +122,20 @@ String context = request.getContextPath();
 			</div>
 		</div>
 	</div>
+	<input id="createdBoardStatus"
+		value="${sessionScope.createdBoardStatus}" hidden />
+	<input id="updatedBoardStatus"
+		value="${sessionScope.updatedBoardStatus}" hidden />
 	<jsp:include page="./modalCreateBoard.jsp"></jsp:include>
 	<jsp:include page="./modalSelectSemester.jsp"></jsp:include>
 	<jsp:include page="../partials/tail.jsp"></jsp:include>
+	<script>
+		if ($('#createdBoardStatus').val() === 'success') {
+			Swal.fire('Message', 'Add new Board successfully', 'success')
+		}
+		if ($('#updatedBoardStatus').val() === 'success') {
+			Swal.fire('Message', 'Board updated successfully', 'success')
+		}
+	</script>
 </body>
 </html>
