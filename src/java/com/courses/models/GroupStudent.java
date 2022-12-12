@@ -38,6 +38,11 @@ public class GroupStudent implements Serializable {
 	@Column(name="leader_id")
 	private String leaderId;
 
+	//bi-directional many-to-one association to Board
+	@ManyToOne
+	@JoinColumn(name="board_id")
+	private Board board;
+
 	//bi-directional many-to-one association to Topic
 	@ManyToOne
 	@JoinColumn(name="topic_id")
@@ -100,6 +105,14 @@ public class GroupStudent implements Serializable {
 
 	public void setLeaderId(String leaderId) {
 		this.leaderId = leaderId;
+	}
+
+	public Board getBoard() {
+		return this.board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
 	public Topic getTopic() {

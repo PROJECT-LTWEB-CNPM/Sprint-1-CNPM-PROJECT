@@ -30,6 +30,10 @@ public class Board implements Serializable {
 	@Column(name="no_member")
 	private int noMember;
 
+	//bi-directional many-to-one association to GroupStudent
+	@OneToMany(mappedBy="board")
+	private List<GroupStudent> groupstudents;
+
 	//bi-directional many-to-one association to TeacherBoard
 	@OneToMany(mappedBy="board")
 	private List<TeacherBoard> teacherboards;
@@ -75,6 +79,28 @@ public class Board implements Serializable {
 
 	public void setNoMember(int noMember) {
 		this.noMember = noMember;
+	}
+
+	public List<GroupStudent> getGroupstudents() {
+		return this.groupstudents;
+	}
+
+	public void setGroupstudents(List<GroupStudent> groupstudents) {
+		this.groupstudents = groupstudents;
+	}
+
+	public GroupStudent addGroupstudent(GroupStudent groupstudent) {
+		getGroupstudents().add(groupstudent);
+		groupstudent.setBoard(this);
+
+		return groupstudent;
+	}
+
+	public GroupStudent removeGroupstudent(GroupStudent groupstudent) {
+		getGroupstudents().remove(groupstudent);
+		groupstudent.setBoard(null);
+
+		return groupstudent;
 	}
 
 	public List<TeacherBoard> getTeacherboards() {
