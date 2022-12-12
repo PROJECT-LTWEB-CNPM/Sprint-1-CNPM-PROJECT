@@ -87,7 +87,7 @@ public class LoginService extends SuperService {
 						url = "/teacher/home";
 					} else if (role.equals("admin")) {
 						// forward to admin home page
-						url = "/admin";
+						url = "/admin/";
 					}
 					
 

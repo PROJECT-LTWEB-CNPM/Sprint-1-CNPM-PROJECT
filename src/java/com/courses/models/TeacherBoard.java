@@ -3,31 +3,32 @@ package com.courses.models;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the teacherboard database table.
  * 
  */
 @Entity
-@Table(name="teacherboard")
-@NamedQuery(name="TeacherBoard.findAll", query="SELECT t FROM TeacherBoard t")
+@Table(name = "teacherboard")
+@NamedQueries({ @NamedQuery(name = "TeacherBoard.findAll", query = "SELECT t FROM TeacherBoard t"),
+		@NamedQuery(name = "TeacherBoard.findByBoard", query = "SELECT t FROM TeacherBoard t WHERE t.board = :board") 
+})
 public class TeacherBoard implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private TeacherBoardPK id;
 
-	@Column(name="is_deleted")
+	@Column(name = "is_deleted")
 	private byte isDeleted;
 
-	//bi-directional many-to-one association to Board
+	// bi-directional many-to-one association to Board
 	@ManyToOne
-	@JoinColumn(name="board_id", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name = "board_id", nullable = false, insertable = false, updatable = false)
 	private Board board;
 
-	//bi-directional many-to-one association to Teacher
+	// bi-directional many-to-one association to Teacher
 	@ManyToOne
-	@JoinColumn(name="teacher_id", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name = "teacher_id", nullable = false, insertable = false, updatable = false)
 	private Teacher teacher;
 
 	public TeacherBoard() {

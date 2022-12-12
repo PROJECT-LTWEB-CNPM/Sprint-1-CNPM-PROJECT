@@ -1,4 +1,4 @@
-package com.courses.controllers.client.head;
+package com.courses.controllers.admin.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,22 +7,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/teacher/approval", "/teacher/approval/" })
-public class HeadApprovalTopic extends HttpServlet {
+import com.courses.services.BoardService;
+
+@WebServlet(urlPatterns = { "/admin/boards/edit", "/admin/boards/edit/" })
+public class EditBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public HeadApprovalTopic() {
+	public EditBoardServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Processing....");
+		BoardService boardService = new BoardService(request, response);
+		boardService.getEditBoardForm();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		BoardService boardService = new BoardService(request, response);
+		boardService.submitEditBoardForm();
 	}
 
 }

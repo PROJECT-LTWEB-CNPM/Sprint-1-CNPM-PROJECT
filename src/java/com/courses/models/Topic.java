@@ -15,7 +15,8 @@ import java.util.List;
 	@NamedQuery(name="Topic.getTopicByConditionSelect", query="SELECT t FROM Topic t WHERE t.isSelected = :is_selected AND t.status = 1"),
 	@NamedQuery(name="Topic.findSelectedTopic", query="SELECT t FROM Topic t where t.isSelected = :isSelected"),
 	@NamedQuery(name="Topic.findTopicByTeacher", query="SELECT t FROM Topic t where t.teacher = :teacher"),
-	@NamedQuery(name="Topic.findSpecifiedTopic", query="SELECT t FROM Topic t where t.teacher = :teacher and t.isSelected = :isSelected")
+	@NamedQuery(name="Topic.findSpecifiedTopic", query="SELECT t FROM Topic t where t.teacher = :teacher and t.isSelected = :isSelected"),
+	@NamedQuery(name="Topic.findByStatusAndIsDeleted", query="SELECT t FROM Topic t WHERE t.status = :status AND t.isDeleted = :isDeleted")
 })
 public class Topic implements Serializable {
 	private static final long serialVersionUID = 1L;
