@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.courses.dao.GroupStudentDAO;
 import com.courses.dao.RegistrationPeriodDAO;
@@ -31,6 +32,8 @@ public class RegistrationPriodService extends SuperService {
 	}
 
 	public void handleGetList() throws ServletException, IOException {
+		HttpSession session = this.request.getSession();
+		
 		String pageUrl = "/pages/admin/registrationPriod/registrationPriod.jsp";
 		try {
 			String type = this.request.getParameter("type");
@@ -47,9 +50,11 @@ public class RegistrationPriodService extends SuperService {
 			pageUrl = "/pages/500.jsp";
 		}
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+		session.invalidate();
 	}
 	
 	public void handleGetListIsDeleted() throws ServletException, IOException {
+		HttpSession session = this.request.getSession();
 		String pageUrl = "/pages/admin/registrationPriod/registrationPriod.jsp";
 		try {
 			String type = this.request.getParameter("type");
@@ -66,6 +71,7 @@ public class RegistrationPriodService extends SuperService {
 			pageUrl = "/pages/500.jsp";
 		}
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+		session.invalidate();
 	}
 
 	public void handleGetEditForm() throws ServletException, IOException {
@@ -95,8 +101,9 @@ public class RegistrationPriodService extends SuperService {
 	}
 
 	public void updateRegistrationPeriod() throws ServletException, IOException {
-		String isRegistrationPeriodUpdate = "";
-		String role = "student";
+		HttpSession session = this.request.getSession();
+		String isRegistrationPeriodUpdate = "FAILED";
+		String role = RoleConstants.STUDENT;
 		String context = this.request.getContextPath();
 		String url = context + "/admin/registration-priods/?type=";
 //		String url = "/pages/admin/dashboard/dashboard.jsp";
@@ -143,25 +150,22 @@ public class RegistrationPriodService extends SuperService {
 				isRegistrationPeriodUpdate = "FAILED";
 			}
 			url = url + role;
-			this.request.setAttribute("isRegistrationPeriodUpdate", isRegistrationPeriodUpdate);
+			session.setAttribute("isRegistrationPeriodUpdate", isRegistrationPeriodUpdate);
 			this.response.sendRedirect(url);
 //			this.request.getRequestDispatcher("/admin/registration-priods/?type=teacher").forward(request, response);
 
 		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//			isRegistrationPeriodUpdate = "FAILED";
-//			url = url + role;
-//			this.request.setAttribute("isRegistrationPeriodUpdate", isRegistrationPeriodUpdate);
-//			this.response.sendRedirect(url);			
-//			this.request.getRequestDispatcher(url).forward(request, response);
 			System.out.println(e.getMessage());
-			url = "/pages/500.jsp";
-			this.request.getRequestDispatcher(url).forward(request, response);
+			url = url + role;
+			session.setAttribute("isRegistrationPeriodUpdate", isRegistrationPeriodUpdate);
+			this.response.sendRedirect(url);
 		}
 	}
 
 	public void softDeleteRegistrationPeriod() throws ServletException, IOException {
-		String role = "student";
+		HttpSession session = this.request.getSession();
+		String isSoftDeleteRegistrationPeriod = "FAILED";
+		String role = RoleConstants.STUDENT;
 		String context = this.request.getContextPath();
 		String url = context + "/admin/registration-priods/?type=";
 		try {
@@ -180,19 +184,20 @@ public class RegistrationPriodService extends SuperService {
 			registrationPeriodDAO.update(registrationPeriod);
 
 			url = url + role;
+			isSoftDeleteRegistrationPeriod = "SUCCESS";
+			session.setAttribute("isSoftDeleteRegistrationPeriod", isSoftDeleteRegistrationPeriod);
 			this.response.sendRedirect(url);
-//			this.request.getRequestDispatcher(url).forward(request, response);
-//			System.out.println("==============="+ this.request.getParameter("registrationPeriodId") +"============");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			url = "/pages/500.jsp";
-			this.request.getRequestDispatcher(url).forward(request, response);
+			url = url + role;
+			session.setAttribute("isSoftDeleteRegistrationPeriod", isSoftDeleteRegistrationPeriod);
+			this.response.sendRedirect(url);
 		}
 	}
 	
 	
 	public void restoreRegistrationPeriod() throws ServletException, IOException {
-//		String pageUrl = "/pages/admin/registrationPriod/registrationPriod.jsp";
+		HttpSession session = this.request.getSession();
 		try {
 			String type = this.request.getParameter("type");
 			String id = this.request.getParameter("id");
@@ -204,16 +209,15 @@ public class RegistrationPriodService extends SuperService {
 			registrationPeriod.setIsDeleted((byte) 0);
 
 			registrationPeriodDAO.update(registrationPeriod);
+			session.setAttribute("isRestoreRegistrationPeriod", "SUCCESS");
 			this.request.setAttribute("type", type);
-//			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-//			String url = "/pages/500.jsp";
-//			this.request.getRequestDispatcher(url).forward(request, response);
+			session.setAttribute("isRestoreRegistrationPeriod", "FAILED");
 		}
 	}
 	
-	public void createRegistrationPeriodForTeacher(String registrationPeriodName, int semeter, int schoolYear, byte isRegistrationTeacher, Date openDate, Date closeDate, String description) {
+	public String createRegistrationPeriodForTeacher(String registrationPeriodName, int semeter, int schoolYear, byte isRegistrationTeacher, Date openDate, Date closeDate, String description) {
 		try {
 			Date date = new Date();
 			Date currentDate = RandomUtils.convertStringToDate(RandomUtils.formatDate(date));
@@ -231,16 +235,20 @@ public class RegistrationPriodService extends SuperService {
 						registrationPeriod.setCloseDate(closeDate);
 						registrationPeriod.setDescription(description);
 						registrationPeriodDAO.create(registrationPeriod);
+						
+						return "SUCCESS";
 					}
 				}
 			}
+			return "FAILED";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			return "FAILED";
 		}
 	}
 	
 	
-	public void createRegistrationPeriodForStudent(String registrationPeriodName, int semeter, int schoolYear, byte isRegistrationTeacher, Date openDate, Date closeDate, String description) {
+	public String createRegistrationPeriodForStudent(String registrationPeriodName, int semeter, int schoolYear, byte isRegistrationTeacher, Date openDate, Date closeDate, String description) {
 		try {
 			Date date = new Date();
 			Date currentDate = RandomUtils.convertStringToDate(RandomUtils.formatDate(date));
@@ -265,10 +273,14 @@ public class RegistrationPriodService extends SuperService {
 					registrationPeriod.setCloseDate(closeDate);
 					registrationPeriod.setDescription(description);
 					registrationPeriodDAO.create(registrationPeriod);
+					
+					return "SUCCESS";
 				}
 			}
+			return "FAILED";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			return "FAILED";
 		}
 	}
 
@@ -277,7 +289,8 @@ public class RegistrationPriodService extends SuperService {
 		String role = "student";
 		String context = this.request.getContextPath();
 		String url = context + "/admin/registration-priods/?type=";
-
+		HttpSession session = this.request.getSession();
+		String isCreateRegistrationPeriod = "";
 		try {
 //			RegistrationPeriod registrationPeriod = new RegistrationPeriod();
 //			RegistrationPeriodDAO registrationPeriodDAO = new RegistrationPeriodDAO();
@@ -293,19 +306,24 @@ public class RegistrationPriodService extends SuperService {
 //			Date currentDate = RandomUtils.convertStringToDate(RandomUtils.formatDate(date));
 			
 			if (isRegistrationTeacher == 1) {
-				createRegistrationPeriodForTeacher(registrationPeriodName, semeter, schoolYear, isRegistrationTeacher, openDate, closeDate, description);
+				isCreateRegistrationPeriod = createRegistrationPeriodForTeacher(registrationPeriodName, semeter, schoolYear, isRegistrationTeacher, openDate, closeDate, description);
 				role = RoleConstants.TEACHER;
 			} else if (isRegistrationTeacher == 0) {
-				createRegistrationPeriodForStudent(registrationPeriodName, semeter, schoolYear, isRegistrationTeacher, openDate, closeDate, description);
+				isCreateRegistrationPeriod = createRegistrationPeriodForStudent(registrationPeriodName, semeter, schoolYear, isRegistrationTeacher, openDate, closeDate, description);
 				role = RoleConstants.STUDENT;
 			}
+		
 			url = url + role;
+			session.setAttribute("isCreateRegistrationPeriod", isCreateRegistrationPeriod);
 			this.response.sendRedirect(url);
+//			session.removeAttribute("isCreateRegistrationPeriod");
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			url = "/pages/500.jsp";
-			this.request.getRequestDispatcher(url).forward(request, response);
+//			url = "/pages/500.jsp";
+			url = url + role;
+			session.setAttribute("isCreateRegistrationPeriod", isCreateRegistrationPeriod);
+			this.response.sendRedirect(url);
 		}
 	}
 

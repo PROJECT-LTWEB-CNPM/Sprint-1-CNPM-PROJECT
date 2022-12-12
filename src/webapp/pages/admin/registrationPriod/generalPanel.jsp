@@ -7,7 +7,7 @@
 			<input type="text" name="registrationPeriodId" class="form-control"
 				hidden value="${rp.getRegistrationPeriodId()}"/> 
 			<input type="text" name="isRegistrationTeacher"
-				class="form-control" value="${rp.getIsRegistrationTeacher()}"/>
+				class="form-control" value="${rp.getIsRegistrationTeacher()}" hidden/>
 			
 			<div class="mb-3">
 				<label for="registrationPeriodName" class="form-label">Name</label> <input
