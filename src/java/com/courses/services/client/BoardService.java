@@ -122,8 +122,11 @@ public class BoardService extends SuperService {
 			teacherBoardPK.setTeacherId(teacherId);
 
 			TeacherBoard teacherBoardExist = this.teacherBoardDAO.find(teacherBoardPK);
-
-			if (teacherBoardExist == null) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("board", board);
+			int countTeacherInBoard = this.teacherBoardDAO.countByBoard(params);
+			
+			if (teacherBoardExist == null && countTeacherInBoard < board.getNoMember()) {
 				// Make record
 				TeacherBoard teacherBoard = new TeacherBoard();
 				teacherBoard.setId(teacherBoardPK);
