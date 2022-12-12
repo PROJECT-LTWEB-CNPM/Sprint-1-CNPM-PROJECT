@@ -234,6 +234,7 @@ public class RegistrationPriodService extends SuperService {
 						registrationPeriod.setOpenDate(openDate);
 						registrationPeriod.setCloseDate(closeDate);
 						registrationPeriod.setDescription(description);
+						registrationPeriod.setIsActive((byte)1);
 						registrationPeriodDAO.create(registrationPeriod);
 						
 						return "SUCCESS";
@@ -272,6 +273,7 @@ public class RegistrationPriodService extends SuperService {
 					registrationPeriod.setOpenDate(openDate);
 					registrationPeriod.setCloseDate(closeDate);
 					registrationPeriod.setDescription(description);
+					registrationPeriod.setIsActive((byte)1);
 					registrationPeriodDAO.create(registrationPeriod);
 					
 					return "SUCCESS";
