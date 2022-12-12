@@ -66,7 +66,6 @@ public class GroupService extends SuperService {
 	public void handleGetListGroup() throws ServletException, IOException {
 		try {
 			String pageUrl = "/pages/admin/group/group.jsp";
-
 			List<GroupStudent> groups = this.groupDAO.findAll();
 			this.request.setAttribute("groups", groups);
 			this.request.getRequestDispatcher(pageUrl).forward(request, response);
@@ -78,8 +77,11 @@ public class GroupService extends SuperService {
 	}
 
 	public void handleGetCreateGroupForm() throws ServletException, IOException {
+		String pageUrl = "/pages/admin/group/editGroup.jsp";
 		try {
-			String pageUrl = "/pages/admin/group/editGroup.jsp";
+			String groupId = this.request.getParameter("id");
+			GroupStudent foundGroup = groupDAO.find(GroupStudent.class, groupId);
+			request.setAttribute("group", foundGroup);
 			this.request.getRequestDispatcher(pageUrl).forward(request, response);
 		} catch (Exception e) {
 			String errorUrl = "/pages/500.jsp";

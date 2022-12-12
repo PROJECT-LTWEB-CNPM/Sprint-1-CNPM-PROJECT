@@ -27,7 +27,7 @@ String context = request.getContextPath();
 						<div class="grid_column_3">
 							<div class="topic_registration">
 								<ion-icon name="home-outline"></ion-icon>
-								<h3>TRANG CỦA BẠN</h3>
+								<h3>Thông báo</h3>
 							</div>
 							<!-- avai -->
 							<div class="topic_registration-detail">
