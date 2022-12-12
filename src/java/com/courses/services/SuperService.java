@@ -34,4 +34,12 @@ public class SuperService {
 		this.setEncoding();
 		this.response.sendRedirect(url);
 	}
+	
+	protected String getParameter(String key) {
+		return this.request.getParameter(key);
+	}
+
+	protected String getContextPath() {
+		return request.getContextPath();
+	}
 }
