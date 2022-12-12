@@ -23,14 +23,14 @@ public class JoinGroup implements Serializable {
 	private byte status;
 
 	//bi-directional many-to-one association to GroupStudent
-		@ManyToOne
-		@JoinColumn(name="group_id", nullable=false, insertable=false, updatable=false)
-		private GroupStudent groupstudent;
+	@ManyToOne
+	@JoinColumn(name="group_id", nullable=false, insertable=false, updatable=false)
+	private GroupStudent groupstudent;
 
-		//bi-directional many-to-one association to Student
-		@ManyToOne
-		@JoinColumn(name="student_id", nullable=false, insertable=false, updatable=false)
-		private Student student;
+	//bi-directional many-to-one association to Student
+	@ManyToOne
+	@JoinColumn(name="student_id", nullable=false, insertable=false, updatable=false)
+	private Student student;
 
 	public JoinGroup() {
 	}
