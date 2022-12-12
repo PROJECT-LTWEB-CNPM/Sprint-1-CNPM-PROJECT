@@ -1,36 +1,33 @@
-package com.courses.controllers.client.JoinGroup;
+package com.courses.controllers.admin.registrationPriod;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.models.GroupStudent;
-import com.courses.services.GroupService;
-import com.courses.services.JoinGroupService;
-import com.courses.services.admin.user.StudentService;
+import com.courses.services.RegistrationPriodService;
 
-@WebServlet(urlPatterns = {"/student/join-group"})
-public class JoinGroupServlet extends HttpServlet {
+
+@WebServlet(urlPatterns = {"/admin/registration-priods/delete", "/admin/registration-priods/delete/"})
+public class SoftDeleteRegistationPeriodServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public JoinGroupServlet() {
+    
+    public SoftDeleteRegistationPeriodServlet() {
         super();
     }
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		JoinGroupService joinGroupService = new JoinGroupService(request, response);
-		joinGroupService.handleJoinGroup();	
+		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
+		registrationPriodService.softDeleteRegistrationPeriod();
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
