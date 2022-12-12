@@ -38,11 +38,11 @@
     border-radius: 6px;
     padding: 2px 8px;
     cursor: pointer;
+    margin: 0;
 }
 
 .topic_registration-filter-active {
     background-color: var(--white-color);
- 
 }
 
 .topic_registration-filter h3 {

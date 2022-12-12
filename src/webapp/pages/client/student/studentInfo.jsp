@@ -126,16 +126,6 @@ String context = request.getContextPath();
                                     <h3></h3>
                                 </li>
                             </ul>
-                            <div class="modify_container">
-                                <div>
-                                    <ion-icon name="lock-open-outline"></ion-icon>
-                                    <h3 class="change__password">Đối mật khẩu</h3>
-                                </div>
-                                <div>
-                                    <ion-icon name="book-outline"></ion-icon>
-                                    <h3 class="update__info">Cập nhật</h3>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
