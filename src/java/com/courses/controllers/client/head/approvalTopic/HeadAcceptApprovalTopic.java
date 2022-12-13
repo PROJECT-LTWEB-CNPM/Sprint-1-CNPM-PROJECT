@@ -24,7 +24,6 @@ public class HeadAcceptApprovalTopic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	TopicDAO topicDAO = null;
-
 	public HeadAcceptApprovalTopic() {
 		super();
 		topicDAO = new TopicDAO();
@@ -36,7 +35,7 @@ public class HeadAcceptApprovalTopic extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession();
-			Teacher head = (Teacher) session.getAttribute("teacher");
+			Teacher head = (Teacher)session.getAttribute("teacher");
 			// Topic
 			byte status = 1;
 			String acceptApprovalTopicStatus = "";
@@ -48,23 +47,24 @@ public class HeadAcceptApprovalTopic extends HttpServlet {
 				// Update
 				topic.setStatus(status);
 				this.topicDAO.update(topic);
-
 				// create notification
-				NotificationService ns = new NotificationService();
-				String title = "Đề tài được phê duyệt";
-				String content = "Đề tài " + topic.getTopicName() + " đã được trưởng bộ môn, "
-						+ head.getPerson().getFullName() + " duyệt. Sinh viên có thể đăng ký đề tài từ thời điểm này.";
-				ns.addNotification(head.getPerson().getPersonId(), topic.getTeacher().getPerson().getPersonId(),
-						title, content);
+				NotificationService ns = new NotificationService(request, response);
+				if (ns.createApprovalTopicNotification(head.getPerson(), topic)) {
+					System.out.println("Create notification successfully");
+				}else {
+					System.out.println("Create notification fail");
+				}
 				acceptApprovalTopicStatus = "success";
 			}
 			request.getSession().setAttribute("acceptApprovalTopicStatus", acceptApprovalTopicStatus);
 			response.sendRedirect(request.getContextPath() + "/teacher/approval");
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 
 	}
+	
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
