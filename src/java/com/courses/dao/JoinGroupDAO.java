@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.courses.models.JoinGroup;
 
-public class JoinGroupDAO extends JpaDAO<JoinGroup> implements GenericDAO<JoinGroup>{
+public class JoinGroupDAO extends JpaDAO<JoinGroup> implements GenericDAO<JoinGroup> {
 	public JoinGroupDAO() {
 		super();
 	}
@@ -39,7 +39,7 @@ public class JoinGroupDAO extends JpaDAO<JoinGroup> implements GenericDAO<JoinGr
 	@Override
 	public List<JoinGroup> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		return super.findWithNamedQuery(queryName, parameters);
-	}	
+	}
 
 	@Override
 	public List<JoinGroup> pagination(int currentPage, int pageSize) {
@@ -52,7 +52,7 @@ public class JoinGroupDAO extends JpaDAO<JoinGroup> implements GenericDAO<JoinGr
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public String randomId() {
 		return super.randomId("JG");

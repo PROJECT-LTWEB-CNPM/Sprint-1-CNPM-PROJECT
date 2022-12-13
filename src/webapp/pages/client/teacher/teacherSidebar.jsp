@@ -45,6 +45,13 @@ Teacher teacher = teacherDAO.findByPerson(params);
 			href="<%=context%>/teacher/topic-manage" class="category-item__link">Quản
 				lý đề tài</a></li>
 	</c:if>
+	
+	<c:if test="${teacher.getIsHead() == 1}">
+			<li class="category-item"><ion-icon
+					name="shield-checkmark-outline"></ion-icon> <a
+				href="<%=context%>/teacher/approval" class="category-item__link">Xét
+					duyệt đề tài</a></li>
+		</c:if>
 
 	<c:choose>
 		<c:when test="${teacher.getIsHead() == 1}">
@@ -54,16 +61,11 @@ Teacher teacher = teacherDAO.findByPerson(params);
 		</c:when>
 		<c:otherwise>
 			<li class="category-item"><ion-icon name="bookmarks-outline"></ion-icon>
-				<a href="<%=context%>/teacher/board" class="category-item__link">Hội
+				<a href="<%=context%>/teacher/board/normal" class="category-item__link">Hội
 					đồng của bạn</a></li>
 		</c:otherwise>
 	</c:choose>
 
-		<c:if test="${teacher.getIsHead() == 1}">
-			<li class="category-item"><ion-icon
-					name="shield-checkmark-outline"></ion-icon> <a
-				href="<%=context%>/teacher/approval" class="category-item__link">Xét
-					duyệt đề tài</a></li>
-		</c:if>
+		
 </ul>
 
