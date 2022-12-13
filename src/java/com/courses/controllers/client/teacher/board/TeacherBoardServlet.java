@@ -1,4 +1,4 @@
-package com.courses.controllers.client.notification;
+package com.courses.controllers.client.teacher.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,24 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.HomeService;
-import com.courses.services.NotificationService;
 
-/**
- * Servlet implementation class GetNotificationServlet
- */
-@WebServlet("/student/home")
-public class GetNotificationServlet extends HttpServlet {
+@WebServlet("/teacher/board")
+public class TeacherBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public GetNotificationServlet() {
-        super(); 
+    public TeacherBoardServlet() {
+        super();
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		NotificationService notificationService = new NotificationService(request, response);
-		notificationService.getNotificationByLoginAccount();
+		String url = "/pages/client/teacher/teacherBoard.jsp";
+		response.sendRedirect(request.getContextPath() + url);
 	}
 
 	

@@ -9,11 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.query.criteria.internal.expression.ConcatExpression;
 
+import com.courses.dao.PersonDAO;
 import com.courses.dao.TopicDAO;
+import com.courses.models.Teacher;
 import com.courses.models.Topic;
+import com.courses.services.NotificationService;
 
 @WebServlet(urlPatterns = { "/teacher/approval/accept", "/teacher/approval/accept/" })
 public class HeadAcceptApprovalTopic extends HttpServlet {
@@ -31,7 +35,8 @@ public class HeadAcceptApprovalTopic extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
-
+			HttpSession session = request.getSession();
+			Teacher head = (Teacher) session.getAttribute("teacher");
 			// Topic
 			byte status = 1;
 			String acceptApprovalTopicStatus = "";
@@ -43,6 +48,14 @@ public class HeadAcceptApprovalTopic extends HttpServlet {
 				// Update
 				topic.setStatus(status);
 				this.topicDAO.update(topic);
+
+				// create notification
+				NotificationService ns = new NotificationService();
+				String title = "Đề tài được phê duyệt";
+				String content = "Đề tài " + topic.getTopicName() + " đã được trưởng bộ môn, "
+						+ head.getPerson().getFullName() + " duyệt. Sinh viên có thể đăng ký đề tài từ thời điểm này.";
+				ns.addNotification(head.getPerson().getPersonId(), topic.getTeacher().getPerson().getPersonId(),
+						title, content);
 				acceptApprovalTopicStatus = "success";
 			}
 			request.getSession().setAttribute("acceptApprovalTopicStatus", acceptApprovalTopicStatus);

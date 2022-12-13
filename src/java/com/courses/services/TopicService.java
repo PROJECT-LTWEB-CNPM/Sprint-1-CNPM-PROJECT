@@ -206,15 +206,20 @@ public class TopicService extends SuperService{
 			// get infor in session
 			Person person = (Person) session.getAttribute("person");
 			String isSelected = request.getParameter("select");
+			String isActive = request.getParameter("status");
+			if (isSelected == null) {
+				isSelected = "0";
+			}
 			// get teacher
 			Teacher teacher = TeacherService.getTeacherByPerson(person);
 			// get list teacher's topic
 			List<Topic> topics = null;
 			if (teacher != null) {
-				if (isSelected == null) {
-					topics = getTopicByTeacher(teacher);
-				} else {
-					topics = getSpecifiedTopic(teacher, Byte.valueOf(isSelected));
+				if (isActive == null) {
+					// if isActive null, choose the topics that were not selected by student
+					 topics = getSpecifiedTopic(teacher, Byte.valueOf(isSelected));
+				}else {
+					topics = getTopicByTeacherAndStatus(teacher);
 				}
 				request.setAttribute("topics", topics);
 			}
@@ -223,12 +228,14 @@ public class TopicService extends SuperService{
 			e.printStackTrace();
 		}
 	}
+	
+	
 
-	public static List<Topic> getTopicByTeacher(Teacher teacher) {
+	public static List<Topic> getTopicByTeacherAndStatus(Teacher teacher) {
 		List<Topic> topics = null;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("teacher", teacher);
-		topics = topicDAO.findWithNamedQuery("Topic.findTopicByTeacher", map);
+		topics = topicDAO.findWithNamedQuery("Topic.findTopicByTeacherAndStatus", map);
 		return topics;
 	}
 

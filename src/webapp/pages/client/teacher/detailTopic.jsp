@@ -6,7 +6,6 @@
 
 <%
 String context = request.getContextPath();
-String check = (String) request.getAttribute("notExistPeriod");
 StudentService studentService = new StudentService();
 %>
 
@@ -92,22 +91,10 @@ StudentService studentService = new StudentService();
 		</main>
 
 		<!-- Modal -->
-		<jsp:include page="./periodModal.jsp" />
 		<jsp:include page="../partials/logoutModal.jsp" />
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
 
-		<%
-		if (check != null) {
-		%>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#periodModal").modal('show');
-			});
-		</script>
-		<%
-		}
-		%>
 	</div>
 </body>
 </html>

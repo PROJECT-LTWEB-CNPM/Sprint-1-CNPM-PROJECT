@@ -16,6 +16,7 @@ import com.courses.dao.NotificationDAO;
 import com.courses.dao.StudentDAO;
 import com.courses.models.Notification;
 import com.courses.models.Person;
+import com.courses.models.Topic;
 import com.courses.services.admin.user.StudentService;
 
 public class NotificationService extends SuperService{
@@ -87,7 +88,5 @@ public class NotificationService extends SuperService{
 		getNotificationByLoginAccount();
 //		System.out.println("================THIS IS TEST NOTIFICATION===================");
 	}
-	
-	
-	
+
 }
