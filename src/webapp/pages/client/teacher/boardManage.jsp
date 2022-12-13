@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<jsp:useBean id="teacherBoardDAO"
+	class="com.courses.dao.TeacherBoardDAO" />
 <%
 String context = request.getContextPath();
+String check = (String) request.getAttribute("notExistPeriod");
 %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <jsp:include page="../partials/head.jsp" />
-<title>Trang chủ - Đăng ký đề tài</title>
+<title>Danh sách hội đồng của tôi - Đăng ký đề tài</title>
 </head>
 <body>
 	<div id="root">
@@ -18,8 +20,6 @@ String context = request.getContextPath();
 		<jsp:include page="../partials/header.jsp" />
 		<!-- Body -->
 		<main>
-
-			<!-- Body -->
 			<div class="container">
 				<div class="grid">
 					<div class="grid_row">
@@ -28,80 +28,71 @@ String context = request.getContextPath();
 						</div>
 						<div class="grid_column_3">
 							<div class="topic_registration">
-								<ion-icon name="people-outline"></ion-icon>
-								<h3>QUẢN LÝ NHÓM</h3>
+								<ion-icon name="pencil"></ion-icon>
+								<h3>QUẢN LÝ HỘI ĐỒNG</h3>
 							</div>
-							<div class="topic_info_contaniner">
-								<div class="topic_info_contaniner-item">
-									<label>Tên đề tài:</label>
-									<h3>${student.getGroupstudent().getTopic().getTopicName()}</h3>
+							<div class="topic_registration-filter d-flex">
+								<div class="mx-2">
+									<h3 class="topic_registration-filter-active">
+										<a href="<%=context%>/teacher/topic-manage?select=0">Tất
+											cả hội đồng</a>
+									</h3>
 								</div>
-								<div class="topic_info_contaniner-item">
-									<label>Giảng viên hướng dẫn:</label>
-									<h3>${student.getGroupstudent().getTopic().getTeacher().getPerson().getFullName()}</h3>
-								</div>
-								<div class="topic_info_contaniner-item">
-									<label>Số lượng sinh viên:</label>
-									<h3>${student.getGroupstudent().getTopic().getMaxMoMember()}</h3>
+								<div class="mx-2">
+									<h3>
+										<a href="<%=context%>/teacher/topic-manage?select=1">Hội
+											đồng đủ thành viên</a>
+									</h3>
 								</div>
 							</div>
-							<div class="topic_registration-filter">
-								<h3 class="topic_registration-filter-active">
-									<a href="<%=context%>/group-manage/create-group">Tạo nhóm</a>
-								</h3>
-								<h3 class="topic_registration-filter-active">
-									<a href="<%=context%>/group-manage/add-memeber">Thêm thành viên</a>
-								</h3>
-							</div> 
-
-							<!-- when: Nếu chưa có nhóm hiển thị giao diện chưa có nhóm -->
-							<!-- otherwise: Đã có nhóm hiển thị danh sách nhóm -->
-							<c:choose>
-								<c:when test="${uiGroupManage == null}">
-									<p class="topic_registration-notification highlight_content">Bạn
-										chưa có nhóm nào</p>
-								</c:when>
-								<c:otherwise>
-									<div class="topic_registration-detail">
-										<div class="group_topic_registration-to-manage">
-											<table>
-												<tr>
-													<th width="20%">Mã sinh viên</th>
-													<th width="45%">Tên sinh viên</th>
-													<th width="25%">Chức vụ</th>
-													<th class="hide_element">Xem chi tiết</th>
-												</tr>
-											</table>
-										</div>
-										<c:forEach var="item" items="${students}">
-											<div class="group_topic_registration-to-manage">
-												<table>
-													<tr>
-														<th width="20%" class="highlight_content">${item.getStudentId()}</th>
-														<th width="45%">${item.getPerson().getFullName()}</th>
-														<th width="25%">${item.getStudentId() == 'ST00000002' ? 'Trưởng Nhóm' : 'Thành Viên'}</th>
-														<th><a href="#" class="hide_element">Đăng ký</a></th>
-													</tr>
-												</table>
-											</div>
-										</c:forEach>
+							<div class="topic_registration-detail">
+								<div class="group_topic_registration-to-manage">
+									<table>
+										<tr>
+											<th width="20%">Mã hội đồng</th>
+											<th width="40%">Tên hội đồng</th>
+											<th width="25%">Thành viên</th>
+											<th class="hide_element" width="15%">Xem chi tiết</th>
+										</tr>
+									</table>
+								</div>
+								<c:forEach var="item" items="${teacherBoards}">
+									<div class="group_topic_registration-to-manage">
+										<table>
+											<tr>
+												<th width="20%" class="highlight_content">${item.getBoard().getBoardId()}</th>
+												<th width="40%">${item.getBoard().getBoardName()}</th>
+												<th width="25%">${item.getBoard().getNoMember()}</th>
+												<th><a width="15%"
+													href="<%=context%>/teacher/board/normal/detail/?board_id=${item.getBoard().getBoardId()}"
+													class="highlight_content">Chi tiết</a></th>
+											</tr>
+										</table>
 									</div>
-								</c:otherwise>
-							</c:choose>
-							<!-- 
-							<p class="topic_registration-notification highlight_content">Bạn
-								chưa có nhóm nào</p>							
-							 -->
+								</c:forEach>
+							</div>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</main>
 		<!-- Modal -->
-		<jsp:include page="../partials/logoutModal.jsp"/>
+		<jsp:include page="./periodModal.jsp" />
+		<jsp:include page="../partials/logoutModal.jsp" />
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
+
+		<%
+		if (check != null) {
+		%>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#periodModal").modal('show');
+			});
+		</script>
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>

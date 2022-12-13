@@ -9,42 +9,25 @@ String context = request.getContextPath();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="../../partials/head.jsp" />
+<jsp:include page="../partials/head.jsp" />
 <title>Chi tiết hội đồng - Đăng ký đề tài</title>
 </head>
 <body>
 	<div id="root">
 		<!-- Header -->
-		<jsp:include page="../../partials/header.jsp" />
+		<jsp:include page="../partials/header.jsp" />
 		<!-- Body -->
 		<main>
 			<div class="container">
 				<div class="grid">
 					<div class="grid_row">
 						<div class="grid_column_1">
-							<jsp:include page="../teacherSidebar.jsp" />
+							<jsp:include page="./teacherSidebar.jsp" />
 						</div>
 						<div class="grid_column_3">
 							<div class="topic_registration">
 								<ion-icon name="person-outline"></ion-icon>
 								<h3>CHI TIẾT HỘI ĐỒNG</h3>
-							</div>
-							<div class="topic_registration-filter d-flex">
-								<div class="mx-2">
-									<h3 class="topic_registration-filter-active">
-										<a
-											href="<%=context%>/teacher/board/head/add-member/?board_id=${boardId}">Thêm
-											thành viên</a>
-									</h3>
-								</div>
-								<div class="mx-2">
-									<h3 class="topic_registration-filter-active">
-										<a
-											href="<%=context%>/teacher/board/head/add-group/?board_id=${boardId}">Thêm
-											nhóm</a>
-									</h3>
-
-								</div>
 							</div>
 							<!-- student info -->
 							<div class="info__student--container">
@@ -77,9 +60,6 @@ String context = request.getContextPath();
 										<div class="teacher__memeber-heading">
 											<h3 class="description">* Giảng viên:
 												${item.getTeacher().getPerson().getFullName()}</h3>
-											<a
-												href="<%=context%>/teacher/board/head/delete/?board_id=${boardId}&teacher_id=${item.getTeacher().getTeacherId()}">Xóa
-												thành viên</a>
 										</div>
 
 										<ul class="list__info">
@@ -114,9 +94,6 @@ String context = request.getContextPath();
 											<c:forEach var="item" items="${groupStudents}">
 												<div class="teacher__memeber-heading">
 													<h3 class="description">* Nhóm: ${item.getGroupId()}</h3>
-													<a
-														href="<%=context%>/teacher/board/head/delete-group/?board_id=${boardId}&group_id=${item.getGroupId()}">Xóa
-														nhóm</a>
 												</div>
 												<ul class="list__info">
 													<li class="info__item">
@@ -151,51 +128,11 @@ String context = request.getContextPath();
 				</div>
 			</div>
 		</main>
-		<input id="addedTeacherBoardStatus"
-			value="${sessionScope.addedTeacherBoardStatus}" hidden /> <input
-			id="addedGroupBoardStatus"
-			value="${sessionScope.addedGroupBoardStatus}" hidden /> <input
-			id="deletedTeacherBoardStatus"
-			value="${sessionScope.deletedTeacherBoardStatus}" hidden /> <input
-			id="deletedGroupBoardStatus"
-			value="${sessionScope.deletedGroupBoardStatus}" hidden />
 		<!-- Modal -->
-		<jsp:include page="../../partials/logoutModal.jsp"></jsp:include>
+		<jsp:include page="../partials/logoutModal.jsp"></jsp:include>
 		<!-- Footer -->
-		<jsp:include page="../../partials/footer.jsp" />
-		<jsp:include page="../../partials/script.jsp" />
+		<jsp:include page="../partials/footer.jsp" />
+		<jsp:include page="../partials/script.jsp" />
 	</div>
-	<script>
-		// addedTeacherBoardStatus
-		if ($('#addedTeacherBoardStatus').val() === 'success') {
-			Swal.fire('Thông báo', 'Thêm thành viên thành công', 'success')
-		} else if ($('#addedTeacherBoardStatus').val() === 'fail') {
-			Swal.fire('Thông báo', 'Thêm thành viên thất bại', 'error')
-		}
-
-		// addedGroupBoardStatus
-		if ($('#addedGroupBoardStatus').val() === 'success') {
-			Swal.fire('Thông báo', 'Thêm nhóm thành công', 'success')
-		} else if ($('#addedGroupBoardStatus').val() === 'fail') {
-			Swal.fire('Thông báo', 'Thêm nhóm thất bại', 'error')
-		}
-
-		// deletedTeacherBoardStatus
-		if ($('#deletedTeacherBoardStatus').val() === 'success') {
-			Swal.fire('Thông báo', 'Xóa thành viên hội đồng thành công',
-					'success')
-		} else if ($('#deletedTeacherBoardStatus').val() === 'fail') {
-			Swal.fire('Thông báo', 'Xóa thành viên hội đồng thất bại', 'error')
-		}
-
-		// deletedGroupBoardStatus
-		if ($('#deletedGroupBoardStatus').val() === 'success') {
-			Swal.fire('Thông báo', 'Xóa thành viên hội đồng thành công',
-					'success')
-		} else if ($('#deletedGroupBoardStatus').val() === 'fail') {
-			Swal.fire('Thông báo', 'Xóa thành viên hội đồng thất bại', 'error')
-		}
-	</script>
-
 </body>
 </html>
