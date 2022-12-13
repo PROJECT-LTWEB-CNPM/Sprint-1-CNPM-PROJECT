@@ -1,4 +1,4 @@
-package com.courses.controllers.admin.registrationPriod;
+package com.courses.controllers.admin.registrationPeriod;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

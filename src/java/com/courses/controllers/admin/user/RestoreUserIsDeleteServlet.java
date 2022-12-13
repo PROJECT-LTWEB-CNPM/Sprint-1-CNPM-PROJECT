@@ -22,7 +22,7 @@ public class RestoreUserIsDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserService userService = new UserService(request, response);
 		userService.restoreUser();
-		userService.handleGetListUserDeleted();
+		userService.handleGetListUserDeleted();	
 	}
 
 	
