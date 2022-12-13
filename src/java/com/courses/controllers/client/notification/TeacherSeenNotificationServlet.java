@@ -1,4 +1,4 @@
-package com.courses.controllers.admin.dashboard;
+package com.courses.controllers.client.notification;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,23 +7,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.dao.BoardDAO;
-import com.courses.models.Board;
+import com.courses.services.NotificationService;
 
-@WebServlet(urlPatterns = {"/admin/dashboard", "/admin/"})
-public class ShowDashboard extends HttpServlet {
+@WebServlet("/teacher/notification/detail")
+public class TeacherSeenNotificationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ShowDashboard() {
+   
+    public TeacherSeenNotificationServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/pages/admin/dashboard/dashboard.jsp";
-		request.getRequestDispatcher(url).forward(request, response);
+		String url = "/pages/client/teacher/home.jsp";
+		NotificationService ns = new NotificationService(request, response);
+		ns.updateStatusNotification();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

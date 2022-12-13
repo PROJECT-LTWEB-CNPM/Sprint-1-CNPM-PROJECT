@@ -20,6 +20,7 @@ request.setCharacterEncoding("utf-8");
 		</main>
 		<!-- Footer -->
 		<jsp:include page="./client/partials/footer.jsp" />
+		<jsp:include page="./client/partials/logoutModal.jsp" />
 	</div>
 </body>
 </html>
