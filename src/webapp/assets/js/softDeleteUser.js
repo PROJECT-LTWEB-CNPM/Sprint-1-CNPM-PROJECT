@@ -25,8 +25,8 @@ function softDeleteUser() {
 				type: "GET",
 				url: `${url}/admin/users/delete`,
 				data: { personId },
-				success: function(html) {
-					alert(html);
+				success: function(html) {		
+					//alert(html);
 					window.location.reload();
 				}
 			})
