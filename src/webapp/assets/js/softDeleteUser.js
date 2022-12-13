@@ -26,8 +26,12 @@ function softDeleteUser() {
 				url: `${url}/admin/users/delete`,
 				data: { personId },
 				success: function(html) {
-					alert(html);
-					window.location.reload();
+					Swal.fire("Thông báo!", "Xóa tài người dùng thành công", "success").then((result) => {
+						/* Read more about isConfirmed, isDenied below */
+						if (result.isConfirmed) {
+							window.location.reload();
+						}
+					})
 				}
 			})
 	})

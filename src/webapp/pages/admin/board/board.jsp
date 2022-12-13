@@ -127,6 +127,7 @@ String context = request.getContextPath();
 	<input id="updatedBoardStatus"
 		value="${sessionScope.updatedBoardStatus}" hidden />
 	<jsp:include page="./modalCreateBoard.jsp"></jsp:include>
+	<jsp:include page="./modalConfirmDeleteBoard.jsp"></jsp:include>
 	<jsp:include page="./modalSelectSemester.jsp"></jsp:include>
 	<jsp:include page="../partials/tail.jsp"></jsp:include>
 	<script>

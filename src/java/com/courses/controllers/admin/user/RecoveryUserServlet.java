@@ -48,6 +48,7 @@ public class RecoveryUserServlet extends HttpServlet {
 			}
 			// Redirect
 			String context = request.getContextPath();
+			
 			response.sendRedirect(context + "/admin/users/?type=" + type);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
