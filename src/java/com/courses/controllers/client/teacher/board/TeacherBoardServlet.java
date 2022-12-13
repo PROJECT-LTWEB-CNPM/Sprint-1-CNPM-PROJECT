@@ -1,4 +1,4 @@
-package com.courses.controllers.admin.dashboard;
+package com.courses.controllers.client.teacher.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,23 +7,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.dao.BoardDAO;
-import com.courses.models.Board;
 
-@WebServlet(urlPatterns = {"/admin/dashboard", "/admin/"})
-public class ShowDashboard extends HttpServlet {
+@WebServlet("/teacher/board")
+public class TeacherBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ShowDashboard() {
+    
+    public TeacherBoardServlet() {
         super();
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/pages/admin/dashboard/dashboard.jsp";
-		request.getRequestDispatcher(url).forward(request, response);
+		String url = "/pages/client/teacher/teacherBoard.jsp";
+		response.sendRedirect(request.getContextPath() + url);
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

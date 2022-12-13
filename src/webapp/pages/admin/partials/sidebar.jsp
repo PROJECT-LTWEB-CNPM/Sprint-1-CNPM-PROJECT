@@ -7,10 +7,11 @@ String context = request.getContextPath();
 %>
 
 <nav id="sidebar" class="">
-	<a class="sidebar-header" href="<%=context%>/admin/"> <img
-		src="https://fit.hcmute.edu.vn/Resources/Images/SubDomain/fit/logo-cntt2021.png"
-		alt="bootraper logo" class="app-logo" style="height: 42px">
-	</a>
+	<div class="sidebar-header">
+		<img
+			src="https://fit.hcmute.edu.vn/Resources/Images/SubDomain/fit/logo-cntt2021.png"
+			alt="bootraper logo" class="app-logo" style="height: 42px" />
+	</div>
 	<ul class="list-unstyled components text-secondary">
 		<li><a href="<%=context%>/admin"><i class="fas fa-home"></i>
 				Dashboard</a></li>
@@ -29,7 +30,8 @@ String context = request.getContextPath();
 						class="fas fa-user-graduate"></i>Students</a></li>
 			</ul></li>
 		<li><a href="<%=context%>/admin/groups"><i
-				class="fas fa-users"></i>Groups</a>
+				class="fas fa-users"></i>Groups</a></li>
+
 		<li><a href="<%=context%>/admin/topics"><i
 				class="fas fa-newspaper"></i>Topics</a></li>
 		<li><a href="#registration-priods" data-bs-toggle="collapse"

@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	String context = request.getContextPath();
-	String check = (String) request.getAttribute("notExistPeriod");
+String context = request.getContextPath();
+String check = (String) request.getAttribute("notExistPeriod");
 %>
 
 
@@ -28,24 +28,30 @@
 							<jsp:include page="./teacherSidebar.jsp" />
 						</div>
 						<div class="grid_column_3">
+
 							<div class="topic_registration">
 								<ion-icon name="pencil"></ion-icon>
 								<h3>QUẢN LÝ ĐỀ TÀI</h3>
 							</div>
 							<div class="topic_registration-filter d-flex">
-								<div class="mx-2" >
+								<div class="mx-2">
 									<h3 class="topic_registration-filter-active">
-										<a href="<%=context%>/teacher/topic-manage?select=0">Đề
-											tài chưa được đăng ký</a>
+										<a href="<%=context%>/teacher/topic-manage?select=0">Chưa được đăng ký</a>
 									</h3>
 								</div>
 								<div class="mx-2">
 									<h3>
-										<a href="<%=context%>/teacher/topic-manage?select=1">Đề
-											tài đã được đăng ký</a>
+										<a href="<%=context%>/teacher/topic-manage?select=1">Đã được đăng ký</a>
 									</h3>
 								</div>
-
+								
+								<div class="mx-2">
+									<h3>
+										<a href="<%=context%>/teacher/topic-manage?status=0">Chưa được duyệt
+											</a>
+									</h3>
+								</div>
+								
 								<div class="mx-2">
 									<h3>
 										<a href="<%=context%>/teacher/topic-manage/add">Thêm đề
@@ -71,16 +77,21 @@
 												<th width="40%" class="highlight_content">${topic.topicName}</th>
 												<th width="25%">${topic.registrationperiod.registrationPeriodName}</th>
 												<th width="25%">${topic.registrationperiod.schoolYear}</th>
-												<th><a href="<%=context%>/teacher/topic-manage/detail?topic=${topic.getTopicId()}" class="highlight_content">Chi tiết</a></th>
+												<th><a
+													href="<%=context%>/teacher/topic-manage/detail?topic=${topic.getTopicId()}"
+													class="highlight_content">Chi tiết</a></th>
 											</tr>
 										</table>
 									</div>
 								</c:forEach>
+
 							</div>
+							
+							</div>
+
 						</div>
 					</div>
 				</div>
-			</div>
 		</main>
 		<!-- Modal -->
 		<jsp:include page="./periodModal.jsp" />

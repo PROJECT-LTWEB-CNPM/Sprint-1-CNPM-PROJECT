@@ -40,16 +40,18 @@ String context = request.getContextPath();
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="site-title" class="form-label">Group ID</label> <input
-												type="text" name="site_title" class="form-control" disabled>
+												type="text" name="site_title" class="form-control" disabled value="${group.groupId}">
 										</div>
 										<div class="mb-3">
-											<label for="site-description" class="form-label">Status</label>
-											<select name="timezone" class="form-select">
-												<option value="">Select your status</option>
-												<option value="">approved</option>
-												<option value="">Pending</option>
-											</select>
+											<label for="site-title" class="form-label">Number of members</label> <input
+												type="text" name="site_title" class="form-control" disabled value="${group.currentNumber}">
 										</div>
+										<div class="mb-3">
+											<label for="site-title" class="form-label">Topic</label> <input
+												type="text" name="site_title" class="form-control" disabled value="${group.topic.topicName}">
+										</div>
+										
+										
 										<div class="mb-3">
 											<label for="site-description" class="form-label">Active</label>
 											<select name="timezone" class="form-select">
@@ -58,17 +60,13 @@ String context = request.getContextPath();
 												<option value="">Pending</option>
 											</select>
 										</div>
-										<div class="mb-3">
-											<label for="site-description" class="form-label">Topic</label>
-											<select name="timezone" class="form-select">
-												<option value="">Select topic</option>
-											</select>
-										</div>
+										
 										<div class="mb-3">
 											<label for="site-title" class="form-label">Descripton</label>
 											<textarea class="form-control" name="google_analytics_code"
-												rows="4"></textarea>
+												rows="4">${group.topic.description}</textarea>
 										</div>
+										
 										<div class="mb-3 d-flex justify-content-between">
 											<button class="btn btn-success" type="submit">
 												<i class="fas fa-chevron-left"></i> Back
