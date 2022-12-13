@@ -23,14 +23,15 @@ public class JpaDAO<T> {
 //	public EntityManager getEntityManager() {
 //		return entityManagerFactory.createEntityManager();
 //	}
-	
+
 	private static final EntityManagerFactory entityManagerFactory;
 	static {
 		String connectionString = "CoursesRegistrationApp";
 		entityManagerFactory = Persistence.createEntityManagerFactory(connectionString);
 	}
-	
-	public JpaDAO() {}
+
+	public JpaDAO() {
+	}
 
 	// create instance
 	public T create(T entity) {
@@ -92,7 +93,7 @@ public class JpaDAO<T> {
 		entityManager.close();
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public T findSingleWithNamedQuery(String queryName, Map<String, Object> parameters) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -105,7 +106,6 @@ public class JpaDAO<T> {
 		entityManager.close();
 		return result;
 	}
-
 
 	@SuppressWarnings("unchecked")
 	public List<T> pagination(String queryName, int currentPage, int pageSize) {
@@ -130,9 +130,22 @@ public class JpaDAO<T> {
 		entityManager.close();
 		return maxResults;
 	}
-	
-	public String randomId (String type) {
+
+	public String randomId(String type) {
 		String id = type + RandomStringUtils.randomNumeric(8);
 		return id;
+	}
+
+	public int countByNamedQuery(String queryName, Map<String, Object> params) {
+
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query query = entityManager.createNamedQuery(queryName);
+		Set<Entry<String, Object>> setParameters = params.entrySet();
+		for (Entry<String, Object> entry : setParameters) {
+			query.setParameter(entry.getKey(), entry.getValue());
+		}
+		int maxResults = ((Long) query.getSingleResult()).intValue();
+		entityManager.close();
+		return maxResults;
 	}
 }

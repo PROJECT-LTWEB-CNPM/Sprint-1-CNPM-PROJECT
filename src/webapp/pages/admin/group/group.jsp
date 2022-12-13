@@ -60,7 +60,7 @@ String context = request.getContextPath();
 													</c:otherwise>
 												</c:choose>
 												<td>${item.getTopic().getTopicName()}</td>
-												<td>0/${item.getTopic().getMaxMoMember()}</td>
+												<td>${item.getCurrentNumber()}/${item.getTopic().getMaxMoMember()}</td>
 												<td class="text-end"><a
 													href="<%=context%>/admin/group/edit"
 													class="btn btn-outline-info btn-rounded"><i
