@@ -35,7 +35,7 @@ String context = request.getContextPath();
 								Registration Priods For ${type.substring(0, 1).toUpperCase()}${type.substring(1)}
 								Manage <a type="button"
 									href="<%=context %>/admin/registration-priods/is-deleted/?type=${type}"
-									class="btn btn-sm btn-outline-success float-end"> <i
+									class="btn btn-sm btn-outline-primary float-end"> <i
 									class="fas fa-clock"></i> Restore
 								</a>
 								<button type="button" data-bs-toggle="modal"
@@ -116,8 +116,8 @@ String context = request.getContextPath();
 												<td>${item.getCloseDate()}</td>
 												<td class="text-end"><a
 													href="<%=context%>/admin/registration-priods/is-deleted/restore/?type=${type}&id=${item.getRegistrationPeriodId()}"
-													class="btn btn-outline-success btn-rounded"> <i
-														class="fas fa-undo"></i>
+													class="btn btn-outline-primary btn-rounded"> <i
+														class="fas fa-trash-restore"></i>
 												</a>
 											</tr>
 										</c:forEach>

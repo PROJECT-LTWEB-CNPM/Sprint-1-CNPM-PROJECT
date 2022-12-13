@@ -65,7 +65,8 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 															<td>${item.getPerson().getEmail()}</td>
 															<td>${item.getPerson().getRole()}</td>
 															<td>Normal</td>
-															<td class="text-end"><c:choose>
+															<td class="text-end">
+															<c:choose>
 																	<c:when test="${type == RoleConstants.ADMIN}">
 																		<a
 																			href="<%=context%>/admin/users/edit/?type=${type}&id=${item.getAdminId()}"
@@ -90,7 +91,8 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 																	data-bs-id="${item.getPerson().getPersonId()}"
 																	class="btn btn-outline-danger btn-rounded btn-delete">
 																	<i class="fas fa-trash"></i>
-																</button></td>
+																</button>
+															</td>
 														</tr>
 
 													</c:if>
