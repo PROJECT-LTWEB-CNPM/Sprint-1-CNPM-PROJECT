@@ -41,6 +41,7 @@ public class UserService extends SuperService {
 	public UserService() {}
 
 	public void handleGetListUser() throws ServletException, IOException {
+		HttpSession session = this.request.getSession();
 		String pageUrl = "/pages/admin/user/user.jsp";
 		String userType = this.request.getParameter("type");
 		try {
@@ -64,6 +65,7 @@ public class UserService extends SuperService {
 		}
 		this.request.setAttribute("type", userType);
 		this.request.getRequestDispatcher(pageUrl).forward(request, response);
+		session.invalidate();
 	}
 
 	public void handleGetEditUserForm() throws ServletException, IOException {
@@ -208,5 +210,58 @@ public class UserService extends SuperService {
 		person = personService.getPersonByEmail(username);
 		this.request.setAttribute("person", person);
 		this.request.getRequestDispatcher(url).forward(request, response);
+	}
+	
+	
+	public void restoreUser() throws ServletException, IOException {
+		String pageUrl = "/pages/admin/user/trashUser.jsp";
+		String isRestoreUser = "FAILED";
+		String id = this.request.getParameter("id");
+		String userType = this.request.getParameter("type");
+		
+		Person person = new Person();
+		PersonDAO personDAO = new PersonDAO();
+		try {
+			switch (userType) {
+			case RoleConstants.ADMIN:
+				Admin admin = new Admin();
+				AdminDAO adminDAO = new AdminDAO();
+				
+				admin = adminDAO.find(id);
+				person = admin.getPerson();
+				person.setIsDeleted((byte)0);
+				personDAO.update(person);
+				isRestoreUser = "SUCCESS";
+				break;
+			case RoleConstants.TEACHER:
+				Teacher teacher = new Teacher();
+				TeacherDAO teacherDAO = new TeacherDAO();
+				
+				teacher = teacherDAO.find(id);
+				person = teacher.getPerson();
+				person.setIsDeleted((byte)0);
+				personDAO.update(person);
+				isRestoreUser = "SUCCESS";
+				break;
+			default:
+				Student student = new Student();
+				StudentDAO studentDAO = new StudentDAO();
+				
+				student = studentDAO.find(id);
+				person = student.getPerson();
+				person.setIsDeleted((byte)0);
+				personDAO.update(person);
+				person.setIsDeleted((byte)0);
+			
+				isRestoreUser = "SUCCESS";
+				break;
+			}
+
+		} catch (Exception e) {
+			pageUrl = "/pages/500.jsp";
+		}
+		this.request.setAttribute("type", userType);
+		this.request.setAttribute("isRestoreUser", isRestoreUser);
+//		this.request.getRequestDispatcher(pageUrl).forward(request, response);
 	}
 }
