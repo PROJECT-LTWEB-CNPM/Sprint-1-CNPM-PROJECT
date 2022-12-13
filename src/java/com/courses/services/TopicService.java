@@ -78,6 +78,7 @@ public class TopicService extends SuperService{
 				groupService.choiceTopic(studentId, topic);
 	//			this.getTopic((byte)0);
 				isRegistrationTopic = "SUCCESS";
+				
 			} else {
 				isRegistrationTopic = "FAILED";
 			}
