@@ -1,4 +1,4 @@
-## PORJECT ĐĂNG KÝ ĐỀ TÀI
+## TOPIC REGISTRATION PROJECT
 
 [![My Skills](https://skillicons.dev/icons?i=java,html,css,js,jquery,mysql,maven,eclipse,vim,github,stackoverflow)](https://skillicons.dev)
 
@@ -22,6 +22,7 @@
    > - [x] [AWS](https://aws.amazon.com/)
    
 #### 1.2. Topic specification
+
 
 ### 2. Struture porject 
 
