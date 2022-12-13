@@ -62,5 +62,11 @@ public class TeacherBoardDAO extends JpaDAO<TeacherBoard> implements GenericDAO<
 		String queryName = "TeacherBoard.countByBoard";
 		return super.countByNamedQuery(queryName, params);
 	}
+	
+	public List<TeacherBoard> findByTeacher(Map<String, Object> params) {
+		String queryName = "TeacherBoard.findByTeacher";
+		return super.findWithNamedQuery(queryName, params);
+	}
+
 
 }

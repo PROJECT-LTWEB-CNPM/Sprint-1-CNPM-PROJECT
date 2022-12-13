@@ -3,19 +3,11 @@ package com.courses.models;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the teacherboard database table.
- * 
- */
 @Entity
 @NamedQueries({ @NamedQuery(name = "TeacherBoard.findAll", query = "SELECT t FROM TeacherBoard t"),
-<<<<<<< HEAD
-		@NamedQuery(name = "TeacherBoard.findByBoard", query = "SELECT t FROM TeacherBoard t WHERE t.board = :board") ,
-		@NamedQuery(name = "TeacherBoard.countByBoard", query = "SELECT COUNT(t) FROM TeacherBoard t WHERE t.board = :board") 
-=======
-	@NamedQuery(name = "TeacherBoard.findByBoard", query = "SELECT t FROM TeacherBoard t WHERE t.board = :board") 
->>>>>>> 14172bb749bb88a3865680a6bdf779c4302098f8
+		@NamedQuery(name = "TeacherBoard.findByBoard", query = "SELECT t FROM TeacherBoard t WHERE t.board = :board"),
+		@NamedQuery(name = "TeacherBoard.countByBoard", query = "SELECT COUNT(t) FROM TeacherBoard t WHERE t.board = :board") ,
+		@NamedQuery(name = "TeacherBoard.findByTeacher", query = "SELECT t FROM TeacherBoard t WHERE t.teacher = :teacher") 
 })
 public class TeacherBoard implements Serializable {
 	private static final long serialVersionUID = 1L;

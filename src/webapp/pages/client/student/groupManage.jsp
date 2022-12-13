@@ -124,7 +124,7 @@ String context = request.getContextPath();
 												<tr>
 													<th width="15%" class="highlight_content">${item.getGroupId()}</th>
 													<th width="30%">${studentService.getFullNameLeader(item.getLeaderId())}</th>
-													<th width="15%">${item.getCurrentNumber()}${item.getTopic() != null ? '/' += item.getTopic().getMaxMoMember() : ''}</th>
+													<th width="15%">${item.getCurrentNumber()}/${item.getTopic() != null ?  item.getTopic().getMaxMoMember() : ''}</th>
 													<th width="30%">${item.getTopic().getTopicName() }</th>
 													<th width="10%"
 														class="${uiGroupManage == null ? '' : 'hide_element'}">
@@ -151,45 +151,54 @@ String context = request.getContextPath();
 	<input type="text" id="isCreateGroup" value="${isCreateGroup}" hidden />
 	<input type="text" id="isAddMember" value="${isAddMember}" hidden />
 	<input type="text" id="isDeleteMember" value="${isDeleteMember}" hidden />
-	<input type="text" id="isCancelRequest" value="${isCancelRequest}" hidden />
+	<input type="text" id="isCancelRequest" value="${isCancelRequest}"
+		hidden />
 	<input type="text" id="isJoinGroup" value="${isJoinGroup}" hidden />
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	
+
 	<script>
 		const isCreateGroup = $('#isCreateGroup').val();
 		const isAddMember = $('#isAddMember').val();
 		const isDeleteMember = $('#isDeleteMember').val();
 		const isCancelRequest = $('#isCancelRequest').val();
 		const isJoinGroup = $('#isJoinGroup').val();
-		
+
 		if (isCreateGroup === 'FAILED') {
 			swal("Thông báo!", "Tạo nhóm thất bại", "error");
 		} else if (isCreateGroup === 'SUCCESS') {
 			swal("Thông báo!", "Tạo nhóm thành công", "success");
 		}
-		
+
 		if (isAddMember === 'FAILED') {
-			swal("Thông báo!", "Thêm thành viên thất bại. Cần đảm bảo các yếu tố sau:\n- Bạn phải là trưởng nhóm\n- Cần đăng kí đề tài trước khi thêm thành viên vào nhóm\n- Thành viên cần thêm phải hợp lệ( Đúng MSSV; Chưa có nhóm)\n- Số lượng thành viên không vượt quá qui định của đề tài", "error");
+			swal(
+					"Thông báo!",
+					"Thêm thành viên thất bại. Cần đảm bảo các yếu tố sau:\n- Bạn phải là trưởng nhóm\n- Cần đăng kí đề tài trước khi thêm thành viên vào nhóm\n- Thành viên cần thêm phải hợp lệ( Đúng MSSV; Chưa có nhóm)\n- Số lượng thành viên không vượt quá qui định của đề tài",
+					"error");
 		} else if (isAddMember === 'SUCCESS') {
 			swal("Thông báo!", "Thêm thành viên thành công", "success");
 		}
-		
+
 		if (isDeleteMember === 'FAILED') {
 			swal("Thông báo!", "Xóa thành viên thất bại", "error");
 		} else if (isDeleteMember === 'SUCCESS') {
 			swal("Thông báo!", "Xóa thành viên thành công", "success");
 		}
-		
+
 		if (isCancelRequest === 'FAILED') {
-			swal("Thông báo!", "Xóa yêu cầu tham gia vào nhóm thất bại", "error");
+			swal("Thông báo!", "Xóa yêu cầu tham gia vào nhóm thất bại",
+					"error");
 		} else if (isCancelRequest === 'SUCCESS') {
-			swal("Thông báo!", "Xóa yêu cầu tham gia vào nhóm thành công", "success");
+			swal("Thông báo!", "Xóa yêu cầu tham gia vào nhóm thành công",
+					"success");
 		}
-		
+
 		if (isJoinGroup === 'FAILED') {
 			swal("Thông báo!", "Xin tham gia vào nhóm thất bại", "error");
 		} else if (isJoinGroup === 'SUCCESS') {
-			swal("Thông báo!", "Xin tham gia vào nhóm thành công. Hãy chờ đợi để được xét duyệt vào nhóm", "success");
+			swal(
+					"Thông báo!",
+					"Xin tham gia vào nhóm thành công. Hãy chờ đợi để được xét duyệt vào nhóm",
+					"success");
 		}
 	</script>
 </body>

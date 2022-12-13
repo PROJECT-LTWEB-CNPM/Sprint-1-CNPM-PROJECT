@@ -1,4 +1,4 @@
-package com.courses.controllers.client.head.board;
+package com.courses.controllers.client.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,23 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.client.BoardService;
 
-@WebServlet(urlPatterns = { "/teacher/board/head/add-member", "/teacher/board/head/add-member/" })
-public class AddMemberToBoardServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/teacher/board/normal", "/teacher/board/normal/" })
+public class ListBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AddMemberToBoardServlet() {
+	public ListBoardServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		BoardService boardService = new BoardService(request, response);
-		boardService.getAddMemberToBoardForm();
+		boardService.getListTeacherBoard();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BoardService boardService = new BoardService(request, response);
-		boardService.submitAddMemberToBoardForm();
 	}
 }

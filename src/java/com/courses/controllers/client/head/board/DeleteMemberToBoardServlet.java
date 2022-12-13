@@ -9,23 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.client.BoardService;
 
-@WebServlet(urlPatterns = { "/teacher/board/head/add-member", "/teacher/board/head/add-member/" })
-public class AddMemberToBoardServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/teacher/board/head/delete", "/teacher/board/head/delete/" })
+public class DeleteMemberToBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AddMemberToBoardServlet() {
+	public DeleteMemberToBoardServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		BoardService boardService = new BoardService(request, response);
-		boardService.getAddMemberToBoardForm();
+		boardService.deleteMemberToBoard();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BoardService boardService = new BoardService(request, response);
-		boardService.submitAddMemberToBoardForm();
 	}
 }

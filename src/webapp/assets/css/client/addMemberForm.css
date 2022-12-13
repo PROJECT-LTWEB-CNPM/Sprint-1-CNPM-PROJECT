@@ -80,7 +80,7 @@ body {
 }
 
 .join__group-container-item:first-child table tr th {
-	color: var(--white-color);
+	color: var(- -white-color);
 	font-weight: 800;
 }
 
@@ -105,7 +105,7 @@ table {
 }
 
 table tr th {
-	color: var(--text-color);
+	color: var(- -text-color);
 	font-size: 14px;
 	font-weight: 400;
 	height: 32px;
@@ -132,6 +132,17 @@ table tr th a {
 
 h3 {
 	font-weight: 600;
-	color: var(--orange-color);
+	color: var(- -orange-color);
 	margin-top: 24px;
+}
+
+.teacher__memeber-heading {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.teacher__memeber-heading>a {
+	font-size: 1.4rem;
+	text-decoration: none;
 }
