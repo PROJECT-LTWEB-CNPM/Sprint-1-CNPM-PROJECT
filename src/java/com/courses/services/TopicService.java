@@ -44,7 +44,7 @@ public class TopicService extends SuperService{
 		
 		if ( option ==  0) {
 			activeButtonUnselected = "topic_registration-filter-active";
-			 activeButtonSelected  = "";
+			activeButtonSelected  = "";
 		} else if (option ==  1) {
 			 activeButtonUnselected = "";
 			 activeButtonSelected  = "topic_registration-filter-active";

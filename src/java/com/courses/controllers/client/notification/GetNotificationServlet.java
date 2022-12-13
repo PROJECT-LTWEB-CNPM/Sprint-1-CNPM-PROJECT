@@ -1,4 +1,4 @@
-package com.courses.controllers.client.notification;
+package com.courses.controllers.client.Notification;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

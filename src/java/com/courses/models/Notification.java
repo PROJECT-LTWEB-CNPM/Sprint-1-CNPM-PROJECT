@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Notification.findAll", query="SELECT n FROM Notification n"),
-	@NamedQuery(name="Notification.getNotificationByLoginAccount", query="SELECT n FROM Notification n WHERE n.person2.personId = :personId ORDER BY n.status ASC")
+	@NamedQuery(name="Notification.getNotificationByLoginAccount", query="SELECT n FROM Notification n WHERE n.person2.personId = :personId ORDER BY n.time DESC")
 })
 public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,14 +21,12 @@ public class Notification implements Serializable {
 	@Column(name="notification_id")
 	private String notificationId;
 
+	private String content;
+
 	@Column(name="notification_title")
 	private String notificationTitle;
-	
-	@Column(name="status")
+
 	private int status;
-	
-	@Column(name="content")
-	private String content;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date time;
@@ -54,6 +52,14 @@ public class Notification implements Serializable {
 		this.notificationId = notificationId;
 	}
 
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public String getNotificationTitle() {
 		return this.notificationTitle;
 	}
@@ -68,14 +74,6 @@ public class Notification implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-	
-	public String getContent() {
-		return this.content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public Date getTime() {

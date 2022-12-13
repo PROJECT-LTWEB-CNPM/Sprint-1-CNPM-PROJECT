@@ -13,7 +13,10 @@ import java.util.List;
 @Entity
 @NamedQueries({ @NamedQuery(name = "RegistrationPeriod.findAll", query = "SELECT r FROM RegistrationPeriod r"),
 	@NamedQuery(name = "RegistrationPeriod.findByStatus", query = "SELECT r FROM RegistrationPeriod r WHERE r.isActive = :isActive"),
-	@NamedQuery(name = "RegistrationPeriod.findByIsTeacher", query = "SELECT r FROM RegistrationPeriod r WHERE r.isRegistrationTeacher = :isRegistrationTeacher") })
+	@NamedQuery(name = "RegistrationPeriod.findByIsTeacher", query = "SELECT r FROM RegistrationPeriod r WHERE r.isRegistrationTeacher = :isRegistrationTeacher AND r.isDeleted = 0"),
+	@NamedQuery(name = "RegistrationPeriod.findByIsTeacherIsDeleteed", query = "SELECT r FROM RegistrationPeriod r WHERE r.isRegistrationTeacher = :isRegistrationTeacher AND r.isDeleted = 1"),
+	@NamedQuery(name = "RegistrationPeriod.checkConditionsToCreateRegistrationPeriod", query = "SELECT r FROM RegistrationPeriod r WHERE r.semeter = :semeter AND r.schoolYear = :schoolYear AND r.closeDate <= :openDate AND r.isRegistrationTeacher = 1 AND r.isDeleted = 0")
+})
 public class RegistrationPeriod implements Serializable {
 	private static final long serialVersionUID = 1L;
 
