@@ -75,9 +75,19 @@ public class TopicService extends SuperService {
 
 			if (groupStudents.size() > 0) {
 				topic = topicDAO.find(Topic.class, topicdId);
+<<<<<<< HEAD
 				groupService.choiceTopic(studentId, topic);
 				// this.getTopic((byte)0);
 				isRegistrationTopic = "SUCCESS";
+=======
+				if (topic.getMaxMoMember() >= groupStudents.get(0).getCurrentNumber()) {
+					groupService.choiceTopic(studentId, topic);
+					// this.getTopic((byte)0);
+					isRegistrationTopic = "SUCCESS";
+				} else {
+					isRegistrationTopic = "FAILED";
+				}
+>>>>>>> be3812406e901e94bc90b40077f4e829eb7317ac
 
 			} else {
 				isRegistrationTopic = "FAILED";

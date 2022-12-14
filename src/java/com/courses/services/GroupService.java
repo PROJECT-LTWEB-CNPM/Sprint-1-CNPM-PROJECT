@@ -281,4 +281,49 @@ public class GroupService extends SuperService {
 		// return value
 		return map;
 	}
+	
+	public void removeSelectedTopic() throws ServletException, IOException {
+		StudentService studentService = new StudentService(request, response);
+		TopicService topicService = new TopicService(request, response);
+		GroupStudent groupStudent = new GroupStudent();
+		Topic topic = new Topic();
+		GroupStudentDAO groupStudentDAO = new GroupStudentDAO();
+		TopicDAO topicDAO = new TopicDAO();
+		List<GroupStudent> groupStudents = new ArrayList<GroupStudent>();
+		Map<String, Object> map = new HashMap<>();
+		String isChangeTopic = "FAILED";
+		String url = "/pages/client/student/groupManage.jsp";
+		
+//		String username = studentService.getStudentByPersonToLoginData().getPerson().getEmail();
+		String studentId = studentService.getStudentByPersonToLoginData().getStudentId();
+//		Kiểm tra xem đó có phải là trưởng nhóm hay không. Nếu phải thì mới cho clear checkLeader
+		groupStudents = checkRole(studentId);
+		if (groupStudents.size() > 0) {
+			map.put("leaderId", studentId);
+			groupStudents = checkLeader(map);
+//			Nếu list.size() == 0 --> đã có topic. Ngược lại là chưa có topic
+			if(groupStudents.size() == 0) {
+				System.out.println("Đã đăng kí đề tài");
+				groupStudent = checkRole(studentId).get(0);
+				topic = groupStudent.getTopic();
+				groupStudent.setTopic(null);
+				topic.setIsSelected((byte)0);
+				groupStudentDAO.update(groupStudent);
+				topicDAO.update(topic);
+				
+				topicService.getTopic((byte)0);
+			} else {
+				System.out.println("Chưa đăng kí đề tài");
+				this.request.setAttribute("isChangeTopic", isChangeTopic);
+//				this.request.getRequestDispatcher(url).forward(request, response);
+				handleGetGroupManage();
+			}
+		} else {
+//			Cho hiện ra thông báo. Rồi cho nó quay về trang quản lí nhóm
+			System.out.println("Bạn không phải là trường nhóm");
+			this.request.setAttribute("isChangeTopic", isChangeTopic);
+//			this.request.getRequestDispatcher(url).forward(request, response);
+			handleGetGroupManage();
+		}
+	} 
 }

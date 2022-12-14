@@ -100,7 +100,7 @@ String context = request.getContextPath();
 		const isRegistrationTopic = $('#isRegistrationTopic').val();
 		
 		if (isRegistrationTopic === 'FAILED') {
-			swal("Thông báo!", "Đăng kí đề tài thất bại. Cần đảm bảo các yếu tố sau:\n- Bạn cần phải có nhóm trước khi đăng kí đề tài\n- Bạn chưa đăng kí đề tài nào trước đó", "error");
+			swal("Thông báo!", "Đăng kí đề tài thất bại. Cần đảm bảo các yếu tố sau:\n- Bạn cần phải có nhóm trước khi đăng kí đề tài\n- Bạn chưa đăng kí đề tài nào trước đó\n- Số lượng thành viên phải hợp lệ.", "error");
 		} else if (isRegistrationTopic === 'SUCCESS') {
 			swal("Thông báo!", "Đăng kí đề tài thành công", "success");
 		}
