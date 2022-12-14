@@ -19,7 +19,6 @@ public class CreateRegistrationPeriodServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("=====================/admin/registration-priods/create=============");
 		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
 		registrationPriodService.createRegistrationPeriod();
 	}

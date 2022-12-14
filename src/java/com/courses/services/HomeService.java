@@ -40,12 +40,15 @@ public class HomeService extends SuperService {
 			ns.getNotificationsByPerson(person);
 			// forward information to jsp file
 			super.forwardToPage(url);
-		}catch(Exception ex) {
+
+			request.getSession().setAttribute("registrationPeriodForTeacherStatus", null);
+			request.getSession().removeAttribute("registrationPeriodForTeacherStatus");
+		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 			String url = "/pages/500.jsp";
 			response.sendRedirect(request.getContextPath() + url);
 		}
-		
+
 	}
 
 	public Person getPersonFromCookie() {
@@ -53,13 +56,13 @@ public class HomeService extends SuperService {
 		String personId = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
-			for (int i=0; i<cookies.length; i++ ) {
+			for (int i = 0; i < cookies.length; i++) {
 				if (cookies[i].getName().equals("userIdCookie")) {
 					personId = cookies[i].getValue();
 				}
 			}
 		}
-		
+
 		if (!personId.equals("")) {
 			PersonDAO personDAO = new PersonDAO();
 			foundPerson = personDAO.find(Person.class, personId);

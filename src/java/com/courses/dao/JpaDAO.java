@@ -102,9 +102,13 @@ public class JpaDAO<T> {
 		for (Entry<String, Object> entry : setParameters) {
 			query.setParameter(entry.getKey(), entry.getValue());
 		}
-		T result = (T) query.getSingleResult();
+		@SuppressWarnings("rawtypes")
+		List results = query.getResultList();
 		entityManager.close();
-		return result;
+
+		if (results.isEmpty())
+			return null;
+		return (T) results.get(0);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -134,27 +134,30 @@ public class BoardService extends SuperService {
 			// Get data
 			Board board = this.boardDAO.find(boardId);
 			Teacher teacher = this.teacherDAO.find(teacherId);
+			if (teacher != null && teacher.getPerson().getIsDeleted() == 0) {
+				// Make primary key
+				TeacherBoardPK teacherBoardPK = new TeacherBoardPK();
+				teacherBoardPK.setBoardId(boardId);
+				teacherBoardPK.setTeacherId(teacherId);
 
-			// Make primary key
-			TeacherBoardPK teacherBoardPK = new TeacherBoardPK();
-			teacherBoardPK.setBoardId(boardId);
-			teacherBoardPK.setTeacherId(teacherId);
+				TeacherBoard teacherBoardExist = this.teacherBoardDAO.find(teacherBoardPK);
+				Map<String, Object> params = new HashMap<>();
+				params.put("board", board);
+				int countTeacherInBoard = this.teacherBoardDAO.countByBoard(params);
 
-			TeacherBoard teacherBoardExist = this.teacherBoardDAO.find(teacherBoardPK);
-			Map<String, Object> params = new HashMap<>();
-			params.put("board", board);
-			int countTeacherInBoard = this.teacherBoardDAO.countByBoard(params);
-
-			if (teacherBoardExist == null && countTeacherInBoard < board.getNoMember()) {
-				// Make record
-				TeacherBoard teacherBoard = new TeacherBoard();
-				teacherBoard.setId(teacherBoardPK);
-				teacherBoard.setBoard(board);
-				teacherBoard.setTeacher(teacher);
-				teacherBoard.setIsDeleted((byte) 0);
-				// create
-				this.teacherBoardDAO.create(teacherBoard);
-				addedTeacherBoardStatus = "success";
+				if (teacherBoardExist == null && countTeacherInBoard < board.getNoMember()) {
+					// Make record
+					TeacherBoard teacherBoard = new TeacherBoard();
+					teacherBoard.setId(teacherBoardPK);
+					teacherBoard.setBoard(board);
+					teacherBoard.setTeacher(teacher);
+					teacherBoard.setIsDeleted((byte) 0);
+					// create
+					this.teacherBoardDAO.create(teacherBoard);
+					addedTeacherBoardStatus = "success";
+				} else {
+					addedTeacherBoardStatus = "fail";
+				}
 			} else {
 				addedTeacherBoardStatus = "fail";
 			}
@@ -344,7 +347,7 @@ public class BoardService extends SuperService {
 			super.forwardToPage(url);
 		}
 	}
-	
+
 	// [GET] DeleteGroupToBoardServlet => Head
 	public void deleteGroupToBoard() throws ServletException, IOException {
 		try {
@@ -357,8 +360,7 @@ public class BoardService extends SuperService {
 
 			// Get data
 			Board board = this.boardDAO.find(boardId);
-			GroupStudent groupStudent  = this.groupStudentDAO.find(groupId);
-
+			GroupStudent groupStudent = this.groupStudentDAO.find(groupId);
 
 			// Url
 			String url = super.getContextPath() + "/teacher/board/head/detail/?board_id=" + boardId;

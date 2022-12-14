@@ -14,7 +14,7 @@ int isTeacher = type.equals(RoleConstants.TEACHER) ? 1 : 0;
 <div class="modal fade" id="modalCreateRP" tabindex="-1"
 	aria-labelledby="exampleModalLabel" aria-hidden="true"
 	data-bs-backdrop="static">
-	<div class="modal-dialog modal-dialog-scrollable">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modalCreateRP">

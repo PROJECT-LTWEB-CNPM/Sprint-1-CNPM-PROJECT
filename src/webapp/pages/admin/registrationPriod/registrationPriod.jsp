@@ -158,16 +158,16 @@ String context = request.getContextPath();
 			</div>
 		</div>
 	</div>
-	
+
 	<input type="text" id="isCreateRegistrationPeriod"
-		value="${sessionScope.isCreateRegistrationPeriod}" hidden/>
+		value="${sessionScope.isCreateRegistrationPeriod}" hidden />
 	<input type="text" id="isRegistrationPeriodUpdate"
-		value="${sessionScope.isRegistrationPeriodUpdate}" hidden/>	
+		value="${sessionScope.isRegistrationPeriodUpdate}" hidden />
 	<input type="text" id="isSoftDeleteRegistrationPeriod"
-		value="${sessionScope.isSoftDeleteRegistrationPeriod}" hidden/>	
+		value="${sessionScope.isSoftDeleteRegistrationPeriod}" hidden />
 	<input type="text" id="isRestoreRegistrationPeriod"
-		value="${sessionScope.isRestoreRegistrationPeriod}" hidden/>	
-		
+		value="${sessionScope.isRestoreRegistrationPeriod}" hidden />
+
 	<jsp:include page="./modalCreateRP.jsp"></jsp:include>
 	<jsp:include page="./modalConfirmDeleteRP.jsp"></jsp:include>
 	<jsp:include page="../partials/tail.jsp"></jsp:include>
@@ -184,36 +184,45 @@ String context = request.getContextPath();
 			autoclose : true
 		});
 		$('.datetime').datepicker();
-		
-		
-		const isCreateRegistrationPeriod = $('#isCreateRegistrationPeriod').val();
-		const isRegistrationPeriodUpdate = $('#isRegistrationPeriodUpdate').val();
-		const isSoftDeleteRegistrationPeriod = $('#isSoftDeleteRegistrationPeriod').val();
-		const isRestoreRegistrationPeriod = $('#isRestoreRegistrationPeriod').val();
+
+		const isCreateRegistrationPeriod = $('#isCreateRegistrationPeriod')
+				.val();
+		const isRegistrationPeriodUpdate = $('#isRegistrationPeriodUpdate')
+				.val();
+		const isSoftDeleteRegistrationPeriod = $(
+				'#isSoftDeleteRegistrationPeriod').val();
+		const isRestoreRegistrationPeriod = $('#isRestoreRegistrationPeriod')
+				.val();
 
 		if (isCreateRegistrationPeriod === 'FAILED') {
-			swal("Thông báo!", "Thêm mới thời gian đăng kí thất bại", "error");
+			swal(
+					"Thông báo!",
+					"Thêm mới thời gian đăng kí thất bại, hãy kiểm tra thời gian đăng ký cho giảng viên, số lượng thời gian đăng ký trong một năm học",
+					"error");
 		} else if (isCreateRegistrationPeriod === 'SUCCESS') {
 			swal("Thông báo!", "Thêm mới thời gian đăng kí thành công",
 					"success");
 		}
-		
+
 		if (isRegistrationPeriodUpdate === 'FAILED') {
-			swal("Thông báo!", "Cập nhật thời gian đăng kí thất bại", "error");
+			swal(
+					"Thông báo!",
+					"Cập nhật thời gian đăng kí thất bại, hiện tại đã thời gian đăng ký được mở không thể mở cùng lúc 2 khung thời gian đăng ký, vui lòng kiểm tra lại!!",
+					"error");
 		} else if (isRegistrationPeriodUpdate === 'SUCCESS') {
 			swal("Thông báo!", "Cập nhật thời gian đăng kí thành công",
 					"success");
 		}
-		
+
 		if (isSoftDeleteRegistrationPeriod === 'FAILED') {
 			swal("Thông báo!", "Xóa thời gian đăng kí thất bại", "error");
 		} else if (isSoftDeleteRegistrationPeriod === 'SUCCESS') {
-			swal("Thông báo!", "Xóa thời gian đăng kí thành công",
-					"success");
+			swal("Thông báo!", "Xóa thời gian đăng kí thành công", "success");
 		}
-		
+
 		if (isRestoreRegistrationPeriod === 'FAILED') {
-			swal("Thông báo!", "Khôi phục thời gian đăng kí đã xóa thất bại", "error");
+			swal("Thông báo!", "Khôi phục thời gian đăng kí đã xóa thất bại",
+					"error");
 		} else if (isRestoreRegistrationPeriod === 'SUCCESS') {
 			swal("Thông báo!", "Khôi phục thời gian đăng kí đã xóa thành công",
 					"success");

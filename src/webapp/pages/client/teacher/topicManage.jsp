@@ -36,22 +36,24 @@ String check = (String) request.getAttribute("notExistPeriod");
 							<div class="topic_registration-filter d-flex">
 								<div class="mx-2">
 									<h3 class="topic_registration-filter-active">
-										<a href="<%=context%>/teacher/topic-manage?select=0">Chưa được đăng ký</a>
+										<a href="<%=context%>/teacher/topic-manage?select=0">Chưa
+											được đăng ký</a>
 									</h3>
 								</div>
 								<div class="mx-2">
 									<h3>
-										<a href="<%=context%>/teacher/topic-manage?select=1">Đã được đăng ký</a>
+										<a href="<%=context%>/teacher/topic-manage?select=1">Đã
+											được đăng ký</a>
 									</h3>
 								</div>
-								
+
 								<div class="mx-2">
 									<h3>
-										<a href="<%=context%>/teacher/topic-manage?status=0">Chưa được duyệt
-											</a>
+										<a href="<%=context%>/teacher/topic-manage?status=0">Chưa
+											được duyệt </a>
 									</h3>
 								</div>
-								
+
 								<div class="mx-2">
 									<h3>
 										<a href="<%=context%>/teacher/topic-manage/add">Thêm đề
@@ -63,10 +65,11 @@ String check = (String) request.getAttribute("notExistPeriod");
 								<div class="group_topic_registration-to-manage">
 									<table>
 										<tr>
-											<th width="40%">Tên đề tài</th>
+											<th width="30%">Tên đề tài</th>
 											<th width="25%">Đợt đề xuất</th>
 											<th width="25%">Năm học</th>
-											<th class="hide_element">Xem chi tiết</th>
+											<th class="hide_element" width="10%">Xem chi tiết</th>
+											<th class="hide_element" width="10%">Xem chi tiết</th>
 										</tr>
 									</table>
 								</div>
@@ -74,25 +77,30 @@ String check = (String) request.getAttribute("notExistPeriod");
 									<div class="group_topic_registration-to-manage">
 										<table>
 											<tr>
-												<th width="40%" class="highlight_content">${topic.topicName}</th>
+												<th width="30%" class="highlight_content">${topic.topicName}</th>
 												<th width="25%">${topic.registrationperiod.registrationPeriodName}</th>
 												<th width="25%">${topic.registrationperiod.schoolYear}</th>
-												<th><a
+												<th width="10%"><a
 													href="<%=context%>/teacher/topic-manage/detail?topic=${topic.getTopicId()}"
 													class="highlight_content">Chi tiết</a></th>
+												<th width="10%"><a
+													href="<%=context%>/teacher/topic-manage/delete/?topic=${topic.getTopicId()}"
+													class="highlight_content">Xóa</a></th>
 											</tr>
 										</table>
 									</div>
 								</c:forEach>
 
 							</div>
-							
-							</div>
 
 						</div>
+
 					</div>
 				</div>
+			</div>
 		</main>
+		<input id="deletedTopicStatus"
+			value="${sessionScope.deletedTopicStatus}" hidden/>
 		<!-- Modal -->
 		<jsp:include page="./periodModal.jsp" />
 		<jsp:include page="../partials/logoutModal.jsp" />
@@ -111,5 +119,11 @@ String check = (String) request.getAttribute("notExistPeriod");
 		}
 		%>
 	</div>
+	<jsp:include page="../partials/script.jsp" />
+	<script>
+		if ($('#deletedTopicStatus').val() == 'success') {
+			Swal.fire('Thông báo', 'Xóa đề tài thành công', 'success')
+		}
+	</script>
 </body>
 </html>

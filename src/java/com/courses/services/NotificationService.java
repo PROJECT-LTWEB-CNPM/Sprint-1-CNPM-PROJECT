@@ -78,6 +78,8 @@ public class NotificationService extends SuperService {
 		notifications = notificationDAO.findWithNamedQuery("Notification.getNotificationByLoginAccount", map);
 		this.request.setAttribute("notifications", notifications);
 		this.request.getRequestDispatcher(url).forward(request, response);
+
+		request.getSession().setAttribute("registrationPeriodForTeacherStatus", null);
 	}
 
 	public void showDetailOneNotification() throws ServletException, IOException {
@@ -112,26 +114,26 @@ public class NotificationService extends SuperService {
 		}
 
 	}
-	
-	public void getNotificationsByPerson(Person receivedPerson) throws ServletException, IOException{
+
+	public void getNotificationsByPerson(Person receivedPerson) throws ServletException, IOException {
 		List<Notification> notifications = null;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("person2", receivedPerson);
 		notifications = notificationDAO.findWithNamedQuery("Notification.getNotificationsByPerson", map);
 		System.out.println(notifications);
 		if (notifications != null) {
-			for(Notification n : notifications) {
+			for (Notification n : notifications) {
 				System.out.println(n.getContent());
 			}
 		}
 		this.request.setAttribute("notifications", notifications);
 	}
-	
+
 	public boolean updateStatusNotification() throws IOException {
 		String url = "/teacher/home";
 		try {
 			String id = this.request.getParameter("id");
-			Notification notification = notificationDAO.find(Notification.class,  id);
+			Notification notification = notificationDAO.find(Notification.class, id);
 			if (notification == null) {
 				return false;
 			}
@@ -139,7 +141,7 @@ public class NotificationService extends SuperService {
 			notificationDAO.update(notification);
 			super.redirectToPage(request.getContextPath() + url);
 			return true;
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			System.out.println(ex);
 			url = "/pages/500.jsp";
 			super.redirectToPage(request.getContextPath() + url);

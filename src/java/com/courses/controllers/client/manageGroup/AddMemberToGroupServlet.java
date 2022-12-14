@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(urlPatterns = {"/student/group-manage/add-memeber"})
+@WebServlet(urlPatterns = {"/student/group-manage/add-memeber", "/student/group-manage/add-memeber/"})
 public class AddMemberToGroupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    

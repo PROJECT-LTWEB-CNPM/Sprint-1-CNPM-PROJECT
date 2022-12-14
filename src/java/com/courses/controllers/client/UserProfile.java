@@ -14,23 +14,26 @@ import com.courses.services.admin.user.UserService;
 /**
  * Servlet implementation class UserProfile
  */
-@WebServlet("/student/user-profile")
+@WebServlet(urlPatterns = { "/student/user-profile", "/student/user-profile/" })
 public class UserProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public UserProfile() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UserProfile() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		UserService userService = new UserService(request, response);
 		userService.handleGetStudentInfo();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -1,4 +1,4 @@
-package com.courses.controllers.Auth;
+package com.courses.controllers.auth;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.LoginService;
 
-@WebServlet("/login")
+@WebServlet(urlPatterns = { "/login", "/login/" })
 public class ActionLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class ActionLoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		LoginService loginService = new LoginService(request, response);
 		loginService.handleGetLogin();
-		//doPost(request, response);
+		// doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

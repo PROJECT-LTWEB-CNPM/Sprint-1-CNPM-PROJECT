@@ -75,6 +75,11 @@ public class TopicService extends SuperService {
 
 			if (groupStudents.size() > 0) {
 				topic = topicDAO.find(Topic.class, topicdId);
+<<<<<<< HEAD
+				groupService.choiceTopic(studentId, topic);
+				// this.getTopic((byte)0);
+				isRegistrationTopic = "SUCCESS";
+=======
 				if (topic.getMaxMoMember() >= groupStudents.get(0).getCurrentNumber()) {
 					groupService.choiceTopic(studentId, topic);
 					// this.getTopic((byte)0);
@@ -82,6 +87,7 @@ public class TopicService extends SuperService {
 				} else {
 					isRegistrationTopic = "FAILED";
 				}
+>>>>>>> be3812406e901e94bc90b40077f4e829eb7317ac
 
 			} else {
 				isRegistrationTopic = "FAILED";
@@ -228,6 +234,10 @@ public class TopicService extends SuperService {
 				request.setAttribute("topics", topics);
 			}
 			super.forwardToPage(url);
+			
+			// remove session
+			request.getSession().setAttribute("deletedTopicStatus", null);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -248,6 +258,36 @@ public class TopicService extends SuperService {
 		map.put("isSelected", isSelected);
 		topics = topicDAO.findWithNamedQuery("Topic.findSpecifiedTopic", map);
 		return topics;
+	}
+
+	public void deleteTopicNotApproval() throws ServletException, IOException {
+		try {
+			super.setEncoding();
+			// Url
+			String pageUrl = super.getContextPath() + "/teacher/topic-manage?status=0";
+
+			// Get param
+			String topicId = request.getParameter("topic");
+			String deletedTopicStatus = "";
+
+			// Get data
+			Topic topic = TopicService.topicDAO.find(topicId);
+
+			// Check
+			if (topic != null && topic.getStatus() == 0) {
+				TopicService.topicDAO.delete(topicId);
+				deletedTopicStatus = "success";
+			} else {
+				deletedTopicStatus = "fail";
+			}
+
+			request.getSession().setAttribute("deletedTopicStatus", deletedTopicStatus);
+			// redirect
+			super.redirectToPage(pageUrl);
+		} catch (Exception e) {
+			String pageUrl = "/pages/500.jsp";
+			this.request.getRequestDispatcher(pageUrl).forward(request, response);
+		}
 	}
 
 }

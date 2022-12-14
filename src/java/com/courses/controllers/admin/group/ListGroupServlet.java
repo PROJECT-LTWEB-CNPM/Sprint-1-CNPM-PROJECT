@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.GroupService;
 
-
-@WebServlet("/admin/groups")
+@WebServlet(urlPatterns = { "/admin/groups", "/admin/groups/" })
 public class ListGroupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public ListGroupServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ListGroupServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		GroupService groupService = new GroupService(request, response);
 		groupService.handleGetListGroup();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 
 }

@@ -9,18 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.admin.user.AccountService;
 
-@WebServlet("/admin/users/edit/update-account")
+@WebServlet(urlPatterns = { "/admin/users/edit/update-account", "/admin/users/edit/update-account/" })
 public class UpdateAccountUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public UpdateAccountUserServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateAccountUserServlet() {
+		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		AccountService accountService = new AccountService(request, response);

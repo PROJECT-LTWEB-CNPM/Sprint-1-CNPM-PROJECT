@@ -67,7 +67,7 @@ public class LoginService extends SuperService {
 				person = foundAccount.getPerson();
 			}
 			// check if this account is existing
-			if (foundAccount != null && checkRole(role, person)) {
+			if (foundAccount != null && checkRole(role, person) && person.getIsDeleted() == 0) {
 				if (password.equals(foundAccount.getPassword())) {
 					
 					// define user id cookie timeout 30'
@@ -81,10 +81,10 @@ public class LoginService extends SuperService {
 					// define url base on role
 					if (role.equals("student")) {
 						// forward to student home page
-						url = "/student/home";
+						url = "/student/home/";
 					} else if (role.equals("teacher")) {
 						// forward to teacher home page
-						url = "/teacher/home";
+						url = "/teacher/home/";
 					} else if (role.equals("admin")) {
 						// forward to admin home page
 						url = "/admin/";

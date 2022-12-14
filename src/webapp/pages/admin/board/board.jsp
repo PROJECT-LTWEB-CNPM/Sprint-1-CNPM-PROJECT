@@ -153,6 +153,7 @@ String context = request.getContextPath();
 		value="${sessionScope.isRestoreBoard}" hidden />
 		
 	<jsp:include page="./modalCreateBoard.jsp"></jsp:include>
+	<jsp:include page="./modalConfirmDeleteBoard.jsp"></jsp:include>
 	<jsp:include page="./modalSelectSemester.jsp"></jsp:include>
 	<jsp:include page="./modalConfirmDeleteBoard.jsp"></jsp:include>
 	<jsp:include page="../partials/tail.jsp"></jsp:include>

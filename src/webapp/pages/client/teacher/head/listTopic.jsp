@@ -76,7 +76,7 @@ String context = request.getContextPath();
 	</div>
 	<script>
 		if ($('#acceptApprovalTopicStatus').val() == 'success') {
-			Swal.fire('Thông báo', 'Duyệt đề tài thành công', 'success')
+			Swal.fire('Thông báo', 'Duyệt đề tài thành công', 'success');
 		}
 	</script>
 </body>

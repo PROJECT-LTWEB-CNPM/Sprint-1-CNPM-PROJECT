@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.TopicService;
 
-@WebServlet("/admin/topics")
+@WebServlet(urlPatterns = {"/admin/topics", "/admin/topics/"})
 public class ListTopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

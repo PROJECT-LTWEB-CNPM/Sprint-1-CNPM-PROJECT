@@ -26,21 +26,22 @@ import com.courses.services.admin.user.StudentService;
 /**
  * Servlet implementation class AddMemberToGroup
  */
-@WebServlet(urlPatterns = {"/add-member-to-group"})
+@WebServlet(urlPatterns = { "/add-member-to-group", "/add-member-to-group/" })
 public class AddMemberToGroup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public AddMemberToGroup() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public AddMemberToGroup() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		GroupService groupService = new GroupService(request, response);
 		groupService.addMemberToGroup();
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

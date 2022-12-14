@@ -1,4 +1,4 @@
-package com.courses.controllers.Auth;
+package com.courses.controllers.auth;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.LogoutService;
 
-
-@WebServlet("/logout")
+@WebServlet(urlPatterns = { "/logout", "/logout/" })
 public class ActionLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public ActionLogoutServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ActionLogoutServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		LogoutService logoutService = new LogoutService(request, response);
 		logoutService.handleGetLogout();
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		LogoutService logoutService = new LogoutService(request, response);
 		logoutService.handleGetLogout();
 	}

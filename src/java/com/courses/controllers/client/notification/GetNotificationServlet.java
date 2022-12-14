@@ -10,25 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import com.courses.services.HomeService;
 import com.courses.services.NotificationService;
 
-/**
- * Servlet implementation class GetNotificationServlet
- */
-@WebServlet("/student/home")
+@WebServlet(urlPatterns = { "/student/home", "/student/home/" })
 public class GetNotificationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public GetNotificationServlet() {
-        super(); 
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public GetNotificationServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		NotificationService notificationService = new NotificationService(request, response);
 		notificationService.getNotificationByLoginAccount();
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
