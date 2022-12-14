@@ -1,4 +1,4 @@
-package com.courses.controllers.admin.registrationPriod;
+package com.courses.controllers.admin.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,21 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.RegistrationPriodService;
+import com.courses.services.BoardService;
 
 
-@WebServlet(urlPatterns = {"/admin/registration-priods/create", "/admin/registration-priods/create/"})
-public class CreateRegistrationPeriodServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/admin/boards/is-deleted/restore", "/admin/boards/is-deleted/restore/"})
+public class RestoreBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public CreateRegistrationPeriodServlet() {
+       
+   
+    public RestoreBoardServlet() {
         super();
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("=====================/admin/registration-priods/create=============");
-		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
-		registrationPriodService.createRegistrationPeriod();
+		BoardService boardService = new BoardService(request, response);
+		boardService.restoreBoard();
+		boardService.handleGetListBoardIsDelete();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

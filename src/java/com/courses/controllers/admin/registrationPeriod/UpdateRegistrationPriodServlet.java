@@ -1,4 +1,4 @@
-package com.courses.controllers.admin.registrationPriod;
+package com.courses.controllers.admin.registrationPeriod;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -24,11 +24,6 @@ public class UpdateRegistrationPriodServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		System.out.println("Hello world");
-//		String openDate = request.getParameter("openDate");
-//		String schoolYear = request.getParameter("schoolYear");
-//		System.out.println(openDate);
-//		System.out.println(schoolYear);
 		RegistrationPriodService registrationPriodService = new RegistrationPriodService(request, response);
 		registrationPriodService.updateRegistrationPeriod();
 	}

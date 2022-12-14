@@ -50,7 +50,7 @@ public class RegistrationPeriodDAO extends JpaDAO<RegistrationPeriod> implements
 
 		return super.findWithNamedQuery(queryName, param);
 	}
-	
+
 	public List<RegistrationPeriod> findByIsRegistrationTeacherIsDeleted(byte isRegistrationTeacher) {
 		String queryName = "RegistrationPeriod.findByIsTeacherIsDeleteed";
 
@@ -59,7 +59,6 @@ public class RegistrationPeriodDAO extends JpaDAO<RegistrationPeriod> implements
 
 		return super.findWithNamedQuery(queryName, param);
 	}
-	
 
 	@Override
 	public List<RegistrationPeriod> pagination(int currentPage, int pageSize) {
@@ -72,9 +71,24 @@ public class RegistrationPeriodDAO extends JpaDAO<RegistrationPeriod> implements
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public String randomId() {
 		return super.randomId("RP");
+	}
+
+	public int countBySchoolYearAndIsHead(Map<String, Object> param) {
+		String queryName = "RegistrationPeriod.countBySchoolYearAndIsHead";
+		return super.countByNamedQuery(queryName, param);
+	}
+
+	public int countByIsActive(Map<String, Object> param) {
+		String queryName = "RegistrationPeriod.countByIsActive";
+		return super.countByNamedQuery(queryName, param);
+	}
+	
+	public RegistrationPeriod findByIsActive(Map<String, Object> param) {
+		String queryName = "RegistrationPeriod.findByStatus";
+		return super.findSingleWithNamedQuery(queryName, param);
 	}
 }

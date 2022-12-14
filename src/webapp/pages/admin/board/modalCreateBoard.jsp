@@ -8,6 +8,7 @@
 <%
 String type = (String) request.getAttribute("type");
 String title = "";
+String context = request.getContextPath();
 %>
 
 <div class="modal fade" id="modalCreateRP" tabindex="-1"
@@ -22,15 +23,17 @@ String title = "";
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
-			<form action="boards/create" method="POST">
+			<form action="<%=context %>/admin/boards/create" method="POST">
 				<div class="modal-body">
 					<div class="col-md-12">
+						<!-- 
 						<div class="mb-3">
 							<label for="site-title" class="form-label">Board ID</label> <input
 								type="text" name="boardId" class="form-control"
 								value="BO<%=RandomUtils.randomId()%>" readonly="readonly"
 								required="required" />
 						</div>
+						 -->
 						<div class="mb-3">
 							<label for="site-title" class="form-label">Board name</label> <input
 								type="text" name="boardName" class="form-control"

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.courses.dao.PersonDAO;
 import com.courses.models.Person;
@@ -30,8 +31,12 @@ public class RecoveryUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String isRecoveryAll = "FAILED";
+		String type = request.getParameter("type");
+		String context = request.getContextPath();
+		String url = context + "/admin/users/?type=" + type;
 		try {
-			String type = request.getParameter("type");
 			String[] personIds = request.getParameterValues("personId");
 			List<Person> persons = new ArrayList<>();
 			Person person = null;
@@ -45,15 +50,15 @@ public class RecoveryUserServlet extends HttpServlet {
 				}
 				// Update
 				this.personDAO.bulkUpdate(persons);
+				isRecoveryAll = "SUCCESS";
 			}
 			// Redirect
-			String context = request.getContextPath();
-			
-			response.sendRedirect(context + "/admin/users/?type=" + type);
+			session.setAttribute("isRecoveryAll", isRecoveryAll);
+			response.sendRedirect(url);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			String context = request.getContextPath();
-			response.sendRedirect(context + "/admin/500");
+			session.setAttribute("isRecoveryAll", isRecoveryAll);
+			response.sendRedirect(url);
 		}
 	}
 

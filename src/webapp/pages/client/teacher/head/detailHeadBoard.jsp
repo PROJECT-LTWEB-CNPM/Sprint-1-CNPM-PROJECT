@@ -170,7 +170,7 @@ String context = request.getContextPath();
 		if ($('#addedTeacherBoardStatus').val() === 'success') {
 			Swal.fire('Thông báo', 'Thêm thành viên thành công', 'success')
 		} else if ($('#addedTeacherBoardStatus').val() === 'fail') {
-			Swal.fire('Thông báo', 'Thêm thành viên thất bại', 'error')
+			Swal.fire('Thông báo', 'Thêm thành viên thất bại, giáo viên không tồn tại trên hệ thống', 'error')
 		}
 
 		// addedGroupBoardStatus

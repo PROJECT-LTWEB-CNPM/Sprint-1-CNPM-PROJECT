@@ -9,23 +9,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.TeacherService;
 
-@WebServlet("/teacher/user-profile")
+@WebServlet(urlPatterns = { "/teacher/user-profile", "/teacher/user-profile/" })
 public class TeacherServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L; 
-	
-       public TeacherServlet() {
-        super();
-    }
+	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public TeacherServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		TeacherService teacherService = new TeacherService(request, response);
 		teacherService.handleGetTeacher();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

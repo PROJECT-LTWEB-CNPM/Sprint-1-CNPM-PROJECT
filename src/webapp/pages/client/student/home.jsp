@@ -97,17 +97,36 @@ String context = request.getContextPath();
 								</div>
 							</c:if>
 							<c:if test="${notifications.size() == 0}">
-								<p class="topic_registration-notification highlight_content">Không có thông báo</p>
+								<p class="topic_registration-notification highlight_content">Không
+									có thông báo</p>
 							</c:if>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
+		<input id="registrationPeriodForTeacherStatus"
+			value="${sessionScope.registrationPeriodForTeacherStatus}" hidden />
 		<!-- Modal -->
 		<jsp:include page="../partials/logoutModal.jsp"></jsp:include>
 		<!-- Footer -->
 		<jsp:include page="../partials/footer.jsp" />
+		<jsp:include page="../partials/script.jsp" />
+		<script>
+			const registrationPeriodForTeacherStatus = $(
+					'#registrationPeriodForTeacherStatus').val();
+
+			if (registrationPeriodForTeacherStatus === 'fail') {
+				Swal
+						.fire(
+								"Thông báo!",
+								"Không nằm trong khoảng thời gian đăng ký dành cho sinh viên!!",
+								"info");
+			} else if (registrationPeriodForTeacherStatus === 'error') {
+				Swal.fire("Thông báo!",
+						"Đã có lỗi xảy ra vui lòng thử lại sau", "error");
+			}
+		</script>
 	</div>
 </body>
 </html>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.courses.services.RegisterGroupService;
 import com.courses.services.admin.user.StudentService;
 
-@WebServlet(urlPatterns = { "/student/group-manage/create-group"})
+@WebServlet(urlPatterns = { "/student/group-manage/create-group",  "/student/group-manage/create-group/"})
 public class CreateGroupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     

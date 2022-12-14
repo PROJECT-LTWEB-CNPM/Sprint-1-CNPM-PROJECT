@@ -1,4 +1,4 @@
-package com.courses.controllers.Auth;
+package com.courses.controllers.admin.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,24 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.courses.services.LogoutService;
+import com.courses.services.admin.user.UserService;
 
 
-@WebServlet("/logout")
-public class ActionLogoutServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/users/restore", "/admin/users/restore/" })
+public class RestoreUserIsDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ActionLogoutServlet() {
+    public RestoreUserIsDeleteServlet() {
         super();
     }
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LogoutService logoutService = new LogoutService(request, response);
-		logoutService.handleGetLogout();
+		UserService userService = new UserService(request, response);
+		userService.restoreUser();
+		userService.handleGetListUserDeleted();	
 	}
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LogoutService logoutService = new LogoutService(request, response);
-		logoutService.handleGetLogout();
+		doGet(request, response);
 	}
+
 }

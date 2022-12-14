@@ -15,22 +15,22 @@ import com.courses.services.GroupService;
 import com.courses.services.JoinGroupService;
 import com.courses.services.admin.user.StudentService;
 
-@WebServlet(urlPatterns = {"/student/join-group"})
+@WebServlet(urlPatterns = { "/student/join-group", "/student/join-group/" })
 public class JoinGroupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public JoinGroupServlet() {
-        super();
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		JoinGroupService joinGroupService = new JoinGroupService(request, response);
-		joinGroupService.handleJoinGroup();	
+	public JoinGroupServlet() {
+		super();
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		JoinGroupService joinGroupService = new JoinGroupService(request, response);
+		joinGroupService.handleJoinGroup();
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

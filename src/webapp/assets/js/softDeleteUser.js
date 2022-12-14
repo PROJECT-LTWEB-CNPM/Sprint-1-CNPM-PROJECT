@@ -25,7 +25,7 @@ function softDeleteUser() {
 				type: "GET",
 				url: `${url}/admin/users/delete`,
 				data: { personId },
-				success: function(html) {
+				success: function() {
 					Swal.fire("Thông báo!", "Xóa tài người dùng thành công", "success").then((result) => {
 						/* Read more about isConfirmed, isDenied below */
 						if (result.isConfirmed) {

@@ -9,23 +9,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.TopicService;
 
-@WebServlet("/teacher/topic-manage/detail")
+@WebServlet(urlPatterns = { "/teacher/topic-manage/detail", "/teacher/topic-manage/detail/" })
 public class TeacherDetailTopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public TeacherDetailTopicServlet() {
-        super();
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public TeacherDetailTopicServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String url = "/pages/client/teacher/detailTopic.jsp";
 		TopicService topicService = new TopicService(request, response);
 		topicService.getGroupRegisteredTopic();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

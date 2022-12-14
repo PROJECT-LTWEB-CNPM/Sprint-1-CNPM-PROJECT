@@ -22,13 +22,19 @@ String context = request.getContextPath();
 					<div class="container">
 						<div class="page-title">
 							<h3 class="d-flex justify-content-between">
-								<span>Board Manage</span>
+								<span>${boardsIdDeleted != null ? 'Restore Board Is Deleted' : 'Board Manage'}</span>
 								<div class="d-flex gap-2">
+									<!-- 
 									<button type="button" data-bs-toggle="modal"
 										data-bs-target="#selectSemesterModal"
 										class="btn btn-sm btn-outline-primary">
 										<i class="fas fa-object-group"></i> Semesters
 									</button>
+									 -->
+									<a type="button" href="<%=context %>/admin/boards/is-deleted"
+										class="btn btn-sm btn-outline-primary"> <i
+										class="fas fa-clock"></i> Trash
+									</a>
 									<button type="button" data-bs-toggle="modal"
 										data-bs-target="#modalCreateRP"
 										class="btn btn-sm btn-outline-primary">
@@ -72,10 +78,27 @@ String context = request.getContextPath();
 													class="btn btn-outline-info btn-rounded"><i
 														class="fas fa-pen"></i></a>
 													<button type="button" data-bs-toggle="modal"
-														data-bs-target="#modalConfirmDeleteRP"
-														class="btn btn-outline-danger btn-rounded">
+														data-bs-target="#modalConfirmDeleteBoard"
+														data-bs-id="${item.getBoardId()}"
+														class="btn btn-outline-danger btn-rounded btn-delete">
 														<i class="fas fa-trash"></i>
-													</button>
+													</button></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+									<tbody>
+										<c:forEach var="item" items="${boardsIdDeleted}">
+											<tr>
+												<td>${item.getBoardId()}</td>
+												<td>${item.getBoardName()}</td>
+												<td>${item.getNoMember()}</td>
+												<td>${item.getDescription()}</td>
+												<td class="text-end">
+												<a
+													href="<%=context%>/admin/boards/is-deleted/restore/?board-id=${item.getBoardId()}"
+													class="btn btn-outline-info btn-rounded"> <i
+														class="fas fa-trash-restore"></i>
+												</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -126,17 +149,32 @@ String context = request.getContextPath();
 		value="${sessionScope.createdBoardStatus}" hidden />
 	<input id="updatedBoardStatus"
 		value="${sessionScope.updatedBoardStatus}" hidden />
+	<input id="isRestoreBoard"
+		value="${sessionScope.isRestoreBoard}" hidden />
+		
 	<jsp:include page="./modalCreateBoard.jsp"></jsp:include>
 	<jsp:include page="./modalConfirmDeleteBoard.jsp"></jsp:include>
 	<jsp:include page="./modalSelectSemester.jsp"></jsp:include>
+	<jsp:include page="./modalConfirmDeleteBoard.jsp"></jsp:include>
 	<jsp:include page="../partials/tail.jsp"></jsp:include>
+	<script type="text/javascript"
+		src="<%=context%>/assets/js/softDeleteBoard.js"></script>
 	<script>
 		if ($('#createdBoardStatus').val() === 'success') {
 			Swal.fire('Message', 'Add new Board successfully', 'success')
 		}
+		
 		if ($('#updatedBoardStatus').val() === 'success') {
 			Swal.fire('Message', 'Board updated successfully', 'success')
 		}
+		
+		
+		if ($('#isRestoreBoard').val() === 'success') {
+			Swal.fire('Message', 'Board updated successfully', 'success')
+		} else if ($('#isRestoreBoard').val() === 'failed') {
+			Swal.fire('Message', 'Board updated successfully', 'error')
+		}
+		
 	</script>
 </body>
 </html>

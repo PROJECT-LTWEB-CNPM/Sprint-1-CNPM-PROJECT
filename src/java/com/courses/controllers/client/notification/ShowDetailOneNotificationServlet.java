@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.courses.services.NotificationService;
 
-
-@WebServlet("/student/show-detail-notification")
+@WebServlet(urlPatterns = { "/student/show-detail-notification", "/student/show-detail-notification/" })
 public class ShowDetailOneNotificationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-  
-    public ShowDetailOneNotificationServlet() {
-        super();
-    }
 
+	public ShowDetailOneNotificationServlet() {
+		super();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		NotificationService notificationService = new NotificationService(request, response);
 		notificationService.showDetailOneNotification();
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

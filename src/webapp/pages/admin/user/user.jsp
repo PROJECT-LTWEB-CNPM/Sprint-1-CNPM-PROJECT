@@ -65,7 +65,8 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 															<td>${item.getPerson().getEmail()}</td>
 															<td>${item.getPerson().getRole()}</td>
 															<td>Normal</td>
-															<td class="text-end"><c:choose>
+															<td class="text-end">
+															<c:choose>
 																	<c:when test="${type == RoleConstants.ADMIN}">
 																		<a
 																			href="<%=context%>/admin/users/edit/?type=${type}&id=${item.getAdminId()}"
@@ -90,7 +91,8 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 																	data-bs-id="${item.getPerson().getPersonId()}"
 																	class="btn btn-outline-danger btn-rounded btn-delete">
 																	<i class="fas fa-trash"></i>
-																</button></td>
+																</button>
+															</td>
 														</tr>
 
 													</c:if>
@@ -139,8 +141,23 @@ String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 			<jsp:include page="./modalCreateUser.jsp"></jsp:include>
 		</div>
 	</div>
+	
+	<input type="text" id="isRecoveryAll"
+		value="${sessionScope.isRecoveryAll}" hidden/>	
+		
 	<jsp:include page="../partials/tail.jsp"></jsp:include>
 	<script type="text/javascript"
 		src="<%=context%>/assets/js/softDeleteUser.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		const isRecoveryAll = $('#isRecoveryAll').val();
+		
+		if (isRecoveryAll === 'FAILED') {
+			swal("Thông báo!", "Khôi phục tất cả users đã xóa thất bại", "error");
+		} else if (isRecoveryAll === 'SUCCESS') {
+			swal("Thông báo!", "Khôi phục tất cả users đã xóa	 thành công",
+					"success");
+		}
+	</script>
 </body>
 </html>

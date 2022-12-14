@@ -26,7 +26,6 @@ public class SoftDeleteUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-		System.out.println("Hello world");
 		String personId = request.getParameter("personId");
 
 		// Get person
