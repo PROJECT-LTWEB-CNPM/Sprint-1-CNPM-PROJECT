@@ -20,9 +20,13 @@
    > - [x] [Java Servlet](https://www.javatpoint.com/servlet-tutorial)
    > - [x] [Heroku](https://dashboard.heroku.com/)
    > - [x] [AWS](https://aws.amazon.com/)
+   > - [x] [Figma](https://www.figma.com/)
    
-#### 1.2. Topic specification
+#### 1.2. design pattern used
+ ![Tux, the Linux mascot](https://www.freecodecamp.org/news/content/images/2021/04/MVC3.png)
 
+#### 1.3. Link figma design UI
+ > - [x] [CNPM-UI](https://www.figma.com/file/mHhzkUqxO2k8vsF8lCuPFi/CNPM-WEB?node-id=0%3A1&t=peaBcc6qA18BCohI-1)
 
 ### 2. Struture porject 
 
