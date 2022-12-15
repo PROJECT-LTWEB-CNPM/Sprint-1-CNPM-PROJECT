@@ -23,11 +23,27 @@
    > - [x] [Figma](https://www.figma.com/)
    
 #### 1.2. design pattern used
- ![Tux, the Linux mascot](https://www.freecodecamp.org/news/content/images/2021/04/MVC3.png)
+ <img src="https://www.freecodecamp.org/news/content/images/2021/04/MVC3.png" width=50% height=50%>
 
 #### 1.3. Link figma design UI
- > - [x] [CNPM-UI](https://www.figma.com/file/mHhzkUqxO2k8vsF8lCuPFi/CNPM-WEB?node-id=0%3A1&t=peaBcc6qA18BCohI-1)
-
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/figma/1.png" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/figma/2.png" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/figma/3.png" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/figma/4.png" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/figma/5.png" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/figma/6.png" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/figma/7.png" width=50% height=50%>
+  
+ #### 1.4. Demo project
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/1.jpg" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/2.jpg" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/3.jpg" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/4.jpg" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/5.jpg" width=50% height=50%>  
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/6.jpg" width=50% height=50%>
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/7.jpg" width=50% height=50%>  
+  <img src="https://github.com/PROJECT-LTWEB-CNPM/images-cnpm/blob/main/demo/admin/8.jpg" width=50% height=50%>
+  
 ### 2. Struture porject 
 
 ```
